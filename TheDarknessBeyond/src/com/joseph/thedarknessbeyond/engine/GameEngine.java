@@ -15,7 +15,7 @@ import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
 import com.joseph.thedarknessbeyond.reference.Reference;
-import com.joseph.thedarknessbeyond.screen.Screen;
+import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
 import com.joseph.thedarknessbeyond.threads.RenderThread;
 import com.joseph.thedarknessbeyond.threads.ShutdownThread;
 
@@ -103,7 +103,7 @@ public class GameEngine {
 	public static void main(String[] args) {
 		if (Reference.DEBUG_MODE) {
 			System.out.println(Runtime.getRuntime().maxMemory());
-			System.err.println("x: " + Screen.width + "y: " + Screen.height);
+			System.err.println("x: " + ScreenRefrence.width + "y: " + ScreenRefrence.height);
 		}
 		instance = new GameEngine();
 		instance.run();
@@ -132,7 +132,7 @@ public class GameEngine {
 		Runtime.getRuntime().addShutdownHook(sdtInstance);
 
 		this.frame = new JFrame("Game Template");
-		this.frame.setBounds(0, 0, Screen.width, Screen.height);
+		this.frame.setBounds(0, 0, ScreenRefrence.width, ScreenRefrence.height);
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setVisible(true);
@@ -144,7 +144,7 @@ public class GameEngine {
 		this.keyHandlerInstance = new GKELAH();
 		this.frame.addKeyListener(keyHandlerInstance);
 
-		this.i = new BufferedImage(Screen.width, Screen.height, BufferedImage.TYPE_INT_RGB);
+		this.i = new BufferedImage(ScreenRefrence.width, ScreenRefrence.height, BufferedImage.TYPE_INT_RGB);
 		this.g2 = this.i.createGraphics();
 		this.g = frame.getGraphics();
 
@@ -184,7 +184,7 @@ public class GameEngine {
 	 */
 	private void render(Graphics g, ImageObserver observer) {
 		g2.setColor(Color.BLACK);
-		g2.fillRect(0, 0, Screen.width, Screen.height);
+		g2.fillRect(0, 0, ScreenRefrence.width, ScreenRefrence.height);
 
 		for (GameObject gameObject : gameObjects) {
 			gameObject.draw(g2, observer);

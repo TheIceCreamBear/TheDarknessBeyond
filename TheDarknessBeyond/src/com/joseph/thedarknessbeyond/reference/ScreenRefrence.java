@@ -1,4 +1,4 @@
-package com.joseph.thedarknessbeyond.screen;
+package com.joseph.thedarknessbeyond.reference;
 
 //import java.awt.Toolkit;
 
@@ -8,7 +8,7 @@ package com.joseph.thedarknessbeyond.screen;
  * @author David Santamaria
  *
  */
-public class Screen {
+public class ScreenRefrence {
 //	public final static int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 //	public final static int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
