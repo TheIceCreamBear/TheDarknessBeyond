@@ -7,14 +7,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
- * Extension of JButton that makes all paint functions <code>NO-OP</code>, and implements {@link IGuiOverlay IGuiOverlay}
+ * Extension of JButton that makes all paint functions <code>NO-OP</code>, and implements {@link IGuiElement IGuiOverlay}
  * to allow for painting of the button using the methods available in the engine.
  * @author Joseph
- * @see IGuiOverlay
+ * @see IGuiElement
  *
  */
 @SuppressWarnings("serial")
-public abstract class AbstractButton extends JButton implements IGuiOverlay, ActionListener {
+public abstract class AbstractButton extends JButton implements IGuiElement, ActionListener {
 
 	@Override
 	protected void paintBorder(Graphics g) {

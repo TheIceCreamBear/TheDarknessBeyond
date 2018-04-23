@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
-import com.joseph.thedarknessbeyond.gui.IGuiOverlay;
+import com.joseph.thedarknessbeyond.gui.IGuiElement;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
@@ -82,7 +82,7 @@ public class GameEngine {
 	 * Drawable only objects
 	 */
 	private static ArrayList<IDrawable> drawable = new ArrayList<IDrawable>();
-	private static ArrayList<IGuiOverlay> guiOverlays = new ArrayList<IGuiOverlay>();
+	private static ArrayList<IGuiElement> guiOverlays = new ArrayList<IGuiElement>();
 
 	/**
 	 * 
@@ -169,7 +169,7 @@ public class GameEngine {
 			upject.update(deltaTime);
 		}
 		
-		for (IGuiOverlay gui : guiOverlays) {
+		for (IGuiElement gui : guiOverlays) {
 			gui.updateUpdateableElements(deltaTime);
 		}
 	}
@@ -194,7 +194,7 @@ public class GameEngine {
 			iDrawable.draw(g, observer);
 		}
 
-		for (IGuiOverlay iGuiOverlay : guiOverlays) {
+		for (IGuiElement iGuiOverlay : guiOverlays) {
 			iGuiOverlay.drawBackground(g, observer);
 			iGuiOverlay.drawUpdateableElements(g, observer);
 		}

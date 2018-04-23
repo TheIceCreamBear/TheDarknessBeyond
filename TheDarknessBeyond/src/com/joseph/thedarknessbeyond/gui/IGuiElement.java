@@ -10,7 +10,7 @@ import java.awt.image.ImageObserver;
  * @author Joseph
  *
  */
-public interface IGuiOverlay /*extends IDrawable*/ {
+public interface IGuiElement {
 	/**
 	 * Draws the background of this overlay. The background should be the outer most elements of the 
 	 * overlay and the most basic. It should also be the farthest back elements of the background. Each 
@@ -45,7 +45,7 @@ public interface IGuiOverlay /*extends IDrawable*/ {
 	public boolean removeGui();
 	
 	/**
-	 * After this method is called, {@link com.joseph.thedarknessbeyond.gui.IGuiOverlay#removeGui() IGuiOverlay.removeGui()} 
+	 * After this method is called, {@link com.joseph.thedarknessbeyond.gui.IGuiElement#removeGui() IGuiOverlay.removeGui()} 
 	 * should return true. This method tells the implementor of this interface that the ESC key has been typed. If the 
 	 * implementor has custom ESC key behavior, this method serves as a notification of that.
 	 */
