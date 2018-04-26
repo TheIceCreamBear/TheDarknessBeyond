@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
 import com.joseph.thedarknessbeyond.gui.IGuiElement;
+import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
@@ -128,11 +129,13 @@ public class GameEngine {
 	 * Initializes all the stuff
 	 */
 	private void initialize() {
+		instance = this;
+		
 		this.sdtInstance = new ShutdownThread();
 		Runtime.getRuntime().addShutdownHook(sdtInstance);
 
 		this.frame = new JFrame("Game Template");
-		this.frame.setBounds(0, 0, ScreenRefrence.width, ScreenRefrence.height);
+		this.frame.setBounds(0, 75, ScreenRefrence.width, ScreenRefrence.height);
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setVisible(true);
@@ -147,10 +150,12 @@ public class GameEngine {
 		this.i = new BufferedImage(ScreenRefrence.width, ScreenRefrence.height, BufferedImage.TYPE_INT_RGB);
 		this.g2 = this.i.createGraphics();
 		this.g = frame.getGraphics();
+		
+		// Start adding here
+
+		guiOverlays.add(new ConsoleWindow());
 
 		System.gc();
-
-		instance = this;
 	}
 
 	/**
@@ -191,12 +196,12 @@ public class GameEngine {
 		}
 
 		for (IDrawable iDrawable : drawable) {
-			iDrawable.draw(g, observer);
+			iDrawable.draw(g2, observer);
 		}
 
 		for (IGuiElement iGuiOverlay : guiOverlays) {
-			iGuiOverlay.drawBackground(g, observer);
-			iGuiOverlay.drawUpdateableElements(g, observer);
+			iGuiOverlay.drawBackground(g2, observer);
+			iGuiOverlay.drawUpdateableElements(g2, observer);
 		}
 
 		if (Reference.DEBUG_MODE) {
@@ -287,6 +292,10 @@ public class GameEngine {
 				}
 			}
 		}
+	}
+	
+	public Graphics getG2() {
+		return this.g2;
 	}
 }
 /*
