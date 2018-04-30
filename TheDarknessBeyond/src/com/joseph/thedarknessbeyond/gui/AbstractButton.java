@@ -13,8 +13,19 @@ import javax.swing.JButton;
  * @see IGuiElement
  *
  */
-@SuppressWarnings("serial")
 public abstract class AbstractButton extends JButton implements IGuiElement, ActionListener {
+	protected int x;
+	protected int y;
+	protected int width;
+	protected int height;
+	
+	public AbstractButton(int x, int y, int width, int height) {
+		setBounds(x, y, width, height);
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
 
 	@Override
 	protected void paintBorder(Graphics g) {

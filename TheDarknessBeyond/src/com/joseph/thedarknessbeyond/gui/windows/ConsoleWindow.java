@@ -77,7 +77,7 @@ public class ConsoleWindow extends Window {
 		}
 		
 		g.setColor(Color.DARK_GRAY);
-		g.setFont(Reference.DEFAULT_FONT);
+		g.setFont(Reference.Fonts.DEFAULT_FONT);
 		String s;
 		if (previousIndex == 0) {
 			s = Utilities.getStringRepresentation(text);
@@ -92,8 +92,8 @@ public class ConsoleWindow extends Window {
 		g.drawString(s, this.x, this.y + 20);
 		if (this.cursor) {
 			String offsetStr = s.substring(0, this.cursorIndex);
-			int xOffset = (int) Reference.DEFAULT_FONT.getStringBounds(offsetStr, frc).getWidth() + 1;
-			g.setColor(Reference.CURSOR_COLOR);
+			int xOffset = (int) Reference.Fonts.DEFAULT_FONT.getStringBounds(offsetStr, frc).getWidth() + 1;
+			g.setColor(Reference.Colors.CURSOR_COLOR);
 			g.fillRect(this.x + xOffset, this.y + 5, 2, 15);
 		}
 	}
@@ -121,6 +121,15 @@ public class ConsoleWindow extends Window {
 
 	@Override
 	public void setGuiToRemove() {
+	}
+	
+	@Override
+	public boolean isMouseInElement() {
+		return false;
+	}
+	
+	@Override
+	public void displayToolTip(Graphics g) {
 	}
 	
 	public void notifyKeyTyped(KeyEvent e) {

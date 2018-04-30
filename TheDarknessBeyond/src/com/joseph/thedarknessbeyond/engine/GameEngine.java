@@ -2,6 +2,7 @@ package com.joseph.thedarknessbeyond.engine;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class GameEngine {
 	public static void main(String[] args) {
 		if (Reference.DEBUG_MODE) {
 			System.out.println(Runtime.getRuntime().maxMemory());
-			System.err.println("x: " + ScreenRefrence.width + "y: " + ScreenRefrence.height);
+			System.err.println("x: " + ScreenRefrence.WIDTH + "y: " + ScreenRefrence.HEIGHT);
 		}
 		instance = new GameEngine();
 		instance.run();
@@ -130,14 +131,17 @@ public class GameEngine {
 	 */
 	private void initialize() {
 		instance = this;
+		ScreenRefrence.doScreenCalc();
 		
 		this.sdtInstance = new ShutdownThread();
 		Runtime.getRuntime().addShutdownHook(sdtInstance);
+		
 
 		this.frame = new JFrame("Game Template");
-		this.frame.setBounds(0, 75, ScreenRefrence.width, ScreenRefrence.height);
+		this.frame.setBounds(0, 0, ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT);
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setUndecorated(true);
 		this.frame.setVisible(true);
 
 		this.rlo = new RenderLockObject();
@@ -147,7 +151,7 @@ public class GameEngine {
 		this.keyHandlerInstance = new GKELAH();
 		this.frame.addKeyListener(keyHandlerInstance);
 
-		this.i = new BufferedImage(ScreenRefrence.width, ScreenRefrence.height, BufferedImage.TYPE_INT_RGB);
+		this.i = new BufferedImage(ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		this.g2 = this.i.createGraphics();
 		this.g = frame.getGraphics();
 		
@@ -156,6 +160,8 @@ public class GameEngine {
 		guiOverlays.add(new ConsoleWindow());
 
 		System.gc();
+		
+		this.releaseFocous();
 	}
 
 	/**
@@ -189,7 +195,7 @@ public class GameEngine {
 	 */
 	private void render(Graphics g, ImageObserver observer) {
 		g2.setColor(Color.BLACK);
-		g2.fillRect(0, 0, ScreenRefrence.width, ScreenRefrence.height);
+		g2.fillRect(0, 0, ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT);
 
 		for (GameObject gameObject : gameObjects) {
 			gameObject.draw(g2, observer);
@@ -206,8 +212,13 @@ public class GameEngine {
 
 		if (Reference.DEBUG_MODE) {
 			g2.setColor(Color.GREEN);
-			g2.setFont(Reference.DEFAULT_FONT);
+			g2.setFont(Reference.Fonts.DEFAULT_FONT);
 			g2.drawString(stats, 25, 60);
+			
+			Point p = getMouseLocation();
+			if (p != null) {				
+				g2.drawString(p.toString(), p.x, p.y);
+			}
 		}
 
 		g.drawImage(this.i, 0, 0, this.frame);
@@ -292,6 +303,14 @@ public class GameEngine {
 				}
 			}
 		}
+	}
+	
+	public Point getMouseLocation() {
+		return this.frame.getContentPane().getMousePosition();
+	}
+	
+	public void releaseFocous() {
+		this.frame.requestFocus();
 	}
 	
 	public Graphics getG2() {

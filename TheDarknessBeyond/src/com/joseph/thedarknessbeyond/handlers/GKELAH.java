@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
+import com.joseph.thedarknessbeyond.reference.Reference;
 
 /**
  * GKELAH, or GlobalKeyEventHandlerAndListener, is a key event handler that listens for all
@@ -26,7 +27,9 @@ public class GKELAH implements KeyListener {
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		ConsoleWindow.getInstance().notifyKeyTyped(e);
+		if (ConsoleWindow.getInstance().isVisible()) {
+			ConsoleWindow.getInstance().notifyKeyTyped(e);
+		}
 	}
 	
 	@Override
@@ -48,6 +51,10 @@ public class GKELAH implements KeyListener {
 		
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			System.exit(0);
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_BACK_QUOTE) {
+			Reference.DEBUG_MODE = !Reference.DEBUG_MODE;
 		}
 		
 	}
