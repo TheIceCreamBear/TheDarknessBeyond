@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
 import com.joseph.thedarknessbeyond.gui.IGuiElement;
+import com.joseph.thedarknessbeyond.gui.buttons.ToolTipDemoButton;
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
@@ -158,6 +159,9 @@ public class GameEngine {
 		// Start adding here
 
 		guiOverlays.add(new ConsoleWindow());
+		ToolTipDemoButton tmp = new ToolTipDemoButton(600, 200, 100, 50);
+		guiOverlays.add(tmp);
+		this.frame.add(tmp);
 
 		System.gc();
 		

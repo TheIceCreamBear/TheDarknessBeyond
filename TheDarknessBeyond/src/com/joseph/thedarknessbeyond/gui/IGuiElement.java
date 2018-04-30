@@ -50,4 +50,17 @@ public interface IGuiElement {
 	 * implementor has custom ESC key behavior, this method serves as a notification of that.
 	 */
 	public void setGuiToRemove();
+	
+	/**
+	 * Method to check if the mouse pointer is in the executing object. 
+	 * @return True if the mouse pointer is in the GuiElement
+	 */
+	public boolean isMouseInElement();
+	
+	/**
+	 * This method is called when the mouse pointer is inside the executing object. It should define the look of the tool tip.
+	 * 
+	 * <p>Tool tips are to be brief and informative.
+	 */
+	public void displayToolTip(Graphics g);
 }
