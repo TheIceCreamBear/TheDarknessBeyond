@@ -44,6 +44,8 @@ public class RenderThread extends Thread {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 					System.exit(-1);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}

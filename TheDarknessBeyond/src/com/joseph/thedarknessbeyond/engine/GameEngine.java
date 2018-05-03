@@ -2,6 +2,10 @@ package com.joseph.thedarknessbeyond.engine;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
@@ -10,12 +14,17 @@ import javax.swing.JFrame;
 
 import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
+import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.IGuiElement;
+import com.joseph.thedarknessbeyond.gui.buttons.ToolTipDemoButton;
+import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
+import com.joseph.thedarknessbeyond.gui.windows.EventWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.threads.EventThread;
 import com.joseph.thedarknessbeyond.threads.RenderThread;
 import com.joseph.thedarknessbeyond.threads.ShutdownThread;
 
@@ -59,11 +68,14 @@ public class GameEngine {
 	 * Image that is displayed on the screen
 	 */
 	private BufferedImage i;
+	
+	private FontRenderContext frc;
 
 	// Threads
 	private RenderLockObject rlo;
 	private RenderThread rtInstance;
 	private ShutdownThread sdtInstance;
+	private EventThread et;
 	
 	/**
 	 * Instance of {@link GKELAH GKELAH} stored to keep a reference to it.
@@ -82,7 +94,7 @@ public class GameEngine {
 	 * Drawable only objects
 	 */
 	private static ArrayList<IDrawable> drawable = new ArrayList<IDrawable>();
-	private static ArrayList<IGuiElement> guiOverlays = new ArrayList<IGuiElement>();
+	private static ArrayList<IGuiElement> guiElements = new ArrayList<IGuiElement>();
 
 	/**
 	 * 
@@ -103,7 +115,7 @@ public class GameEngine {
 	public static void main(String[] args) {
 		if (Reference.DEBUG_MODE) {
 			System.out.println(Runtime.getRuntime().maxMemory());
-			System.err.println("x: " + ScreenRefrence.width + "y: " + ScreenRefrence.height);
+			System.err.println("x: " + ScreenRefrence.WIDTH + "y: " + ScreenRefrence.HEIGHT);
 		}
 		instance = new GameEngine();
 		instance.run();
@@ -128,13 +140,19 @@ public class GameEngine {
 	 * Initializes all the stuff
 	 */
 	private void initialize() {
+		instance = this;
+		ScreenRefrence.doScreenCalc();
+		
 		this.sdtInstance = new ShutdownThread();
 		Runtime.getRuntime().addShutdownHook(sdtInstance);
+		
 
 		this.frame = new JFrame("Game Template");
-		this.frame.setBounds(0, 0, ScreenRefrence.width, ScreenRefrence.height);
+//		this.frame.setBounds(-1, -1, 1, 1); // Trolololololol hehehehhe
+		this.frame.setBounds(0, 0, ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT);
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setUndecorated(true);
 		this.frame.setVisible(true);
 
 		this.rlo = new RenderLockObject();
@@ -144,13 +162,34 @@ public class GameEngine {
 		this.keyHandlerInstance = new GKELAH();
 		this.frame.addKeyListener(keyHandlerInstance);
 
-		this.i = new BufferedImage(ScreenRefrence.width, ScreenRefrence.height, BufferedImage.TYPE_INT_RGB);
+		this.i = new BufferedImage(ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		this.g2 = this.i.createGraphics();
 		this.g = frame.getGraphics();
+		
+		this.frc = ((Graphics2D) g2).getFontRenderContext();
+		
+		this.et = new EventThread();
+		this.et.start();
+		
+		// Start adding here
+
+		this.addNewElement(new ToolTipDemoButton(600, 200, 150, 50));
+		this.addNewElement(new ConsoleWindow());
+		this.addNewElement(new EventWindow());
 
 		System.gc();
-
-		instance = this;
+		
+		this.releaseFocous();
+	}
+	
+	private void addNewElement(IGuiElement e) {
+		if (e instanceof AbstractButton) {
+			AbstractButton b = (AbstractButton) e;
+			guiElements.add(b);
+			this.frame.add(b);
+		} else {
+			guiElements.add(e);
+		}
 	}
 
 	/**
@@ -169,7 +208,7 @@ public class GameEngine {
 			upject.update(deltaTime);
 		}
 		
-		for (IGuiElement gui : guiOverlays) {
+		for (IGuiElement gui : guiElements) {
 			gui.updateUpdateableElements(deltaTime);
 		}
 	}
@@ -184,25 +223,45 @@ public class GameEngine {
 	 */
 	private void render(Graphics g, ImageObserver observer) {
 		g2.setColor(Color.BLACK);
-		g2.fillRect(0, 0, ScreenRefrence.width, ScreenRefrence.height);
+		g2.fillRect(0, 0, ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT);
 
 		for (GameObject gameObject : gameObjects) {
 			gameObject.draw(g2, observer);
 		}
 
 		for (IDrawable iDrawable : drawable) {
-			iDrawable.draw(g, observer);
+			iDrawable.draw(g2, observer);
 		}
 
-		for (IGuiElement iGuiOverlay : guiOverlays) {
-			iGuiOverlay.drawBackground(g, observer);
-			iGuiOverlay.drawUpdateableElements(g, observer);
+		for (IGuiElement iGuiOverlay : guiElements) {
+			iGuiOverlay.drawBackground(g2, observer);
+			iGuiOverlay.drawUpdateableElements(g2, observer);
 		}
 
 		if (Reference.DEBUG_MODE) {
 			g2.setColor(Color.GREEN);
-			g2.setFont(Reference.DEFAULT_FONT);
+			if (ScreenRefrence.scale == 2) {
+				g2.setFont(Reference.Fonts.SCALED_UP_FONT);
+			} else {
+				g2.setFont(Reference.Fonts.DEFAULT_FONT);
+			}
 			g2.drawString(stats, 25, 60);
+			
+			Point p = getMouseLocation();
+			if (p != null) {
+				String s = p.toString();
+				Rectangle2D r;
+				if (ScreenRefrence.scale == 2) {
+					g.setFont(Reference.Fonts.SCALED_UP_FONT);
+					r = Reference.Fonts.SCALED_UP_FONT.getStringBounds(s, frc);
+				} else {
+					g.setFont(Reference.Fonts.DEFAULT_FONT);
+					r = Reference.Fonts.DEFAULT_FONT.getStringBounds(s, frc);
+				}
+				int yOff = (int) r.getHeight();
+//				System.err.println(s + "," + p.x + "," + (p.y+ yOff));
+				g2.drawString(s, p.x, p.y + yOff);
+			}
 		}
 
 		g.drawImage(this.i, 0, 0, this.frame);
@@ -287,6 +346,18 @@ public class GameEngine {
 				}
 			}
 		}
+	}
+	
+	public Point getMouseLocation() {
+		return this.frame.getContentPane().getMousePosition();
+	}
+	
+	public void releaseFocous() {
+		this.frame.requestFocus();
+	}
+	
+	public FontRenderContext getFrc() {
+		return this.frc;
 	}
 }
 /*

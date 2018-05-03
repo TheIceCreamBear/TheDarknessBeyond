@@ -5,6 +5,9 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
+import com.joseph.thedarknessbeyond.reference.Reference;
+
 /**
  * GKELAH, or GlobalKeyEventHandlerAndListener, is a key event handler that listens for all
  * key events and does a specific action based on the state of the engine and the key pressed.
@@ -24,11 +27,35 @@ public class GKELAH implements KeyListener {
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+		if (ConsoleWindow.getInstance().isVisible()) {
+			ConsoleWindow.getInstance().notifyKeyTyped(e);
+		}
 	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_SLASH && !ConsoleWindow.getInstance().isVisible()) {
+			ConsoleWindow.getInstance().show();
+			return;
+		}
+		
+		
+		if (ConsoleWindow.getInstance().isVisible()) {
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				ConsoleWindow.getInstance().hide();
+				return;
+			} else {
+				ConsoleWindow.getInstance().notifyKeyPressed(e);
+			}
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			System.exit(0);
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_F1) {
+			Reference.DEBUG_MODE = !Reference.DEBUG_MODE;
+		}
 		
 	}
 	
