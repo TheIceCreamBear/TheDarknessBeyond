@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.image.ImageObserver;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.event.Event;
+import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
@@ -28,7 +30,7 @@ public class ToolTipDemoButton extends AbstractButton {
 	public void drawUpdateableElements(Graphics g, ImageObserver observer) {
 		g.setColor(Color.BLUE);
 		g.setFont(Reference.Fonts.DEFAULT_FONT);
-		g.drawString("Gather Wood", x, y + 20);
+		g.drawString("Gather Wood", x + 5, y + 20);
 		
 		if (isMouseInElement()) {
 			displayToolTip(g);
@@ -70,6 +72,7 @@ public class ToolTipDemoButton extends AbstractButton {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		EventBus.EVENT_BUS.post(new Event("Demo button"));
 		GameEngine.getInstance().releaseFocous();
 	}
 }

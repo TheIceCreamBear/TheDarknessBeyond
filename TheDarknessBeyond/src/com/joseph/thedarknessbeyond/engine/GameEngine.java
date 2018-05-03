@@ -2,7 +2,10 @@ package com.joseph.thedarknessbeyond.engine;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
@@ -11,14 +14,17 @@ import javax.swing.JFrame;
 
 import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
+import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.IGuiElement;
 import com.joseph.thedarknessbeyond.gui.buttons.ToolTipDemoButton;
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
+import com.joseph.thedarknessbeyond.gui.windows.EventWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.threads.EventThread;
 import com.joseph.thedarknessbeyond.threads.RenderThread;
 import com.joseph.thedarknessbeyond.threads.ShutdownThread;
 
@@ -62,11 +68,14 @@ public class GameEngine {
 	 * Image that is displayed on the screen
 	 */
 	private BufferedImage i;
+	
+	private FontRenderContext frc;
 
 	// Threads
 	private RenderLockObject rlo;
 	private RenderThread rtInstance;
 	private ShutdownThread sdtInstance;
+	private EventThread et;
 	
 	/**
 	 * Instance of {@link GKELAH GKELAH} stored to keep a reference to it.
@@ -85,7 +94,7 @@ public class GameEngine {
 	 * Drawable only objects
 	 */
 	private static ArrayList<IDrawable> drawable = new ArrayList<IDrawable>();
-	private static ArrayList<IGuiElement> guiOverlays = new ArrayList<IGuiElement>();
+	private static ArrayList<IGuiElement> guiElements = new ArrayList<IGuiElement>();
 
 	/**
 	 * 
@@ -139,6 +148,7 @@ public class GameEngine {
 		
 
 		this.frame = new JFrame("Game Template");
+//		this.frame.setBounds(-1, -1, 1, 1); // Trolololololol hehehehhe
 		this.frame.setBounds(0, 0, ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT);
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -156,16 +166,30 @@ public class GameEngine {
 		this.g2 = this.i.createGraphics();
 		this.g = frame.getGraphics();
 		
+		this.frc = ((Graphics2D) g2).getFontRenderContext();
+		
+		this.et = new EventThread();
+		this.et.start();
+		
 		// Start adding here
 
-		guiOverlays.add(new ConsoleWindow());
-		ToolTipDemoButton tmp = new ToolTipDemoButton(600, 200, 100, 50);
-		guiOverlays.add(tmp);
-		this.frame.add(tmp);
+		this.addNewElement(new ToolTipDemoButton(600, 200, 150, 50));
+		this.addNewElement(new ConsoleWindow());
+		this.addNewElement(new EventWindow());
 
 		System.gc();
 		
 		this.releaseFocous();
+	}
+	
+	private void addNewElement(IGuiElement e) {
+		if (e instanceof AbstractButton) {
+			AbstractButton b = (AbstractButton) e;
+			guiElements.add(b);
+			this.frame.add(b);
+		} else {
+			guiElements.add(e);
+		}
 	}
 
 	/**
@@ -184,7 +208,7 @@ public class GameEngine {
 			upject.update(deltaTime);
 		}
 		
-		for (IGuiElement gui : guiOverlays) {
+		for (IGuiElement gui : guiElements) {
 			gui.updateUpdateableElements(deltaTime);
 		}
 	}
@@ -209,19 +233,34 @@ public class GameEngine {
 			iDrawable.draw(g2, observer);
 		}
 
-		for (IGuiElement iGuiOverlay : guiOverlays) {
+		for (IGuiElement iGuiOverlay : guiElements) {
 			iGuiOverlay.drawBackground(g2, observer);
 			iGuiOverlay.drawUpdateableElements(g2, observer);
 		}
 
 		if (Reference.DEBUG_MODE) {
 			g2.setColor(Color.GREEN);
-			g2.setFont(Reference.Fonts.DEFAULT_FONT);
+			if (ScreenRefrence.scale == 2) {
+				g2.setFont(Reference.Fonts.SCALED_UP_FONT);
+			} else {
+				g2.setFont(Reference.Fonts.DEFAULT_FONT);
+			}
 			g2.drawString(stats, 25, 60);
 			
 			Point p = getMouseLocation();
-			if (p != null) {				
-				g2.drawString(p.toString(), p.x, p.y);
+			if (p != null) {
+				String s = p.toString();
+				Rectangle2D r;
+				if (ScreenRefrence.scale == 2) {
+					g.setFont(Reference.Fonts.SCALED_UP_FONT);
+					r = Reference.Fonts.SCALED_UP_FONT.getStringBounds(s, frc);
+				} else {
+					g.setFont(Reference.Fonts.DEFAULT_FONT);
+					r = Reference.Fonts.DEFAULT_FONT.getStringBounds(s, frc);
+				}
+				int yOff = (int) r.getHeight();
+//				System.err.println(s + "," + p.x + "," + (p.y+ yOff));
+				g2.drawString(s, p.x, p.y + yOff);
 			}
 		}
 
@@ -317,8 +356,8 @@ public class GameEngine {
 		this.frame.requestFocus();
 	}
 	
-	public Graphics getG2() {
-		return this.g2;
+	public FontRenderContext getFrc() {
+		return this.frc;
 	}
 }
 /*

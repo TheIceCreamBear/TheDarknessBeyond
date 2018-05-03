@@ -2,15 +2,17 @@ package com.joseph.thedarknessbeyond.gui.windows;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.event.ConsoleEvent;
+import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.reference.Reference;
+import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
 import com.joseph.thedarknessbeyond.util.Utilities;
 
 public class ConsoleWindow extends Window {
@@ -28,7 +30,7 @@ public class ConsoleWindow extends Window {
 	private static ConsoleWindow instance;
 	
 	public ConsoleWindow() {
-		this(5, 100, 500, 300);
+		this(ScreenRefrence.WIDTH - 500, 100, 500, 300);
 	}
 	
 	public ConsoleWindow(int x, int y, int width, int height) {
@@ -42,7 +44,7 @@ public class ConsoleWindow extends Window {
 		this.cursorTick = 0;
 		this.cursorIndex = 0;
 		this.visible = false;
-		this.frc = ((Graphics2D) GameEngine.getInstance().getG2()).getFontRenderContext();
+		this.frc = GameEngine.getInstance().getFrc();
 		
 		instance = this;
 	}
@@ -229,12 +231,11 @@ public class ConsoleWindow extends Window {
 		this.cursorIndex = 1;
 		
 		command(s);
-		
-		System.err.println("");
 	}
 	
 	private void command(String s) {
-		System.out.println(s);
+//		System.out.println(s);
+		EventBus.EVENT_BUS.post(new ConsoleEvent(s));
 	}
 	
 	private void up() {

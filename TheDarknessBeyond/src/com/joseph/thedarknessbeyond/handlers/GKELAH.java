@@ -53,7 +53,7 @@ public class GKELAH implements KeyListener {
 			System.exit(0);
 		}
 		
-		if (e.getKeyCode() == KeyEvent.VK_BACK_QUOTE) {
+		if (e.getKeyCode() == KeyEvent.VK_F1) {
 			Reference.DEBUG_MODE = !Reference.DEBUG_MODE;
 		}
 		
