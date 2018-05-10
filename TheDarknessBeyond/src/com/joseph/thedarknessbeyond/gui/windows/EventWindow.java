@@ -105,6 +105,7 @@ public class EventWindow extends Window {
 		if (!this.visible) {
 			return;
 		}
+		// Prevent modification from other threads while iterating over events
 		synchronized (events) {
 			for (LoggedEvent le : events) {
 				if (le.isNew()) {
@@ -134,6 +135,7 @@ public class EventWindow extends Window {
 	}
 	
 	public void addEvent(Event e) {
+		// Prevent modification from other threads while iterating over events
 		synchronized (events) {
 			darken();
 			this.events.add(0, new LoggedEvent(e.getS(), (short) Color.DARK_GRAY.getBlue()));
