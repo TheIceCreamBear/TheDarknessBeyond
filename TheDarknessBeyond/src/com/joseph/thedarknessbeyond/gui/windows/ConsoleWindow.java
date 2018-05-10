@@ -1,9 +1,11 @@
 package com.joseph.thedarknessbeyond.gui.windows;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
@@ -20,6 +22,7 @@ public class ConsoleWindow extends Window {
 	private ArrayList<Character> text;
 	private ArrayList<Character> previousText;
 	private FontRenderContext frc;
+	private Font font;
 	private boolean previousEdited;
 	private boolean cursor;
 	private boolean visible;
@@ -30,7 +33,7 @@ public class ConsoleWindow extends Window {
 	private static ConsoleWindow instance;
 	
 	public ConsoleWindow() {
-		this(ScreenRefrence.WIDTH - 500, 100, 500, 300);
+		this((ScreenRefrence.WIDTH - (500 * ScreenRefrence.scale)) / ScreenRefrence.scale, 100, 500, 300);
 	}
 	
 	public ConsoleWindow(int x, int y, int width, int height) {
@@ -45,6 +48,7 @@ public class ConsoleWindow extends Window {
 		this.cursorIndex = 0;
 		this.visible = false;
 		this.frc = GameEngine.getInstance().getFrc();
+		this.font = ScreenRefrence.getTheFont();
 		
 		instance = this;
 	}
@@ -79,7 +83,7 @@ public class ConsoleWindow extends Window {
 		}
 		
 		g.setColor(Color.DARK_GRAY);
-		g.setFont(Reference.Fonts.DEFAULT_FONT);
+		g.setFont(font);
 		String s;
 		if (previousIndex == 0) {
 			s = Utilities.getStringRepresentation(text);
@@ -91,12 +95,15 @@ public class ConsoleWindow extends Window {
 			}
 		}
 
-		g.drawString(s, this.x, this.y + 20);
+		Rectangle2D r = this.font.getStringBounds(s, frc);
+		int yOffset = (int) r.getHeight();
+		
+		g.drawString(s, this.x, this.y + yOffset);
 		if (this.cursor) {
 			String offsetStr = s.substring(0, this.cursorIndex);
-			int xOffset = (int) Reference.Fonts.DEFAULT_FONT.getStringBounds(offsetStr, frc).getWidth() + 1;
+			int xOffset = (int) font.getStringBounds(offsetStr, frc).getWidth() + 1;
 			g.setColor(Reference.Colors.CURSOR_COLOR);
-			g.fillRect(this.x + xOffset, this.y + 5, 2, 15);
+			g.fillRect(this.x + xOffset, this.y + 5, 2, yOffset);
 		}
 	}
 

@@ -4,4 +4,9 @@ public abstract class Window extends GuiElement {
 	public Window(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
+	
+	@Override
+	public boolean isMouseInElement() {
+		return false;
+	}
 }

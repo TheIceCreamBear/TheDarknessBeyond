@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.event.Event;
 import com.joseph.thedarknessbeyond.gui.Window;
-import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
 
 public class EventWindow extends Window {
@@ -31,11 +30,7 @@ public class EventWindow extends Window {
 		super(x, y, width, height);
 		this.events = new ArrayList<LoggedEvent>();
 		this.frc = GameEngine.getInstance().getFrc();
-		if (ScreenRefrence.scale == 2) {
-			this.font = Reference.Fonts.SCALED_UP_FONT;
-		} else {
-			this.font = Reference.Fonts.DEFAULT_FONT;
-		}
+		this.font = ScreenRefrence.getTheFont();
 		this.visible = true;
 		
 		
@@ -83,8 +78,9 @@ public class EventWindow extends Window {
 			return;
 		}
 		
+		Rectangle2D r0 = font.getStringBounds("Event Log:", frc);
+		int yOff = (int) r0.getHeight() * 2;
 		int xOff = 5;
-		int yOff = 60;
 		
 		for (int i = 0; i < events.size(); i++) {
 			LoggedEvent e = events.get(i);
@@ -109,10 +105,11 @@ public class EventWindow extends Window {
 		if (!this.visible) {
 			return;
 		}
-		
-		for (LoggedEvent le : events) {
-			if (le.isNew()) {
-				le.fadeIn();
+		synchronized (events) {
+			for (LoggedEvent le : events) {
+				if (le.isNew()) {
+					le.fadeIn();
+				}
 			}
 		}
 	}
@@ -137,8 +134,10 @@ public class EventWindow extends Window {
 	}
 	
 	public void addEvent(Event e) {
-		darken();
-		this.events.add(0, new LoggedEvent(e.getS(), (short) Color.DARK_GRAY.getBlue()));
+		synchronized (events) {
+			darken();
+			this.events.add(0, new LoggedEvent(e.getS(), (short) Color.DARK_GRAY.getBlue()));
+		}
 	}
 	
 	private void darken() {
