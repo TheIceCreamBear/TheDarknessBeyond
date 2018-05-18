@@ -1,9 +1,12 @@
 package com.joseph.thedarknessbeyond.engine;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -12,10 +15,13 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import com.joseph.thedarknessbeyond.event.Event;
+import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.IGuiElement;
+import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.gui.buttons.ToolTipDemoButton;
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
 import com.joseph.thedarknessbeyond.gui.windows.EventWindow;
@@ -81,6 +87,8 @@ public class GameEngine {
 	 * Instance of {@link GKELAH GKELAH} stored to keep a reference to it.
 	 */
 	private GKELAH keyHandlerInstance;
+	
+	private boolean handCursor;
 
 	/**
 	 * ArrayList of GameObjects - to be looped over to update and draw
@@ -143,6 +151,8 @@ public class GameEngine {
 		instance = this;
 		ScreenRefrence.doScreenCalc();
 		
+		Reference.Fonts.init();
+		
 		this.sdtInstance = new ShutdownThread();
 		Runtime.getRuntime().addShutdownHook(sdtInstance);
 		
@@ -176,6 +186,15 @@ public class GameEngine {
 		this.addNewElement(new ToolTipDemoButton(600, 200, 150, 50));
 		this.addNewElement(new ConsoleWindow());
 		this.addNewElement(new EventWindow());
+		GenericSelectableButton g = new GenericSelectableButton(300, 200, "***REMOVED***", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.err.println("asdfkjyh");
+				EventBus.EVENT_BUS.post(new Event("ASIYUFGDSKD:FUGHA:SKFJG"));
+				GameEngine.this.releaseFocous();
+			}
+		});
+		this.addNewElement(g);
 
 		System.gc();
 		
@@ -346,6 +365,22 @@ public class GameEngine {
 				}
 			}
 		}
+	}
+	
+	public void setSelectMouse() {
+		if (handCursor) {
+			return;
+		}
+		this.frame.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		this.handCursor = true;
+	}
+	
+	public void setDefaultMouse() {
+		if (!handCursor) {
+			return;
+		}
+		this.frame.setCursor(Cursor.getDefaultCursor());
+		this.handCursor = false;
 	}
 	
 	public Point getMouseLocation() {

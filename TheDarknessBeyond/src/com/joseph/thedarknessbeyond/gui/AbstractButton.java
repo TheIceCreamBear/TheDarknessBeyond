@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
 
 /**
@@ -23,18 +24,27 @@ public abstract class AbstractButton extends JButton implements IGuiElement, Act
 	protected int height;
 	
 	public AbstractButton(int x, int y, int width, int height) {
-		if (ScreenRefrence.scale == 2) {
+		if (this instanceof GenericSelectableButton && ScreenRefrence.scale == 2) {
+			this.x = x * 2;
+			this.y = y * 2;
+			this.width = width;
+			this.height = height;
+			setBounds(x, y, width, height);
+			addActionListener(this);
+		} else if (ScreenRefrence.scale == 2) {
 			this.x = x * 2;
 			this.y = y * 2;
 			this.width = width * 2;
 			this.height = height * 2;
 			setBounds(x * 2, y * 2, width * 2, height * 2);
+			addActionListener(this);
 		} else {
 			this.x = x;
 			this.y = y;
 			this.width = width;
 			this.height = height;
 			setBounds(x, y, width, height);
+			addActionListener(this);
 		}
 	}
 

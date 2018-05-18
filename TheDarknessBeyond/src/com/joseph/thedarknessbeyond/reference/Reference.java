@@ -24,7 +24,6 @@ public class Reference {
 	public static class Fonts {
 		private static Map<TextAttribute, Object> map;
 		public static void init() {		
-			System.out.println("fasskdfg");
 			map = new Hashtable<TextAttribute, Object>();
 			map.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 			DEFAULT_UNDERLINED_FONT = DEFAULT_FONT.deriveFont(map);
