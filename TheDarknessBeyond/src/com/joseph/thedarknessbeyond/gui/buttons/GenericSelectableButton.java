@@ -21,14 +21,6 @@ public class GenericSelectableButton extends AbstractButton {
 	private boolean mouseInSelfPrevious;
 	private ActionListener al;
 	
-	public GenericSelectableButton(int x, int y, String s) {
-		super(x, y, (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenRefrence.scale), (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenRefrence.scale));
-		this.text = s;
-		this.frc = GameEngine.getInstance().getFrc();
-		this.font = ScreenRefrence.getTheFont();
-		
-	}
-	
 	public GenericSelectableButton(int x, int y, String s, ActionListener al) {
 		super(x, y, (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenRefrence.scale), (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenRefrence.scale));
 		this.text = s;
