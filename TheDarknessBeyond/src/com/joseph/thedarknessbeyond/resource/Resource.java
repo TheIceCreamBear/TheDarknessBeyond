@@ -10,8 +10,8 @@ public class Resource {
 		this(EnumResource.Invalid, -1);
 	}
 	
-	public Resource(EnumResource eResource1, int amt) {
-		this.eResource = eResource1;
+	public Resource(EnumResource eResource, int amt) {
+		this.eResource = eResource;
 		this.amount += amt;
 	}
 	 

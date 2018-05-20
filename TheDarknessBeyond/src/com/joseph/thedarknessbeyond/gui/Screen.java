@@ -10,11 +10,19 @@ public abstract class Screen extends Window {
 		super(x, y, width, height);
 	}
 	
+	public Screen(int x, int y, int width, int height, boolean scaled) {
+		super(x, y, width, height, scaled);
+	}
+	
 	public void show() {
 		visible = true;
 	}
 	
 	public void hide() {
 		visible = false;
+	}
+	
+	public boolean isVisible() {
+		return this.visible;
 	}
 }

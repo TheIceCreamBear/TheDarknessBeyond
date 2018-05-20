@@ -23,11 +23,11 @@ public class EventWindow extends Window {
 	private static EventWindow instance;
 	
 	public EventWindow() {
-		this(0, 0, 500, ScreenRefrence.HEIGHT - 1);
+		this(0, 0, 500 * ScreenRefrence.scale, ScreenRefrence.HEIGHT - 1);
 	}
 
 	public EventWindow(int x, int y, int width, int height) {
-		super(x, y, width, height);
+		super(x, y, width, height, true);
 		this.events = new ArrayList<LoggedEvent>();
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenRefrence.getTheFont();
@@ -60,7 +60,7 @@ public class EventWindow extends Window {
 		g.setColor(Color.WHITE);
 		g.drawRect(x, y, width, height);
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(x + 1, y + 1, width - 2, height - 2);
+		g.fillRect(x + 1, y + 1, width - 1, height - 1);
 		
 		// Header
 		g.setColor(Color.WHITE);
@@ -116,11 +116,13 @@ public class EventWindow extends Window {
 	}
 
 	@Override
+	@Deprecated
 	public boolean removeGui() {
 		return false;
 	}
 
 	@Override
+	@Deprecated
 	public void setGuiToRemove() {
 	}
 
