@@ -9,6 +9,10 @@ import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.Screen;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
+import com.joseph.thedarknessbeyond.gui.screens.RoomScreen;
+import com.joseph.thedarknessbeyond.gui.screens.TravelScreen;
+import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
+import com.joseph.thedarknessbeyond.gui.screens.WildernessScreen;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
 
 public class ScreenSelectionWindow extends Window {
@@ -32,7 +36,7 @@ public class ScreenSelectionWindow extends Window {
 		}
 		
 		// draw selected screen background
-//		this.screens[this.selectedIndex].drawBackground(g, observer);
+		this.screens[this.selectedIndex].drawBackground(g, observer);
 	}
 
 	@Override
@@ -45,7 +49,7 @@ public class ScreenSelectionWindow extends Window {
 		}
 		
 		// draw selected screen updateable
-//		this.screens[this.selectedIndex].drawUpdateableElements(g, observer);
+		this.screens[this.selectedIndex].drawUpdateableElements(g, observer);
 	}
 
 	@Override
@@ -58,7 +62,7 @@ public class ScreenSelectionWindow extends Window {
 		}
 		
 		// Update screen
-//		this.screens[this.selectedIndex].updateUpdateableElements(deltaTime);
+		this.screens[this.selectedIndex].updateUpdateableElements(deltaTime);
 		
 	}
 
@@ -85,7 +89,10 @@ public class ScreenSelectionWindow extends Window {
 	
 	private void initScreens() {
 		this.screens = new Screen[4];
-		
+		this.screens[0] = new RoomScreen(x, y, width, height);
+		this.screens[1] = new VillageScreen(x, y, width, height);
+		this.screens[2] = new TravelScreen(x, y, width, height);
+		this.screens[3] = new WildernessScreen(x, y, width, height);
 	}
 	
 	private void initButtonsToDefault() {
