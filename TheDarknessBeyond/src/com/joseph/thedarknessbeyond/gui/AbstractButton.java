@@ -23,8 +23,15 @@ public abstract class AbstractButton extends JButton implements IGuiElement, Act
 	protected int width;
 	protected int height;
 	
-	public AbstractButton(int x, int y, int width, int height) {
-		if (this instanceof GenericSelectableButton && ScreenRefrence.scale == 2) {
+	public AbstractButton(int x, int y, int width, int height, boolean scaled) {
+		if (scaled || ScreenRefrence.scale == 1) {
+			this.x = x;
+			this.y = y;
+			this.width = width;
+			this.height = height;
+			setBounds(x, y, width, height);
+			addActionListener(this);
+		} else if (this instanceof GenericSelectableButton && ScreenRefrence.scale == 2) {
 			this.x = x * 2;
 			this.y = y * 2;
 			this.width = width;
@@ -37,13 +44,6 @@ public abstract class AbstractButton extends JButton implements IGuiElement, Act
 			this.width = width * 2;
 			this.height = height * 2;
 			setBounds(x * 2, y * 2, width * 2, height * 2);
-			addActionListener(this);
-		} else {
-			this.x = x;
-			this.y = y;
-			this.width = width;
-			this.height = height;
-			setBounds(x, y, width, height);
 			addActionListener(this);
 		}
 	}

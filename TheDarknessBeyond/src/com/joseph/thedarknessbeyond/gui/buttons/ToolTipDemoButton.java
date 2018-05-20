@@ -14,7 +14,7 @@ import com.joseph.thedarknessbeyond.reference.Reference;
 public class ToolTipDemoButton extends AbstractButton {
 
 	public ToolTipDemoButton(int x, int y, int width, int height) {
-		super(x, y, width, height);
+		super(x, y, width, height, false);
 	}
 
 	@Override
