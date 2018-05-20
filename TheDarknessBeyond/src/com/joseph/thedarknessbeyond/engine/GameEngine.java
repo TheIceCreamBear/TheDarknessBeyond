@@ -1,9 +1,12 @@
 package com.joseph.thedarknessbeyond.engine;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -12,13 +15,17 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import com.joseph.thedarknessbeyond.event.Event;
+import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.IGuiElement;
+import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.gui.buttons.ToolTipDemoButton;
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
 import com.joseph.thedarknessbeyond.gui.windows.EventWindow;
+import com.joseph.thedarknessbeyond.gui.windows.ScreenSelectionWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
@@ -81,6 +88,8 @@ public class GameEngine {
 	 * Instance of {@link GKELAH GKELAH} stored to keep a reference to it.
 	 */
 	private GKELAH keyHandlerInstance;
+	
+	private boolean handCursor;
 
 	/**
 	 * ArrayList of GameObjects - to be looped over to update and draw
@@ -95,6 +104,7 @@ public class GameEngine {
 	 */
 	private static ArrayList<IDrawable> drawable = new ArrayList<IDrawable>();
 	private static ArrayList<IGuiElement> guiElements = new ArrayList<IGuiElement>();
+	private static ArrayList<AbstractButton> buttons = new ArrayList<AbstractButton>();
 
 	/**
 	 * 
@@ -143,6 +153,8 @@ public class GameEngine {
 		instance = this;
 		ScreenRefrence.doScreenCalc();
 		
+		Reference.Fonts.init();
+		
 		this.sdtInstance = new ShutdownThread();
 		Runtime.getRuntime().addShutdownHook(sdtInstance);
 		
@@ -172,31 +184,50 @@ public class GameEngine {
 		this.et.start();
 		
 		// Start adding here
-
-		this.addNewElement(new ToolTipDemoButton(600, 200, 150, 50));
-		this.addNewElement(new ConsoleWindow());
+		if (Reference.HARD_CORE_DEBUG_MODE) { // FOR TESTING OF NEW GUI ELEMENTS
+			this.addNewElement(new ToolTipDemoButton(600, 200, 150, 50));
+			GenericSelectableButton g = new GenericSelectableButton(600, 400, "***REMOVED***", false, new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.err.println("asdfkjyh");
+					EventBus.EVENT_BUS.post(new Event("ASIYUFGDSKD:FUGHA:SKFJG"));
+					GameEngine.this.releaseFocous();
+				}
+			});
+			this.addNewElement(g);
+		}
+		this.addNewElement(new ScreenSelectionWindow(510, 0, ScreenRefrence.WIDTH / ScreenRefrence.scale, ScreenRefrence.HEIGHT - 1));
 		this.addNewElement(new EventWindow());
+		this.addNewElement(new ConsoleWindow(0));
 
 		System.gc();
 		
 		this.releaseFocous();
 	}
 	
+	public void addButton(AbstractButton b) {
+		if (buttons.contains(b)) {
+			return;
+		}
+		
+		this.frame.add(b);
+	}
+	
 	private void addNewElement(IGuiElement e) {
+		if (guiElements.contains(e)) {
+			return;
+		}
+		
+		guiElements.add(e);
 		if (e instanceof AbstractButton) {
-			AbstractButton b = (AbstractButton) e;
-			guiElements.add(b);
-			this.frame.add(b);
-		} else {
-			guiElements.add(e);
+			this.addButton((AbstractButton) e);
 		}
 	}
 
 	/**
 	 * Loops through all the updatables and updates them
 	 * 
-	 * @param deltaTime
-	 *            - Time between each frame (used to evaluate things within
+	 * @param deltaTime - Time between each frame (used to evaluate things within
 	 *            update methods of each object)
 	 */
 	private void update(double deltaTime) {
@@ -216,10 +247,8 @@ public class GameEngine {
 	/**
 	 * Loops through all the Drawables and draws them
 	 * 
-	 * @param g
-	 *            Graphics instance to draw upon
-	 * @param observer
-	 *            observer to put graphics instance upon
+	 * @param g - Graphics instance to draw upon
+	 * @param observer - observer to put graphics instance upon
 	 */
 	private void render(Graphics g, ImageObserver observer) {
 		g2.setColor(Color.BLACK);
@@ -346,6 +375,22 @@ public class GameEngine {
 				}
 			}
 		}
+	}
+	
+	public void setSelectMouse() {
+		if (handCursor) {
+			return;
+		}
+		this.frame.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		this.handCursor = true;
+	}
+	
+	public void setDefaultMouse() {
+		if (!handCursor) {
+			return;
+		}
+		this.frame.setCursor(Cursor.getDefaultCursor());
+		this.handCursor = false;
 	}
 	
 	public Point getMouseLocation() {

@@ -42,6 +42,7 @@ public interface IGuiElement {
 	 * @return This method should return a boolean value in the implementor of this interface on whether or not this 
 	 * GUI should be removed from the list of GUI's after the loop that updates them exits.
 	 */
+	@Deprecated
 	public boolean removeGui();
 	
 	/**
@@ -49,6 +50,7 @@ public interface IGuiElement {
 	 * should return true. This method tells the implementor of this interface that the ESC key has been typed. If the 
 	 * implementor has custom ESC key behavior, this method serves as a notification of that.
 	 */
+	@Deprecated
 	public void setGuiToRemove();
 	
 	/**
