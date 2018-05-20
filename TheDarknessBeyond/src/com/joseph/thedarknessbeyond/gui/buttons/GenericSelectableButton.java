@@ -9,17 +9,19 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 
+import javax.swing.JButton;
+
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
 
 public class GenericSelectableButton extends AbstractButton {
-	private String text;
 	private FontRenderContext frc;
 	private Font font;
+	private String text;
 	private boolean mouseInSelf;
 	private boolean mouseInSelfPrevious;
-	private ActionListener al;
+	private boolean selected;
 	
 	public GenericSelectableButton(int x, int y, String s, ActionListener al) {
 		super(x, y, (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenRefrence.scale), (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenRefrence.scale));
@@ -55,11 +57,14 @@ public class GenericSelectableButton extends AbstractButton {
 		if (this.mouseInSelfPrevious != this.mouseInSelf) {
 			if (mouseInSelf) {
 				GameEngine.getInstance().setSelectMouse();
-				this.font = ScreenRefrence.getUnderlinedFont();
 			} else {
 				GameEngine.getInstance().setDefaultMouse();
-				this.font = ScreenRefrence.getTheFont();
 			}
+		}
+		if (this.mouseInSelf || this.selected) {
+			this.font = ScreenRefrence.getUnderlinedFont();
+		} else {
+			this.font = ScreenRefrence.getTheFont();
 		}
 	}
 	
@@ -74,17 +79,23 @@ public class GenericSelectableButton extends AbstractButton {
 	
 	@Override
 	public void displayToolTip(Graphics g) {
-		g.setFont(font);
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(x + 5, y + height + 1, width, 30);
-		g.setColor(Color.WHITE);
-		g.drawRect(x + 5, y + height + 1, width, 30);
-		g.setColor(Color.BLACK);
-		g.drawString("Tool Tip", x + 5, y + height + 20);
+		
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		al.actionPerformed(e);
+		this.selected = true;
+	}
+	
+	public void deslecet() {
+		this.selected = false;
+	}
+	
+	/**
+	 * Gets the width of the button, but does not override {@link JButton#getWidth()} 
+	 * @return
+	 */
+	public int getWidth0() {
+		return this.width;
 	}
 }

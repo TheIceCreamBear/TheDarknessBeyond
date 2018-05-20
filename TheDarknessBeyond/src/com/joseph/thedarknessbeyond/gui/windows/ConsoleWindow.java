@@ -36,6 +36,10 @@ public class ConsoleWindow extends Window {
 		this((ScreenRefrence.WIDTH - (500 * ScreenRefrence.scale)) / ScreenRefrence.scale, 100, 500, 300);
 	}
 	
+	public ConsoleWindow(int i) {
+		this(0, (ScreenRefrence.HEIGHT - ((40) * ScreenRefrence.scale)) / ScreenRefrence.scale, ScreenRefrence.WIDTH / ScreenRefrence.scale, 30);
+	}
+	
 	public ConsoleWindow(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		this.previousCommands = new ArrayList<String>();
@@ -124,11 +128,13 @@ public class ConsoleWindow extends Window {
 	}
 
 	@Override
+	@Deprecated
 	public boolean removeGui() {
 		return false;
 	}
 
 	@Override
+	@Deprecated
 	public void setGuiToRemove() {
 	}
 	

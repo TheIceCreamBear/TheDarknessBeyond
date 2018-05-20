@@ -29,7 +29,7 @@ public abstract class AbstractButton extends JButton implements IGuiElement, Act
 			this.y = y * 2;
 			this.width = width;
 			this.height = height;
-			setBounds(x, y, width, height);
+			setBounds(x * 2, y * 2, width, height);
 			addActionListener(this);
 		} else if (ScreenRefrence.scale == 2) {
 			this.x = x * 2;
