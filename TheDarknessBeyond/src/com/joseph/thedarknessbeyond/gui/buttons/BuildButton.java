@@ -11,7 +11,7 @@ import com.joseph.thedarknessbeyond.reference.Reference;
 public class BuildButton extends AbstractButton {
 
 	public BuildButton(int x, int y, int width, int height) {
-		super(x, y, width, height);
+		super(x, y, width, height, false);
 		addActionListener(this);
 	}
 
