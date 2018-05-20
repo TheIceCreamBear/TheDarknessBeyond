@@ -16,6 +16,7 @@ import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
 
 public class GenericSelectableButton extends AbstractButton {
+	private ActionListener al;
 	private FontRenderContext frc;
 	private Font font;
 	private String text;
@@ -23,12 +24,13 @@ public class GenericSelectableButton extends AbstractButton {
 	private boolean mouseInSelfPrevious;
 	private boolean selected;
 	
-	public GenericSelectableButton(int x, int y, String s, ActionListener al) {
-		super(x, y, (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenRefrence.scale), (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenRefrence.scale));
+	public GenericSelectableButton(int x, int y, String s, boolean scaled, ActionListener al) {
+		super(x, y, (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenRefrence.scale), (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenRefrence.scale), scaled);
 		this.text = s;
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenRefrence.getTheFont();
-		this.addActionListener(al);
+		this.al = al;
+		this.addActionListener(this);
 		
 	}
 
@@ -84,7 +86,9 @@ public class GenericSelectableButton extends AbstractButton {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		al.actionPerformed(e);
 		this.selected = true;
+		GameEngine.getInstance().releaseFocous();
 	}
 	
 	public void deslecet() {

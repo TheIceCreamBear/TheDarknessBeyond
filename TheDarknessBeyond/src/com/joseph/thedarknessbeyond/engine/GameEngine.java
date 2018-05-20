@@ -25,6 +25,7 @@ import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.gui.buttons.ToolTipDemoButton;
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
 import com.joseph.thedarknessbeyond.gui.windows.EventWindow;
+import com.joseph.thedarknessbeyond.gui.windows.ScreenSelectionWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
@@ -103,6 +104,7 @@ public class GameEngine {
 	 */
 	private static ArrayList<IDrawable> drawable = new ArrayList<IDrawable>();
 	private static ArrayList<IGuiElement> guiElements = new ArrayList<IGuiElement>();
+	private static ArrayList<AbstractButton> buttons = new ArrayList<AbstractButton>();
 
 	/**
 	 * 
@@ -182,40 +184,50 @@ public class GameEngine {
 		this.et.start();
 		
 		// Start adding here
-
-		this.addNewElement(new ToolTipDemoButton(600, 200, 150, 50));
-		this.addNewElement(new ConsoleWindow());
+		if (Reference.HARD_CORE_DEBUG_MODE) { // FOR TESTING OF NEW GUI ELEMENTS
+			this.addNewElement(new ToolTipDemoButton(600, 200, 150, 50));
+			GenericSelectableButton g = new GenericSelectableButton(600, 400, "***REMOVED***", false, new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.err.println("asdfkjyh");
+					EventBus.EVENT_BUS.post(new Event("ASIYUFGDSKD:FUGHA:SKFJG"));
+					GameEngine.this.releaseFocous();
+				}
+			});
+			this.addNewElement(g);
+		}
+		this.addNewElement(new ScreenSelectionWindow(510, 0, ScreenRefrence.WIDTH / ScreenRefrence.scale, ScreenRefrence.HEIGHT - 1));
 		this.addNewElement(new EventWindow());
-		GenericSelectableButton g = new GenericSelectableButton(300, 200, "***REMOVED***", new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.err.println("asdfkjyh");
-				EventBus.EVENT_BUS.post(new Event("ASIYUFGDSKD:FUGHA:SKFJG"));
-				GameEngine.this.releaseFocous();
-			}
-		});
-		this.addNewElement(g);
+		this.addNewElement(new ConsoleWindow(0));
 
 		System.gc();
 		
 		this.releaseFocous();
 	}
 	
+	public void addButton(AbstractButton b) {
+		if (buttons.contains(b)) {
+			return;
+		}
+		
+		this.frame.add(b);
+	}
+	
 	private void addNewElement(IGuiElement e) {
+		if (guiElements.contains(e)) {
+			return;
+		}
+		
+		guiElements.add(e);
 		if (e instanceof AbstractButton) {
-			AbstractButton b = (AbstractButton) e;
-			guiElements.add(b);
-			this.frame.add(b);
-		} else {
-			guiElements.add(e);
+			this.addButton((AbstractButton) e);
 		}
 	}
 
 	/**
 	 * Loops through all the updatables and updates them
 	 * 
-	 * @param deltaTime
-	 *            - Time between each frame (used to evaluate things within
+	 * @param deltaTime - Time between each frame (used to evaluate things within
 	 *            update methods of each object)
 	 */
 	private void update(double deltaTime) {
@@ -235,10 +247,8 @@ public class GameEngine {
 	/**
 	 * Loops through all the Drawables and draws them
 	 * 
-	 * @param g
-	 *            Graphics instance to draw upon
-	 * @param observer
-	 *            observer to put graphics instance upon
+	 * @param g - Graphics instance to draw upon
+	 * @param observer - observer to put graphics instance upon
 	 */
 	private void render(Graphics g, ImageObserver observer) {
 		g2.setColor(Color.BLACK);
