@@ -38,22 +38,6 @@ public interface IGuiElement {
 	public void updateUpdateableElements(double deltaTime);
 	
 	/**
-	 * Whether or not this GUI should be removed at the end of the update tick.
-	 * @return This method should return a boolean value in the implementor of this interface on whether or not this 
-	 * GUI should be removed from the list of GUI's after the loop that updates them exits.
-	 */
-	@Deprecated
-	public boolean removeGui();
-	
-	/**
-	 * After this method is called, {@link com.joseph.thedarknessbeyond.gui.IGuiElement#removeGui() IGuiOverlay.removeGui()} 
-	 * should return true. This method tells the implementor of this interface that the ESC key has been typed. If the 
-	 * implementor has custom ESC key behavior, this method serves as a notification of that.
-	 */
-	@Deprecated
-	public void setGuiToRemove();
-	
-	/**
 	 * Method to check if the mouse pointer is in the executing object. 
 	 * @return True if the mouse pointer is in the GuiElement
 	 */

@@ -126,17 +126,6 @@ public class ConsoleWindow extends Window {
 			this.cursorTick = 20;
 		}
 	}
-
-	@Override
-	@Deprecated
-	public boolean removeGui() {
-		return false;
-	}
-
-	@Override
-	@Deprecated
-	public void setGuiToRemove() {
-	}
 	
 	@Override
 	public boolean isMouseInElement() {

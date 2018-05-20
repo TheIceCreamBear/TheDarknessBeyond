@@ -67,17 +67,6 @@ public class ScreenSelectionWindow extends Window {
 	}
 
 	@Override
-	@Deprecated
-	public boolean removeGui() {
-		return false;
-	}
-
-	@Override
-	@Deprecated
-	public void setGuiToRemove() {
-	}
-
-	@Override
 	public void displayToolTip(Graphics g) {
 		// NO-OP
 	}

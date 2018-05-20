@@ -39,18 +39,6 @@ public class BuildButton extends AbstractButton {
 	}
 
 	@Override
-	public boolean removeGui() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setGuiToRemove() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public boolean isMouseInElement() {
 		// TODO Auto-generated method stub
 		return false;

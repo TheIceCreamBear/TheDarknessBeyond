@@ -40,15 +40,6 @@ public class ToolTipDemoButton extends AbstractButton {
 	}
 
 	@Override
-	public boolean removeGui() {
-		return false;
-	}
-
-	@Override
-	public void setGuiToRemove() {
-	}
-
-	@Override
 	public void displayToolTip(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(x + 5, y + height + 1, width, 30);

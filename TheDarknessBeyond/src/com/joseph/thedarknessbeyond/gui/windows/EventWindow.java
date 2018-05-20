@@ -116,17 +116,6 @@ public class EventWindow extends Window {
 	}
 
 	@Override
-	@Deprecated
-	public boolean removeGui() {
-		return false;
-	}
-
-	@Override
-	@Deprecated
-	public void setGuiToRemove() {
-	}
-
-	@Override
 	public boolean isMouseInElement() {
 		return false;
 	}

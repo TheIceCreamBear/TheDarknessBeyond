@@ -27,15 +27,6 @@ public class RoomScreen extends Screen {
 	}
 
 	@Override
-	public boolean removeGui() {
-		return false;
-	}
-
-	@Override
-	public void setGuiToRemove() {
-	}
-
-	@Override
 	public void displayToolTip(Graphics g) {
 		
 	}	
