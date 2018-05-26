@@ -86,6 +86,10 @@ public class GenericSelectableButton extends AbstractButton {
 		this.selected = false;
 	}
 	
+	public void select() {
+		this.selected = true;
+	}
+	
 	/**
 	 * Gets the width of the button, but does not override {@link JButton#getWidth()} 
 	 * @return
