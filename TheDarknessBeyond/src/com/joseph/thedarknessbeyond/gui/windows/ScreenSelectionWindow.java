@@ -79,15 +79,15 @@ public class ScreenSelectionWindow extends Window {
 	}
 	
 	private void initScreens() {
-		this.screens = new Screen[4];
+		this.screens = new Screen[3];
 		this.screens[0] = new RoomScreen(x, y, width, height);
 		this.screens[1] = new VillageScreen(x, y, width, height);
 		this.screens[2] = new TravelScreen(x, y, width, height);
-		this.screens[3] = new WildernessScreen(x, y, width, height);
+//		this.screens[3] = new WildernessScreen(x, y, width, height);
 	}
 	
 	private void initButtonsToDefault() {
-		this.buttons = new GenericSelectableButton[4];
+		this.buttons = new GenericSelectableButton[3];
 		int xOff = 0;
 		int yOff = 10 * ScreenRefrence.scale;
 		this.buttons[0] = new GenericSelectableButton(x + xOff, y + yOff, "Room", true, new ActionListener() {
@@ -116,14 +116,14 @@ public class ScreenSelectionWindow extends Window {
 		});
 		xOff += this.buttons[2].getWidth0() + (yOff * 2);
 		
-		this.buttons[3] = new GenericSelectableButton(x + xOff, y + yOff, "Wilderness", true, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ScreenSelectionWindow.this.refocousSelection(3);
-				
-			}
-		});
-		xOff += this.buttons[3].getWidth0() + (yOff * 2);
+//		this.buttons[3] = new GenericSelectableButton(x + xOff, y + yOff, "Wilderness", true, new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				ScreenSelectionWindow.this.refocousSelection(3);
+//				
+//			}
+//		});
+//		xOff += this.buttons[3].getWidth0() + (yOff * 2);
 		
 		this.buttons[0].select();
 		

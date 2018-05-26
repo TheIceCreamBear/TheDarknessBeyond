@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 
 import com.joseph.thedarknessbeyond.gui.Screen;
-
+@Deprecated
 public class WildernessScreen extends Screen {
 
 	public WildernessScreen(int x, int y, int width, int height) {
