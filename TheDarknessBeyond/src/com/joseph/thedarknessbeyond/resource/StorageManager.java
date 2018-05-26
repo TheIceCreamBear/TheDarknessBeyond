@@ -9,6 +9,8 @@ public class StorageManager {
 	public StorageManager() {
 		this.stores = new HashMap<EnumResource, Resource>();
 		
+		this.init();
+		
 		instance = this;
 	}
 	
@@ -29,9 +31,11 @@ public class StorageManager {
 		this.stores.put(EnumResource.Fur, new Resource(EnumResource.Fur, 0));
 		this.stores.put(EnumResource.Leather, new Resource(EnumResource.Leather, 0));
 		this.stores.put(EnumResource.Cotton, new Resource(EnumResource.Cotton, 0));
-		this.stores.put(EnumResource.Fibers, new Resource(EnumResource.Fibers, 0));
 		this.stores.put(EnumResource.HolyWater, new Resource(EnumResource.HolyWater, 0));
-		this.stores.put(EnumResource.Stone, new Resource(EnumResource.Stone, 0));
+	}
+	
+	public HashMap<EnumResource, Resource> getStores() {
+		return this.stores;
 	}
 	
 	public void update() {
