@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.event.ConsoleEvent;
 import com.joseph.thedarknessbeyond.event.EventBus;
+import com.joseph.thedarknessbeyond.gameobject.Village;
+import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
@@ -145,6 +147,10 @@ public class ConsoleWindow extends Window {
 			return;
 		}
 		
+		if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+			return;
+		}
+		
 		if (e.getID() == KeyEvent.KEY_TYPED) {
 			if (this.previousIndex == 0) {
 				char temp = e.getKeyChar();
@@ -235,9 +241,15 @@ public class ConsoleWindow extends Window {
 		command(s);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void command(String s) {
-//		System.out.println(s);
-		EventBus.EVENT_BUS.post(new ConsoleEvent(s));
+		if (s.startsWith("/build")) {
+			Village.getInstance().buildCheatBuilding(EnumBuilding.valueOf(s.split(" ")[1]));
+		} else if (s.startsWith("/village")) {
+			EventBus.EVENT_BUS.post(new ConsoleEvent(Village.getInstance().getDebugString()));
+		} else {
+			EventBus.EVENT_BUS.post(new ConsoleEvent("ERROR: Invalid command"));
+		}
 	}
 	
 	private void up() {
