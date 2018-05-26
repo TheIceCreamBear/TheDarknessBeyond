@@ -1,7 +1,7 @@
 package com.joseph.thedarknessbeyond.resource;
 
 public enum EnumResource {
-	Invalid, Wood, Stone, Belief, Coal, Iron, Steel, IronOre, SteelOre, Bullets, Berries, Meat, PreservedMeat, Water, Fur, Leather, Cotton, Fibers, HolyWater
+	Invalid, Wood, Stone, Belief, Coal, Iron, Steel, IronOre, SteelOre, Bullets, Berries, Meat, PreservedMeat, Water, Fur, Leather, Cotton, HolyWater
 }
 
 /* TODO Items:
@@ -20,8 +20,7 @@ public enum EnumResource {
  * 		Wood Bow - Upgrades:
  * 			→ Sturdy Ends (Iron Bow)
  * 			→ Reinforced Frame (Steel Bow)
- * 		Wood Arrows - Upgrades:
- * 			→ Stone-tipped Arrowhead (Stone Arrows)
+ * 		Stone Arrows - Upgrades:
  * 			→ Improved Shaft (Iron Arrows)
  * 			→ Steel-tipped Arrowhead (Steel Arrows)
  * FIREARMS

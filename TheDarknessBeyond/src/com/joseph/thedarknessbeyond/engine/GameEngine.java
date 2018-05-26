@@ -26,6 +26,7 @@ import com.joseph.thedarknessbeyond.gui.buttons.ToolTipDemoButton;
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
 import com.joseph.thedarknessbeyond.gui.windows.EventWindow;
 import com.joseph.thedarknessbeyond.gui.windows.ScreenSelectionWindow;
+import com.joseph.thedarknessbeyond.gui.windows.StorageWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
@@ -197,6 +198,7 @@ public class GameEngine {
 			this.addNewElement(g);
 		}
 		this.addNewElement(new ScreenSelectionWindow(510, 0, ScreenRefrence.WIDTH / ScreenRefrence.scale, ScreenRefrence.HEIGHT - 1));
+		this.addNewElement(new StorageWindow());
 		this.addNewElement(new EventWindow());
 		this.addNewElement(new ConsoleWindow(0));
 
