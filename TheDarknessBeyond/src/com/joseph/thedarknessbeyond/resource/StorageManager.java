@@ -52,7 +52,23 @@ public class StorageManager {
 	public boolean useResource(Resource r1) {
 		EnumResource er = r1.getResourceEnum();
 		Resource r = this.stores.get(er);
-		return r.subtractResource(r1);
+		return r.subtractResource(r1, false);
+	}
+	
+	public boolean useResources(boolean simulate, Resource... resources) {
+		if (resources == null || resources.length == 0) {
+			return true;
+		}
+		boolean flag = true;
+		for (int i = 0; i < resources.length; i++) {
+			EnumResource er = resources[i].getResourceEnum();
+			flag &= this.stores.get(er).subtractResource(resources[i], simulate);
+		}
+		return flag;
+	}
+	
+	public boolean canUseResources(Resource... resources) {
+		return this.useResources(true, resources);
 	}
 	
 	public static StorageManager getInstance() {

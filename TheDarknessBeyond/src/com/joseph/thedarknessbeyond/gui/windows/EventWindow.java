@@ -18,7 +18,7 @@ public class EventWindow extends Window {
 	private FontRenderContext frc;
 	private Font font;
 	private boolean visible;
-	private int charactersPerLine;
+	private final int charactersPerLine;
 	
 	private static EventWindow instance;
 	
@@ -32,7 +32,10 @@ public class EventWindow extends Window {
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenRefrence.getTheFont();
 		this.visible = true;
-		
+		this.charactersPerLine = this.width / (11 * ScreenRefrence.scale) - 1;
+		System.out.println(this.charactersPerLine);
+		System.err.println(font.getMaxCharBounds(frc).getWidth());
+		System.out.println(font.getStringBounds("B", frc));
 		
 		
 		instance = this;
@@ -89,10 +92,6 @@ public class EventWindow extends Window {
 			g.setFont(font);
 			Rectangle2D r = font.getStringBounds(s, frc);
 			
-//			if (r.getWidth() > width - 10) {
-//				Rectangle2D r2 = Reference.Fonts.DEFAULT_FONT.getMaxCharBounds(frc);
-//			}
-			
 			g.drawString(s, x + xOff, y + yOff);
 			
 			yOff += r.getHeight() + 5;
@@ -128,14 +127,30 @@ public class EventWindow extends Window {
 	public void addEvent(Event e) {
 		// Prevent modification from other threads while iterating over events
 		synchronized (events) {
-			darken();
-			this.events.add(0, new LoggedEvent(e.getS(), (short) Color.DARK_GRAY.getBlue()));
+			this.checkFits(e.getS());
+//			darken();
+//			this.events.add(0, new LoggedEvent(e.getS(), (short) Color.DARK_GRAY.getBlue()));
 		}
 	}
 	
 	private void darken() {
 		for (LoggedEvent e : events) {
 			e.darken();
+		}
+	}
+	
+	private void checkFits(String s) {
+		if (s.length() > this.charactersPerLine) {
+			checkFits(s.substring(charactersPerLine + 1));
+//			synchronized (events) {
+				darken();
+				this.events.add(0, new LoggedEvent(s.substring(0, charactersPerLine + 1), (short) Color.DARK_GRAY.getBlue()));
+//			}
+		} else {
+//			synchronized (events) {
+				darken();
+				this.events.add(0, new LoggedEvent(s, (short) Color.DARK_GRAY.getBlue()));
+//			}
 		}
 	}
 	

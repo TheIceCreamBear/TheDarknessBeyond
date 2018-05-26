@@ -62,7 +62,9 @@ public class ScreenSelectionWindow extends Window {
 		}
 		
 		// Update screen
-		this.screens[this.selectedIndex].updateUpdateableElements(deltaTime);
+		for (int i = 0; i < screens.length; i++) {
+			screens[i].updateUpdateableElements(deltaTime);
+		}
 		
 	}
 
@@ -88,7 +90,7 @@ public class ScreenSelectionWindow extends Window {
 		this.buttons = new GenericSelectableButton[4];
 		int xOff = 0;
 		int yOff = 10 * ScreenRefrence.scale;
-		this.buttons[0] = new GenericSelectableButton(x + xOff, y + yOff, "Button 0", true, new ActionListener() {
+		this.buttons[0] = new GenericSelectableButton(x + xOff, y + yOff, "Room", true, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(0);
@@ -96,7 +98,7 @@ public class ScreenSelectionWindow extends Window {
 		});
 		xOff += this.buttons[0].getWidth0() + (yOff * 2);
 		
-		this.buttons[1] = new GenericSelectableButton(x + xOff, y + yOff, "Button 1", true, new ActionListener() {
+		this.buttons[1] = new GenericSelectableButton(x + xOff, y + yOff, "Village", true, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(1);
@@ -105,7 +107,7 @@ public class ScreenSelectionWindow extends Window {
 		});
 		xOff += this.buttons[1].getWidth0() + (yOff * 2);
 		
-		this.buttons[2] = new GenericSelectableButton(x + xOff, y + yOff, "Button 2", true, new ActionListener() {
+		this.buttons[2] = new GenericSelectableButton(x + xOff, y + yOff, "Travel", true, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(2);
@@ -114,7 +116,7 @@ public class ScreenSelectionWindow extends Window {
 		});
 		xOff += this.buttons[2].getWidth0() + (yOff * 2);
 		
-		this.buttons[3] = new GenericSelectableButton(x + xOff, y + yOff, "Button 3", true, new ActionListener() {
+		this.buttons[3] = new GenericSelectableButton(x + xOff, y + yOff, "Wilderness", true, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(3);
@@ -122,6 +124,8 @@ public class ScreenSelectionWindow extends Window {
 			}
 		});
 		xOff += this.buttons[3].getWidth0() + (yOff * 2);
+		
+		this.buttons[0].select();
 		
 		for (int i = 0; i < buttons.length; i++) {
 			GameEngine.getInstance().addButton(this.buttons[i]);
