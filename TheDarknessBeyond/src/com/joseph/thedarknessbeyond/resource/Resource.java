@@ -29,16 +29,33 @@ public class Resource {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param factor
+	 * @return - A new Resource object with the amount of this * factor
+	 */
+	public Resource multiplyResource(int factor) {
+		return new Resource(eResource, amount * factor);
+	}
+	
 	private void add(int a) {
 		this.amount += a;
 	}
 	
-	public boolean subtractResource(Resource r1) {
+	/**
+	 * 
+	 * @param r1
+	 * @param simulate - weather or not the resource should actually be subtracted or only the checks should be run only.
+	 * @return
+	 */
+	public boolean subtractResource(Resource r1, boolean simulate) {
 		if (this.eResource != r1.eResource) {
 			return false;
 		}
 		if (this.amount > r1.amount) {
-			this.add(-r1.amount);
+			if (!simulate) {
+				this.add(-r1.amount);
+			}
 			return true;
 		} else {
 			return false;
