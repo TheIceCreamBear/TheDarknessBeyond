@@ -95,6 +95,9 @@ public class Village {
 				Integer i = this.buildingCount.get(building);
 				i++;
 				this.buildingCount.put(building, i);
+				if (building == EnumBuilding.Hut) {
+					this.numMaxResidents = this.buildingCount.get(building) * 4;
+				}
 			}
 		}
 	}
@@ -107,6 +110,9 @@ public class Village {
 		Integer i = this.buildingCount.get(building);
 		i++;
 		this.buildingCount.put(building, i);
+		if (building == EnumBuilding.Hut) {
+			this.numMaxResidents = this.buildingCount.get(building) * 4;
+		}
 	}
 	
 	public String getDebugString() {
@@ -131,7 +137,7 @@ public class Village {
 	public enum EnumJob {
 		// TODO add the production that one worker produces
 		// if the remove something, set the resource to be negative
-		Idiling, Gaurd, Lumberjack, Butcher, WaterCollector;
+		Idiling(new Resource(EnumResource.Wood, 2)), Gaurd, Lumberjack, Butcher, WaterCollector;
 		
 		private Resource[] production;
 		

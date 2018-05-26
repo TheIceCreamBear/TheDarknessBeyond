@@ -247,6 +247,8 @@ public class ConsoleWindow extends Window {
 			Village.getInstance().buildCheatBuilding(EnumBuilding.valueOf(s.split(" ")[1]));
 		} else if (s.startsWith("/village")) {
 			EventBus.EVENT_BUS.post(new ConsoleEvent(Village.getInstance().getDebugString()));
+		} else if (s.startsWith("/populate")) {
+			Village.getInstance().gainNewVilagers(Integer.parseInt(s.split(" ")[1]));
 		} else {
 			EventBus.EVENT_BUS.post(new ConsoleEvent("ERROR: Invalid command"));
 		}
