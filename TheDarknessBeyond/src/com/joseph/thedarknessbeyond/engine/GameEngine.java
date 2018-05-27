@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
@@ -32,6 +33,7 @@ import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.resource.StorageManager;
 import com.joseph.thedarknessbeyond.threads.EventThread;
 import com.joseph.thedarknessbeyond.threads.RenderThread;
 import com.joseph.thedarknessbeyond.threads.ShutdownThread;
@@ -152,6 +154,10 @@ public class GameEngine {
 	 */
 	private void initialize() {
 		instance = this;
+		if ((System.getProperty("os.name").contains("Windows") || System.getProperty("os.name").contains("windows")) && !System.getProperty("user.home").contains("AppData")) {
+			System.setProperty("user.home", System.getProperty("user.home") + "/AppData/Roaming");
+		}
+		
 		ScreenRefrence.doScreenCalc();
 		
 		Reference.Fonts.init();
@@ -178,6 +184,10 @@ public class GameEngine {
 		this.i = new BufferedImage(ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		this.g2 = this.i.createGraphics();
 		this.g = frame.getGraphics();
+		// Turn on AntiAliasing
+		if (g2 instanceof Graphics2D) {
+			((Graphics2D)g2).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		}
 		
 		this.frc = ((Graphics2D) g2).getFontRenderContext();
 		
@@ -197,10 +207,12 @@ public class GameEngine {
 			});
 			this.addNewElement(g);
 		}
+		new StorageManager();
 		this.addNewElement(new ScreenSelectionWindow(510, 0, ScreenRefrence.WIDTH / ScreenRefrence.scale, ScreenRefrence.HEIGHT - 1));
 		this.addNewElement(new StorageWindow());
 		this.addNewElement(new EventWindow());
 		this.addNewElement(new ConsoleWindow(0));
+		com.joseph.thedarknessbeyond.util.FileSaveSystem.init();
 
 		System.gc();
 		

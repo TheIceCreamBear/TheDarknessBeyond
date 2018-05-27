@@ -17,6 +17,7 @@ import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.util.FileSaveSystem;
 import com.joseph.thedarknessbeyond.util.Utilities;
 
 public class ConsoleWindow extends Window {
@@ -243,7 +244,13 @@ public class ConsoleWindow extends Window {
 	
 	@SuppressWarnings("deprecation")
 	private void command(String s) {
-		if (s.startsWith("/build")) {
+		if (s.startsWith("/save")) {
+			try {
+				FileSaveSystem.autoSaveGame();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (s.startsWith("/build")) {
 			Village.getInstance().buildCheatBuilding(EnumBuilding.valueOf(s.split(" ")[1]));
 		} else if (s.startsWith("/village")) {
 			EventBus.EVENT_BUS.post(new ConsoleEvent(Village.getInstance().getDebugString()));
