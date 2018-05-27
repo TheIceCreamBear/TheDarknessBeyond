@@ -21,8 +21,6 @@ public class StorageWindow extends Window {
 	private FontRenderContext frc;
 	private Font font;
 	
-	private static StorageManager manager = new StorageManager();
-	
 	public StorageWindow() {
 		this(1700, 40, 200, 800);
 	}
@@ -61,7 +59,7 @@ public class StorageWindow extends Window {
 		int yOff = (int) r0.getHeight() * 2;
 		int xOff = 5;
 		
-		HashMap<EnumResource, Resource> local = manager.getStores();
+		HashMap<EnumResource, Resource> local = StorageManager.getInstance().getStores();
 		Set<EnumResource> set = local.keySet();
 		
 		EnumResource[] er = new EnumResource[set.size()];
@@ -93,9 +91,5 @@ public class StorageWindow extends Window {
 	@Override
 	public void displayToolTip(Graphics g) {
 		
-	}
-	
-	public static StorageManager getManager() {
-		return manager;
 	}
 }

@@ -88,7 +88,7 @@ public class Village {
 		}
 	}
 	
-	public void buildBuilding(EnumBuilding building) {
+	public boolean buildBuilding(EnumBuilding building) {
 		StorageManager sm = StorageManager.getInstance();
 		if (sm.canUseResources(building.cost)) {
 			if (sm.useResources(false, building.cost)) {
@@ -98,8 +98,10 @@ public class Village {
 				if (building == EnumBuilding.Hut) {
 					this.numMaxResidents = this.buildingCount.get(building) * 4;
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	/**
