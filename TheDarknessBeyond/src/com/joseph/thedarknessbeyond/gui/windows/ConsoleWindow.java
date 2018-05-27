@@ -250,6 +250,12 @@ public class ConsoleWindow extends Window {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else if (s.startsWith("/load")) {
+			try {
+				FileSaveSystem.contineGame();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else if (s.startsWith("/build")) {
 			Village.getInstance().buildCheatBuilding(EnumBuilding.valueOf(s.split(" ")[1]));
 		} else if (s.startsWith("/village")) {
