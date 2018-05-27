@@ -82,19 +82,16 @@ public class StorageWindow extends Window {
 	
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
-		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
 	public boolean isMouseInElement() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
 	@Override
 	public void displayToolTip(Graphics g) {
-		// TODO Auto-generated method stub
 		
 	}
 	
