@@ -19,6 +19,7 @@ import com.joseph.thedarknessbeyond.resource.StorageManager;
 public class FileSaveSystem {
 	private static File prefrencesFile;
 	private static Scanner prefrencesScanner;
+	private static PrintWriter prefrencesWriter;
 	private static String continueLocation;
 	private static final String saveVersionString = "SaveSystemVersion:0.1";
 	
@@ -41,12 +42,16 @@ public class FileSaveSystem {
 		}
 	}
 	
+	public static File[] getPossibleLoadableFiles() {
+		return new File(System.getProperty("user.home") + "/TheDarknessBeyond/saves/").listFiles();
+	}
+	
 	public static void contineGame() throws Exception {
 		loadGame(new File(continueLocation));
 	}
 	
 	public static void loadGame(File f) throws Exception {
-		if (f == null || f.getAbsolutePath().lastIndexOf('.') == -1) {
+		if (f == null || f.getAbsolutePath().lastIndexOf('.') == -1 || f.isDirectory()) {
 			throw new RuntimeException("Error: INVALID SAVE LOCATION");
 		}
 		String path = f.getAbsolutePath();
@@ -58,6 +63,8 @@ public class FileSaveSystem {
 			f.getParentFile().mkdirs();
 			f.createNewFile();
 		}
+		
+		markNewContinueLocation(f);
 		
 		// Init reading object
 		Scanner scan = new Scanner(f);
@@ -150,15 +157,15 @@ public class FileSaveSystem {
 	}
 	
 	public static void autoSaveGame() throws Exception {
-		saveGame(new File(System.getProperty("user.home") + "/TheDarknessBeyond/autoSave.tdbSave"));
+		saveGame(new File(System.getProperty("user.home") + "/TheDarknessBeyond/saves/autoSave.tdbSave"));
 	}
 	
 	public static void saveGame(String name) throws Exception {
-		saveGame(new File(System.getProperty("user.home") + "/TheDarknessBeyond/" + name + ".tdbSave"));
+		saveGame(new File(System.getProperty("user.home") + "/TheDarknessBeyond/saves/" + name + ".tdbSave"));
 	}
 	
 	private static void saveGame(File f) throws Exception {
-		if (f == null || f.getAbsolutePath().lastIndexOf('.') == -1) {
+		if (f == null || f.getAbsolutePath().lastIndexOf('.') == -1 || f.isDirectory()) {
 			throw new RuntimeException("Error: INVALID SAVE LOCATION");
 		}
 		String path = f.getAbsolutePath();
@@ -174,6 +181,8 @@ public class FileSaveSystem {
 				e.printStackTrace();
 			}
 		}
+		
+		markNewContinueLocation(f);
 		
 		// Init writing object
 		PrintWriter pw = new PrintWriter(new FileWriter(f), true);
@@ -232,5 +241,19 @@ public class FileSaveSystem {
 		
 		pw.flush();
 		pw.close();
+	}
+	
+	private static void markNewContinueLocation(File f) throws IOException {
+		if (!f.exists()) {
+			throw new IllegalArgumentException("Some programmer called this method on a non existant file. Report this bug and wait for an update.");
+		}
+		
+		continueLocation = f.getAbsolutePath();
+		prefrencesFile.delete();
+		prefrencesFile.createNewFile();
+		prefrencesWriter = new PrintWriter(new FileWriter(prefrencesFile), true);
+		prefrencesWriter.println(continueLocation);
+		prefrencesScanner.close();
+		prefrencesScanner = new Scanner(prefrencesFile);
 	}
 }
