@@ -71,9 +71,9 @@ public class GenericBuildButton extends AbstractButton {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (Village.buildBuilding()) {
+		//if (Village.buildBuilding()) {
 			
-		}
+		//}
 	}
 	
 }
