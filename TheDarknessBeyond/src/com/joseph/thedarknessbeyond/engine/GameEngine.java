@@ -88,6 +88,8 @@ public class GameEngine {
 	private GKELAH keyHandlerInstance;
 	
 	private boolean handCursor;
+	
+	private PauseMenuWindow pmw;
 
 	/**
 	 * ArrayList of GameObjects - to be looped over to update and draw
@@ -189,13 +191,15 @@ public class GameEngine {
 		this.et = new EventThread();
 		this.et.start();
 		
+		this.pmw = new PauseMenuWindow();
+		
 		// Start adding here
 		new StorageManager();
 		this.addNewElement(new ScreenSelectionWindow(510, 0, ScreenRefrence.WIDTH / ScreenRefrence.scale, ScreenRefrence.HEIGHT - 1));
 		this.addNewElement(new StorageWindow());
 		this.addNewElement(new EventWindow());
 		this.addNewElement(new ConsoleWindow(0));
-		this.addNewElement(new PauseMenuWindow());
+		this.addNewElement(pmw);
 		com.joseph.thedarknessbeyond.util.FileSaveSystem.init();
 
 		System.gc();
@@ -229,6 +233,11 @@ public class GameEngine {
 	 *            update methods of each object)
 	 */
 	private void update(double deltaTime) {
+		if (pmw.isVisible()) {
+			pmw.updateUpdateableElements(deltaTime);
+			return;
+		}
+		
 		for (GameObject gameObject : gameObjects) {
 			gameObject.update(deltaTime);
 		}

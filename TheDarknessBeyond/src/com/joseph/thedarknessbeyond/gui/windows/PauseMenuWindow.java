@@ -25,13 +25,17 @@ public class PauseMenuWindow extends Window {
 	private GenericSelectableButton load;
 	private GenericSelectableButton save;
 	private GenericSelectableButton exit;
-	private String headder = "Pause Menu:";
+	
+	private LoadGameWindow lgw;
+	
+	private final String headder = "Pause Menu:";
 	
 	public PauseMenuWindow() {
 		super((ScreenRefrence.WIDTH / 2 - (75 * ScreenRefrence.scale)) / ScreenRefrence.scale, (ScreenRefrence.HEIGHT / 2 - (85 * ScreenRefrence.scale)) / ScreenRefrence.scale, 150, 170, false);
 		this.visible = false;
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenRefrence.getTheFont();
+		this.lgw = new LoadGameWindow(FileSaveSystem.getPossibleLoadableFiles());
 		
 		Rectangle2D r = font.getStringBounds(this.headder, frc);
 		int yOff = (int) r.getHeight() + 10 * ScreenRefrence.scale;
@@ -40,7 +44,7 @@ public class PauseMenuWindow extends Window {
 		this.resume = new GenericSelectableButton(x + xOff, y + yOff, "Resume Game", true, false, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO mouse stays default when menu brought back up and mouse is in resume
+				// TODO BUG BUG BUG: mouse stays default when menu brought back up and mouse is in resume
 				GameEngine.getInstance().setDefaultMouse();
 				PauseMenuWindow.this.hide();
 			}
@@ -50,7 +54,7 @@ public class PauseMenuWindow extends Window {
 		this.load = new GenericSelectableButton(x + xOff, y + yOff, "Load Game", true, false, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO show Load Window
+				lgw.show();
 			}
 		});
 		yOff += this.load.getHeight0() + 10 * ScreenRefrence.scale;
@@ -119,6 +123,8 @@ public class PauseMenuWindow extends Window {
 		this.load.drawUpdateableElements(g, observer);
 		this.save.drawUpdateableElements(g, observer);
 		this.exit.drawUpdateableElements(g, observer);
+		this.lgw.drawBackground(g, observer);
+		this.lgw.drawUpdateableElements(g, observer);
 	}
 
 	@Override
@@ -131,6 +137,7 @@ public class PauseMenuWindow extends Window {
 		this.load.updateUpdateableElements(deltaTime);
 		this.save.updateUpdateableElements(deltaTime);
 		this.exit.updateUpdateableElements(deltaTime);
+		this.lgw.updateUpdateableElements(deltaTime);
 	}
 
 	@Override
