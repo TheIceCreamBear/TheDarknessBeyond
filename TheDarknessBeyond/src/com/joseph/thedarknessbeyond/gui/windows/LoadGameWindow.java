@@ -25,6 +25,9 @@ public class LoadGameWindow extends Window {
 	
 	public LoadGameWindow(File[] files) {
 		super(0, 0, 0, 0, false);
+		if (files == null) {
+			return;
+		}
 		this.visible = false;
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenRefrence.getTheFont();
@@ -33,7 +36,7 @@ public class LoadGameWindow extends Window {
 		Rectangle2D r = font.getStringBounds(this.headder, frc);
 		int xOff = 5 * ScreenRefrence.scale;
 		int yOff = (int) r.getHeight() + 10 * ScreenRefrence.scale;
-		int maxL = -1;
+		int maxL = headder.length();
 		
 		String[] possible = new String[files.length];
 		for (int i = 0; i < files.length; i++) {
@@ -43,7 +46,7 @@ public class LoadGameWindow extends Window {
 			}
 		}
 		maxL *= ScreenRefrence.charWidth;
-		maxL += 15;
+		maxL += 15 * ScreenRefrence.scale;
 		int h = ((int) r.getHeight() + 10 * ScreenRefrence.scale) * (files.length + 1);
 //		super.resetDimensions(ScreenRefrence.WIDTH / 2 - (maxL / 2), ScreenRefrence.HEIGHT / 2 - (h / 2), maxL, h, true);
 //		super.resetDimensions(600, 400, maxL, h, true);

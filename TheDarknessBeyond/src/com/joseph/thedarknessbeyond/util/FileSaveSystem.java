@@ -168,7 +168,7 @@ public class FileSaveSystem {
 		saveGame(new File(System.getProperty("user.home") + "/TheDarknessBeyond/saves/" + name + ".tdbSave"));
 	}
 	
-	private static void saveGame(File f) throws Exception {
+	public static void saveGame(File f) throws Exception {
 		if (f == null || f.getAbsolutePath().lastIndexOf('.') == -1 || f.isDirectory()) {
 			throw new RuntimeException("Error: INVALID SAVE LOCATION");
 		}

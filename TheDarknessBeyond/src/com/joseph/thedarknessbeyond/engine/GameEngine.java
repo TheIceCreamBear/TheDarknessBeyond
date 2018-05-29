@@ -191,6 +191,8 @@ public class GameEngine {
 		this.et = new EventThread();
 		this.et.start();
 		
+		com.joseph.thedarknessbeyond.util.FileSaveSystem.init();
+		
 		this.pmw = new PauseMenuWindow();
 		
 		// Start adding here
@@ -200,7 +202,6 @@ public class GameEngine {
 		this.addNewElement(new EventWindow());
 		this.addNewElement(new ConsoleWindow(0));
 		this.addNewElement(pmw);
-		com.joseph.thedarknessbeyond.util.FileSaveSystem.init();
 
 		System.gc();
 		

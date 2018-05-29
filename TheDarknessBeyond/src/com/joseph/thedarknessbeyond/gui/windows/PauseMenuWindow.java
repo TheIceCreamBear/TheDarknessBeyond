@@ -9,6 +9,8 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 
+import javax.swing.JOptionPane;
+
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
@@ -62,7 +64,13 @@ public class PauseMenuWindow extends Window {
 		this.save = new GenericSelectableButton(x + xOff, y + yOff, "Save Game", true, false, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO show save window
+				try {
+					String s = JOptionPane.showInputDialog(null, "What would you like to name your save file?");
+					FileSaveSystem.saveGame(s);
+					throw new Exception();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		yOff += this.save.getHeight0() + 10 * ScreenRefrence.scale;
