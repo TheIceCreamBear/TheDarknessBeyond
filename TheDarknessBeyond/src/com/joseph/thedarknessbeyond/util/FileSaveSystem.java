@@ -36,7 +36,11 @@ public class FileSaveSystem {
 		
 		try {
 			prefrencesScanner = new Scanner(prefrencesFile);
-			continueLocation = prefrencesScanner.nextLine();
+			if (prefrencesScanner.hasNext()) {
+				continueLocation = prefrencesScanner.nextLine();
+			} else {
+				continueLocation = System.getProperty("user.home") + "/TheDarknessBeyond/saves/default.tdbSave";
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
