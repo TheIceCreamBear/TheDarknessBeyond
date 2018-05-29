@@ -28,7 +28,7 @@ public class HuntAnimalsButton extends AbstractButton{
 	}
 	
 	public HuntAnimalsButton(int x, int y, int width, int height) {
-		super(x, y, width, height);
+		super(x, y, width, height, false);
 		this.frc = GameEngine.getInstance().getFrc();
 		if (ScreenRefrence.scale == 2) {
 			this.font = Reference.Fonts.SCALED_UP_FONT;
@@ -49,6 +49,7 @@ public class HuntAnimalsButton extends AbstractButton{
 	}
 
 	
+	
 
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
@@ -68,6 +69,7 @@ public class HuntAnimalsButton extends AbstractButton{
 		g.drawString(text, x + xOff, y + yOff);
 	}
 
+	
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
 		// TODO Auto-generated method stub
@@ -82,7 +84,9 @@ public class HuntAnimalsButton extends AbstractButton{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		
+			
+		
 		
 	}
 	
