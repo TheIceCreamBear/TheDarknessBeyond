@@ -31,7 +31,7 @@ public class GenericSelectableButton extends AbstractButton {
 	}
 	
 	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, ToolTip tt, ActionListener al) {
-		super(x, y, (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenRefrence.scale), (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenRefrence.scale), scaled);
+		super(x, y, (int) ScreenRefrence.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenRefrence.scale), (int) ScreenRefrence.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenRefrence.scale), scaled);
 		this.text = s;
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenRefrence.getTheFont();
@@ -57,7 +57,7 @@ public class GenericSelectableButton extends AbstractButton {
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		Rectangle2D r = font.getStringBounds(text, frc);
-		int yOff = (int) r.getHeight();
+		int yOff = (int) Math.abs(r.getY()) + 2 * ScreenRefrence.scale;
 		int xOff = 5;
 		g.drawString(text, x + xOff, y + yOff);
 	}
