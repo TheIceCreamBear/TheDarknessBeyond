@@ -9,7 +9,7 @@ import com.joseph.thedarknessbeyond.gameobject.Village;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.reference.Reference;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.Resource;
 
 public class GenericBuildButton extends AbstractButton {
@@ -20,7 +20,7 @@ public class GenericBuildButton extends AbstractButton {
 		super(x, y, 100, 100, false);
 		addActionListener(this);
 		this.b = b;
-		toolTipHeight = 24 * b.getCost().length * ScreenRefrence.scale;
+		toolTipHeight = 24 * b.getCost().length * ScreenReference.scale;
 	}
 	
 
@@ -64,7 +64,7 @@ public class GenericBuildButton extends AbstractButton {
 		int yOff = 23;
 		for (int i = 0; i < r.length; i++) {
 			g.drawString(r[i].toString(), x + 5, y + height + 20);
-			yOff += 24 * ScreenRefrence.scale;
+			yOff += 24 * ScreenReference.scale;
 		}
 		
 	}

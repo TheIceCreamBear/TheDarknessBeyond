@@ -27,7 +27,7 @@ import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
 import com.joseph.thedarknessbeyond.reference.Reference;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
 import com.joseph.thedarknessbeyond.threads.EventThread;
 import com.joseph.thedarknessbeyond.threads.RenderThread;
@@ -125,7 +125,7 @@ public class GameEngine {
 	public static void main(String[] args) {
 		if (Reference.DEBUG_MODE) {
 			System.out.println(Runtime.getRuntime().maxMemory());
-			System.err.println("x: " + ScreenRefrence.WIDTH + "y: " + ScreenRefrence.HEIGHT);
+			System.err.println("x: " + ScreenReference.WIDTH + "y: " + ScreenReference.HEIGHT);
 		}
 		instance = new GameEngine();
 		instance.run();
@@ -155,7 +155,7 @@ public class GameEngine {
 			System.setProperty("user.home", System.getProperty("user.home") + "/AppData/Roaming");
 		}
 		
-		ScreenRefrence.doScreenCalc();
+		ScreenReference.doScreenCalc();
 		
 		Reference.Fonts.init();
 		
@@ -165,7 +165,7 @@ public class GameEngine {
 
 		this.frame = new JFrame("Game Template");
 //		this.frame.setBounds(-1, -1, 1, 1); // Trolololololol hehehehhe
-		this.frame.setBounds(0, 0, ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT);
+		this.frame.setBounds(0, 0, ScreenReference.WIDTH, ScreenReference.HEIGHT);
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setUndecorated(true);
@@ -178,7 +178,7 @@ public class GameEngine {
 		this.keyHandlerInstance = new GKELAH();
 		this.frame.addKeyListener(keyHandlerInstance);
 
-		this.i = new BufferedImage(ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT, BufferedImage.TYPE_INT_RGB);
+		this.i = new BufferedImage(ScreenReference.WIDTH, ScreenReference.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		this.g2 = this.i.createGraphics();
 		this.g = frame.getGraphics();
 		// Turn on AntiAliasing
@@ -197,7 +197,7 @@ public class GameEngine {
 		
 		// Start adding here
 		new StorageManager();
-		this.addNewElement(new ScreenSelectionWindow(510, 0, ScreenRefrence.WIDTH / ScreenRefrence.scale, ScreenRefrence.HEIGHT - 1));
+		this.addNewElement(new ScreenSelectionWindow(510, 0, ScreenReference.WIDTH / ScreenReference.scale, ScreenReference.HEIGHT - 1));
 		this.addNewElement(new StorageWindow());
 		this.addNewElement(new EventWindow());
 		this.addNewElement(new ConsoleWindow(0));
@@ -260,7 +260,7 @@ public class GameEngine {
 	 */
 	private void render(Graphics g, ImageObserver observer) {
 		g2.setColor(Color.BLACK);
-		g2.fillRect(0, 0, ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT);
+		g2.fillRect(0, 0, ScreenReference.WIDTH, ScreenReference.HEIGHT);
 
 		for (GameObject gameObject : gameObjects) {
 			gameObject.draw(g2, observer);
@@ -277,7 +277,7 @@ public class GameEngine {
 
 		if (Reference.DEBUG_MODE) {
 			g2.setColor(Color.GREEN);
-			if (ScreenRefrence.scale == 2) {
+			if (ScreenReference.scale == 2) {
 				g2.setFont(Reference.Fonts.SCALED_UP_FONT);
 			} else {
 				g2.setFont(Reference.Fonts.DEFAULT_FONT);
@@ -288,7 +288,7 @@ public class GameEngine {
 			if (p != null) {
 				String s = p.toString();
 				Rectangle2D r;
-				if (ScreenRefrence.scale == 2) {
+				if (ScreenReference.scale == 2) {
 					g.setFont(Reference.Fonts.SCALED_UP_FONT);
 					r = Reference.Fonts.SCALED_UP_FONT.getStringBounds(s, frc);
 				} else {

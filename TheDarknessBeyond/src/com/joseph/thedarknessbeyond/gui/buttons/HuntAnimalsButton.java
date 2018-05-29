@@ -12,7 +12,7 @@ import java.awt.image.ImageObserver;
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.reference.Reference;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class HuntAnimalsButton extends AbstractButton{
 	private ActionListener al;
@@ -30,7 +30,7 @@ public class HuntAnimalsButton extends AbstractButton{
 	public HuntAnimalsButton(int x, int y, int width, int height) {
 		super(x, y, width, height, false);
 		this.frc = GameEngine.getInstance().getFrc();
-		if (ScreenRefrence.scale == 2) {
+		if (ScreenReference.scale == 2) {
 			this.font = Reference.Fonts.SCALED_UP_FONT;
 		} else {
 			this.font = Reference.Fonts.DEFAULT_FONT;
@@ -38,10 +38,10 @@ public class HuntAnimalsButton extends AbstractButton{
 	}
 	
 	public HuntAnimalsButton(int x, int y, String s, boolean scaled, ActionListener al) {
-		super(x, y, (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenRefrence.scale), (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenRefrence.scale), scaled);
+		super(x, y, (int) ScreenReference.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenReference.scale), (int) ScreenReference.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenReference.scale), scaled);
 		this.text = s;
 		this.frc = GameEngine.getInstance().getFrc();
-		this.font = ScreenRefrence.getTheFont();
+		this.font = ScreenReference.getTheFont();
 		this.al = al;
 		this.addActionListener(this);
 		

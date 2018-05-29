@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.FileSaveSystem;
 
 public class PauseMenuWindow extends Window {
@@ -33,15 +33,15 @@ public class PauseMenuWindow extends Window {
 	private final String headder = "Pause Menu:";
 	
 	public PauseMenuWindow() {
-		super((ScreenRefrence.WIDTH / 2 - (75 * ScreenRefrence.scale)) / ScreenRefrence.scale, (ScreenRefrence.HEIGHT / 2 - (85 * ScreenRefrence.scale)) / ScreenRefrence.scale, 150, 170, false);
+		super((ScreenReference.WIDTH / 2 - (75 * ScreenReference.scale)) / ScreenReference.scale, (ScreenReference.HEIGHT / 2 - (85 * ScreenReference.scale)) / ScreenReference.scale, 150, 170, false);
 		this.visible = false;
 		this.frc = GameEngine.getInstance().getFrc();
-		this.font = ScreenRefrence.getTheFont();
+		this.font = ScreenReference.getTheFont();
 		this.lgw = new LoadGameWindow(FileSaveSystem.getPossibleLoadableFiles());
 		
 		Rectangle2D r = font.getStringBounds(this.headder, frc);
-		int yOff = (int) r.getHeight() + 10 * ScreenRefrence.scale;
-		int xOff = 5 * ScreenRefrence.scale;
+		int yOff = (int) r.getHeight() + 10 * ScreenReference.scale;
+		int xOff = 5 * ScreenReference.scale;
 		
 		this.resume = new GenericSelectableButton(x + xOff, y + yOff, "Resume Game", true, false, new ActionListener() {
 			@Override
@@ -51,7 +51,7 @@ public class PauseMenuWindow extends Window {
 				PauseMenuWindow.this.hide();
 			}
 		});
-		yOff += this.resume.getHeight0() + 10 * ScreenRefrence.scale;
+		yOff += this.resume.getHeight0() + 10 * ScreenReference.scale;
 		
 		this.load = new GenericSelectableButton(x + xOff, y + yOff, "Load Game", true, false, new ActionListener() {
 			@Override
@@ -59,7 +59,7 @@ public class PauseMenuWindow extends Window {
 				lgw.show();
 			}
 		});
-		yOff += this.load.getHeight0() + 10 * ScreenRefrence.scale;
+		yOff += this.load.getHeight0() + 10 * ScreenReference.scale;
 		
 		this.save = new GenericSelectableButton(x + xOff, y + yOff, "Save Game", true, false, new ActionListener() {
 			@Override
@@ -73,7 +73,7 @@ public class PauseMenuWindow extends Window {
 				}
 			}
 		});
-		yOff += this.save.getHeight0() + 10 * ScreenRefrence.scale;
+		yOff += this.save.getHeight0() + 10 * ScreenReference.scale;
 		
 		this.exit = new GenericSelectableButton(x + xOff, y + yOff, "Exit Game", true, false, new ActionListener() {
 			@Override
@@ -86,7 +86,7 @@ public class PauseMenuWindow extends Window {
 				System.exit(0);
 			}
 		});
-		yOff += this.exit.getHeight0() + 10 * ScreenRefrence.scale;
+		yOff += this.exit.getHeight0() + 10 * ScreenReference.scale;
 		
 		GameEngine.getInstance().addButton(resume);
 		GameEngine.getInstance().addButton(load);

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.reference.Reference;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.EnumResource;
 import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
@@ -27,7 +27,7 @@ public class StorageWindow extends Window {
 	public StorageWindow(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		this.frc = GameEngine.getInstance().getFrc();
-		if (ScreenRefrence.scale == 2) {
+		if (ScreenReference.scale == 2) {
 			this.font = Reference.Fonts.SCALED_UP_FONT;
 		} else {
 			this.font = Reference.Fonts.DEFAULT_FONT;

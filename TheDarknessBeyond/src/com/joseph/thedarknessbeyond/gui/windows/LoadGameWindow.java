@@ -13,7 +13,7 @@ import java.io.File;
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.FileSaveSystem;
 
 public class LoadGameWindow extends Window {
@@ -30,12 +30,12 @@ public class LoadGameWindow extends Window {
 		}
 		this.visible = false;
 		this.frc = GameEngine.getInstance().getFrc();
-		this.font = ScreenRefrence.getTheFont();
+		this.font = ScreenReference.getTheFont();
 		this.gsbs = new GenericSelectableButton[files.length];
 		
 		Rectangle2D r = font.getStringBounds(this.headder, frc);
-		int xOff = 5 * ScreenRefrence.scale;
-		int yOff = (int) r.getHeight() + 10 * ScreenRefrence.scale;
+		int xOff = 5 * ScreenReference.scale;
+		int yOff = (int) r.getHeight() + 10 * ScreenReference.scale;
 		int maxL = headder.length();
 		
 		String[] possible = new String[files.length];
@@ -45,12 +45,12 @@ public class LoadGameWindow extends Window {
 				maxL = possible[i].length();
 			}
 		}
-		maxL *= ScreenRefrence.charWidth;
-		maxL += 15 * ScreenRefrence.scale;
-		int h = ((int) r.getHeight() + 10 * ScreenRefrence.scale) * (files.length + 1);
+		maxL *= ScreenReference.charWidth;
+		maxL += 15 * ScreenReference.scale;
+		int h = ((int) r.getHeight() + 10 * ScreenReference.scale) * (files.length + 1);
 //		super.resetDimensions(ScreenRefrence.WIDTH / 2 - (maxL / 2), ScreenRefrence.HEIGHT / 2 - (h / 2), maxL, h, true);
 //		super.resetDimensions(600, 400, maxL, h, true);
-		super.resetDimensions(1100 * ScreenRefrence.scale, ScreenRefrence.HEIGHT / 2 - (h / 2), maxL, h, true);
+		super.resetDimensions(1100 * ScreenReference.scale, ScreenReference.HEIGHT / 2 - (h / 2), maxL, h, true);
 		
 		for (int i = 0; i < files.length; i++) {
 			final int ii = i;
@@ -68,7 +68,7 @@ public class LoadGameWindow extends Window {
 			});
 			
 			GameEngine.getInstance().addButton(gsbs[i]);
-			yOff += gsbs[i].getHeight0() + 10 * ScreenRefrence.scale;
+			yOff += gsbs[i].getHeight0() + 10 * ScreenReference.scale;
 		}
 		
 		System.out.println(this.x + " " + this.y + " " + this.width + " " + this.height);

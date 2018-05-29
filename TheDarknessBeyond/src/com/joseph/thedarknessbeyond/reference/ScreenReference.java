@@ -12,7 +12,7 @@ import com.joseph.thedarknessbeyond.engine.GameEngine;
  * @author David Santamaria
  *
  */
-public class ScreenRefrence {
+public class ScreenReference {
 	public static final int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	public static final int HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	public static int scale;

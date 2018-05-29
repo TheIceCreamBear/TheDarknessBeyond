@@ -12,7 +12,7 @@ import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.gui.screens.RoomScreen;
 import com.joseph.thedarknessbeyond.gui.screens.TravelScreen;
 import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class ScreenSelectionWindow extends Window {
 	private Screen[] screens;
@@ -87,7 +87,7 @@ public class ScreenSelectionWindow extends Window {
 	private void initButtonsToDefault() {
 		this.buttons = new GenericSelectableButton[3];
 		int xOff = 0;
-		int yOff = 10 * ScreenRefrence.scale;
+		int yOff = 10 * ScreenReference.scale;
 		this.buttons[0] = new GenericSelectableButton(x + xOff, y + yOff, "Room", true, true, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

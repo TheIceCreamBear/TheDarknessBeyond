@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.ToolTip;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class GenericSelectableButton extends AbstractButton {
 	private ActionListener al;
@@ -32,10 +32,10 @@ public class GenericSelectableButton extends AbstractButton {
 	}
 	
 	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, ToolTip tt, ActionListener al) {
-		super(x, y, (int) ScreenRefrence.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenRefrence.scale), (int) ScreenRefrence.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenRefrence.scale), scaled);
+		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
 		this.text = s;
 		this.frc = GameEngine.getInstance().getFrc();
-		this.font = ScreenRefrence.getTheFont();
+		this.font = ScreenReference.getTheFont();
 		this.al = al;
 		
 		this.staySelected = staySelected;
@@ -59,7 +59,7 @@ public class GenericSelectableButton extends AbstractButton {
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		Rectangle2D r = font.getStringBounds(text, frc);
-		int yOff = (int) Math.abs(r.getY()) + 2 * ScreenRefrence.scale;
+		int yOff = (int) Math.abs(r.getY()) + 2 * ScreenReference.scale;
 		int xOff = 5;
 		g.drawString(text, x + xOff, y + yOff);
 	}
@@ -76,9 +76,9 @@ public class GenericSelectableButton extends AbstractButton {
 			}
 		}
 		if (this.mouseInSelf || this.selected) {
-			this.font = ScreenRefrence.getUnderlinedFont();
+			this.font = ScreenReference.getUnderlinedFont();
 		} else {
-			this.font = ScreenRefrence.getTheFont();
+			this.font = ScreenReference.getTheFont();
 		}
 	}
 	

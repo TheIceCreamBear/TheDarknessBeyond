@@ -1,6 +1,6 @@
 package com.joseph.thedarknessbeyond.gui;
 
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public abstract class GuiElement implements IGuiElement {
 	protected int x;
@@ -13,7 +13,7 @@ public abstract class GuiElement implements IGuiElement {
 	}
 	
 	public GuiElement(int x, int y, int width, int height, boolean scaled) {
-		if (scaled || ScreenRefrence.scale == 1) {
+		if (scaled || ScreenReference.scale == 1) {
 			this.x = x;
 			this.y = y;
 			this.width = width;
@@ -27,7 +27,7 @@ public abstract class GuiElement implements IGuiElement {
 	}
 	
 	protected void resetDimensions(int x, int y, int width, int height, boolean scaled) {
-		if (scaled || ScreenRefrence.scale == 1) {
+		if (scaled || ScreenReference.scale == 1) {
 			this.x = x;
 			this.y = y;
 			this.width = width;

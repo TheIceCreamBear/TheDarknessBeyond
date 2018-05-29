@@ -16,7 +16,7 @@ import com.joseph.thedarknessbeyond.gameobject.Village;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.reference.Reference;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.FileSaveSystem;
 import com.joseph.thedarknessbeyond.util.Utilities;
 
@@ -36,11 +36,11 @@ public class ConsoleWindow extends Window {
 	private static ConsoleWindow instance;
 	
 	public ConsoleWindow() {
-		this((ScreenRefrence.WIDTH - (500 * ScreenRefrence.scale)) / ScreenRefrence.scale, 100, 500, 300);
+		this((ScreenReference.WIDTH - (500 * ScreenReference.scale)) / ScreenReference.scale, 100, 500, 300);
 	}
 	
 	public ConsoleWindow(int i) {
-		this(0, (ScreenRefrence.HEIGHT - ((40) * ScreenRefrence.scale)) / ScreenRefrence.scale, ScreenRefrence.WIDTH / ScreenRefrence.scale, 30);
+		this(0, (ScreenReference.HEIGHT - ((40) * ScreenReference.scale)) / ScreenReference.scale, ScreenReference.WIDTH / ScreenReference.scale, 30);
 	}
 	
 	public ConsoleWindow(int x, int y, int width, int height) {
@@ -55,7 +55,7 @@ public class ConsoleWindow extends Window {
 		this.cursorIndex = 0;
 		this.visible = false;
 		this.frc = GameEngine.getInstance().getFrc();
-		this.font = ScreenRefrence.getTheFont();
+		this.font = ScreenReference.getTheFont();
 		
 		instance = this;
 	}

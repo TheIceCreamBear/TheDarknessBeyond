@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.event.Event;
 import com.joseph.thedarknessbeyond.gui.Window;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class EventWindow extends Window {
 	private ArrayList<LoggedEvent> events;
@@ -23,16 +23,16 @@ public class EventWindow extends Window {
 	private static EventWindow instance;
 	
 	public EventWindow() {
-		this(0, 0, 500 * ScreenRefrence.scale, ScreenRefrence.HEIGHT - 1);
+		this(0, 0, 500 * ScreenReference.scale, ScreenReference.HEIGHT - 1);
 	}
 
 	public EventWindow(int x, int y, int width, int height) {
 		super(x, y, width, height, true);
 		this.events = new ArrayList<LoggedEvent>();
 		this.frc = GameEngine.getInstance().getFrc();
-		this.font = ScreenRefrence.getTheFont();
+		this.font = ScreenReference.getTheFont();
 		this.visible = true;
-		this.charactersPerLine = this.width / (11 * ScreenRefrence.scale) - 1;
+		this.charactersPerLine = this.width / (11 * ScreenReference.scale) - 1;
 		System.out.println(this.charactersPerLine);
 		System.err.println(font.getMaxCharBounds(frc).getWidth());
 		System.out.println(font.getStringBounds("B", frc));

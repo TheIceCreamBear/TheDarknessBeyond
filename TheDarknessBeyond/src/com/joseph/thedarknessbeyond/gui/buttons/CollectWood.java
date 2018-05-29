@@ -13,7 +13,7 @@ import javax.swing.JButton;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
-import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
 
 
@@ -30,10 +30,10 @@ public class CollectWood extends AbstractButton {
 	
 	
 	public CollectWood(int x, int y, String s, boolean scaled, ActionListener al) {
-		super(x, y, (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenRefrence.scale), (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenRefrence.scale), scaled);
+		super(x, y, (int) ScreenReference.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenReference.scale), (int) ScreenReference.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenReference.scale), scaled);
 		this.text = s;
 		this.frc = GameEngine.getInstance().getFrc();
-		this.font = ScreenRefrence.getTheFont();
+		this.font = ScreenReference.getTheFont();
 		this.al = al;
 		this.addActionListener(this);
 		
@@ -71,9 +71,9 @@ public class CollectWood extends AbstractButton {
 			}
 		}
 		if (this.mouseInSelf || this.selected) {
-			this.font = ScreenRefrence.getUnderlinedFont();
+			this.font = ScreenReference.getUnderlinedFont();
 		} else {
-			this.font = ScreenRefrence.getTheFont();
+			this.font = ScreenReference.getTheFont();
 		}
 			
 		}
