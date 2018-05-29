@@ -25,4 +25,18 @@ public abstract class GuiElement implements IGuiElement {
 			this.height = height * 2;
 		}
 	}
+	
+	protected void resetDimensions(int x, int y, int width, int height, boolean scaled) {
+		if (scaled || ScreenRefrence.scale == 1) {
+			this.x = x;
+			this.y = y;
+			this.width = width;
+			this.height = height;
+		} else {
+			this.x = x * 2;
+			this.y = y * 2;
+			this.width = width * 2;
+			this.height = height * 2;
+		}
+	}
 }

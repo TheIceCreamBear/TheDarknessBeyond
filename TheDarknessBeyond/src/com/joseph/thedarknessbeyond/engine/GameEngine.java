@@ -5,8 +5,7 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.RenderingHints;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -15,16 +14,13 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import com.joseph.thedarknessbeyond.event.Event;
-import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.IGuiElement;
-import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
-import com.joseph.thedarknessbeyond.gui.buttons.ToolTipDemoButton;
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
 import com.joseph.thedarknessbeyond.gui.windows.EventWindow;
+import com.joseph.thedarknessbeyond.gui.windows.PauseMenuWindow;
 import com.joseph.thedarknessbeyond.gui.windows.ScreenSelectionWindow;
 import com.joseph.thedarknessbeyond.gui.windows.StorageWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
@@ -32,6 +28,7 @@ import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.resource.StorageManager;
 import com.joseph.thedarknessbeyond.threads.EventThread;
 import com.joseph.thedarknessbeyond.threads.RenderThread;
 import com.joseph.thedarknessbeyond.threads.ShutdownThread;
@@ -91,6 +88,8 @@ public class GameEngine {
 	private GKELAH keyHandlerInstance;
 	
 	private boolean handCursor;
+	
+	private PauseMenuWindow pmw;
 
 	/**
 	 * ArrayList of GameObjects - to be looped over to update and draw
@@ -152,6 +151,10 @@ public class GameEngine {
 	 */
 	private void initialize() {
 		instance = this;
+		if ((System.getProperty("os.name").contains("Windows") || System.getProperty("os.name").contains("windows")) && !System.getProperty("user.home").contains("AppData")) {
+			System.setProperty("user.home", System.getProperty("user.home") + "/AppData/Roaming");
+		}
+		
 		ScreenRefrence.doScreenCalc();
 		
 		Reference.Fonts.init();
@@ -178,29 +181,27 @@ public class GameEngine {
 		this.i = new BufferedImage(ScreenRefrence.WIDTH, ScreenRefrence.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		this.g2 = this.i.createGraphics();
 		this.g = frame.getGraphics();
+		// Turn on AntiAliasing
+		if (g2 instanceof Graphics2D) {
+			((Graphics2D)g2).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		}
 		
 		this.frc = ((Graphics2D) g2).getFontRenderContext();
 		
 		this.et = new EventThread();
 		this.et.start();
 		
+		com.joseph.thedarknessbeyond.util.FileSaveSystem.init();
+		
+		this.pmw = new PauseMenuWindow();
+		
 		// Start adding here
-		if (Reference.HARD_CORE_DEBUG_MODE) { // FOR TESTING OF NEW GUI ELEMENTS
-			this.addNewElement(new ToolTipDemoButton(600, 200, 150, 50));
-			GenericSelectableButton g = new GenericSelectableButton(600, 400, "***REMOVED***", false, new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.err.println("asdfkjyh");
-					EventBus.EVENT_BUS.post(new Event("ASIYUFGDSKD:FUGHA:SKFJG"));
-					GameEngine.this.releaseFocous();
-				}
-			});
-			this.addNewElement(g);
-		}
+		new StorageManager();
 		this.addNewElement(new ScreenSelectionWindow(510, 0, ScreenRefrence.WIDTH / ScreenRefrence.scale, ScreenRefrence.HEIGHT - 1));
 		this.addNewElement(new StorageWindow());
 		this.addNewElement(new EventWindow());
 		this.addNewElement(new ConsoleWindow(0));
+		this.addNewElement(pmw);
 
 		System.gc();
 		
@@ -233,6 +234,11 @@ public class GameEngine {
 	 *            update methods of each object)
 	 */
 	private void update(double deltaTime) {
+		if (pmw.isVisible()) {
+			pmw.updateUpdateableElements(deltaTime);
+			return;
+		}
+		
 		for (GameObject gameObject : gameObjects) {
 			gameObject.update(deltaTime);
 		}

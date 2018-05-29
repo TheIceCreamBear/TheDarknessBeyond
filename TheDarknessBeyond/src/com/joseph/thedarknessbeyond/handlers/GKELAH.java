@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
+import com.joseph.thedarknessbeyond.gui.windows.PauseMenuWindow;
 import com.joseph.thedarknessbeyond.reference.Reference;
 
 /**
@@ -50,6 +51,11 @@ public class GKELAH implements KeyListener {
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+//			System.exit(0);
+			PauseMenuWindow.getInstance().show();
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_F2) {
 			System.exit(0);
 		}
 		

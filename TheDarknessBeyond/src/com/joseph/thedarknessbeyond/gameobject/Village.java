@@ -11,7 +11,7 @@ public class Village {
 	private int numResidents;
 	private int numMaxResidents;
 	private int gainResourceTimer;
-	private final int resourceTimerMax;
+	private final int resourceTimerMax = 600;
 	private HashMap<EnumBuilding, Integer> buildingCount;
 	private HashMap<EnumJob, Integer> jobDistrubution;
 	
@@ -23,7 +23,12 @@ public class Village {
 		this.jobDistrubution = new HashMap<EnumJob, Integer>();
 		this.initEmptyJobMap();
 		
-		this.resourceTimerMax = 600;
+		instance = this;
+	}
+	
+	public Village(HashMap<EnumBuilding, Integer> buildings, HashMap<EnumJob, Integer> jobs) {
+		this.buildingCount = buildings;
+		this.jobDistrubution = jobs;
 		
 		instance = this;
 	}
@@ -88,7 +93,7 @@ public class Village {
 		}
 	}
 	
-	public void buildBuilding(EnumBuilding building) {
+	public boolean buildBuilding(EnumBuilding building) {
 		StorageManager sm = StorageManager.getInstance();
 		if (sm.canUseResources(building.cost)) {
 			if (sm.useResources(false, building.cost)) {
@@ -98,8 +103,10 @@ public class Village {
 				if (building == EnumBuilding.Hut) {
 					this.numMaxResidents = this.buildingCount.get(building) * 4;
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	/**

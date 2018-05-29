@@ -16,6 +16,8 @@ public class ScreenRefrence {
 	public static final int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	public static final int HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	public static int scale;
+	public static int charWidth;
+	public static int charHeight;
 
 //	public static final int width = 1200;
 //	public static final int height = 800;
@@ -31,6 +33,9 @@ public class ScreenRefrence {
 		} else {
 			scale = 1;
 		}
+		
+		charWidth = 11 *  scale;
+		charHeight = 23 * scale;
 	}
 	
 	public static Font getTheFont() {

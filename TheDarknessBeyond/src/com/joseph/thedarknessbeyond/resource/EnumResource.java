@@ -1,7 +1,28 @@
 package com.joseph.thedarknessbeyond.resource;
 
 public enum EnumResource {
-	Invalid, Wood, Stone, Belief, Coal, Iron, Steel, IronOre, SteelOre, Bullets, Berries, Meat, PreservedMeat, Water, Fur, Leather, Cotton, HolyWater
+	Invalid,
+	// Material
+	Wood,
+	Stone,
+	Coal,
+	IronOre,
+	Iron,
+	SteelOre,
+	Steel,
+	// Organic material
+	Berries,
+	Meat,
+	PreservedMeat,
+	Cotton,
+	Fur,
+	Leather,
+	// Other
+	Water,
+	HolyWater,
+	Bullets,
+	Belief
+	;
 }
 
 /* TODO Items:
