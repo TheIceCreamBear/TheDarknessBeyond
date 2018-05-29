@@ -25,6 +25,7 @@ public class GenericSelectableButton extends AbstractButton {
 	private boolean mouseInSelf;
 	private boolean mouseInSelfPrevious;
 	private boolean selected;
+	private boolean staySelected;
 	
 	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, ActionListener al) {
 		this(x, y, s, scaled, staySelected, null, al);
@@ -37,6 +38,7 @@ public class GenericSelectableButton extends AbstractButton {
 		this.font = ScreenRefrence.getTheFont();
 		this.al = al;
 		this.addActionListener(this);
+		this.staySelected = staySelected;
 		if (tt == null) {
 			this.tt = ToolTip.NULL;
 		} else {
@@ -88,7 +90,9 @@ public class GenericSelectableButton extends AbstractButton {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		al.actionPerformed(e);
-		this.selected = true;
+		if (this.staySelected) {
+			this.selected = true;
+		}
 		GameEngine.getInstance().releaseFocous();
 	}
 	
@@ -106,5 +110,9 @@ public class GenericSelectableButton extends AbstractButton {
 	 */
 	public int getWidth0() {
 		return this.width;
+	}
+	
+	public int getHeight0() {
+		return this.height;
 	}
 }
