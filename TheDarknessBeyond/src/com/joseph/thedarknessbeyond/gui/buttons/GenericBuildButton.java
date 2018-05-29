@@ -5,15 +5,24 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.image.ImageObserver;
 
+import com.joseph.thedarknessbeyond.gameobject.Village;
+import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.reference.Reference;
+import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
+import com.joseph.thedarknessbeyond.resource.Resource;
 
-public class BuildButton extends AbstractButton {
-
-	public BuildButton(int x, int y, int width, int height) {
-		super(x, y, width, height, false);
+public class GenericBuildButton extends AbstractButton {
+	EnumBuilding b;
+	int toolTipHeight;
+	
+	public GenericBuildButton(int x, int y, EnumBuilding b) {
+		super(x, y, 100, 100, false);
 		addActionListener(this);
+		this.b = b;
+		toolTipHeight = 24 * b.getCost().length * ScreenRefrence.scale;
 	}
+	
 
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
@@ -25,7 +34,7 @@ public class BuildButton extends AbstractButton {
 	public void drawUpdateableElements(Graphics g, ImageObserver observer) {
 		g.setColor(Color.BLUE);
 		g.setFont(Reference.Fonts.DEFAULT_FONT);
-		g.drawString("Gather Wood", x + 5, y + 20);
+		g.drawString(b.toString(), x + 5, y + 20);
 		
 		if (isMouseInElement()) {
 			displayToolTip(g);
@@ -46,14 +55,25 @@ public class BuildButton extends AbstractButton {
 
 	@Override
 	public void displayToolTip(Graphics g) {
-		// TODO Auto-generated method stub
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(x + 5, y + height + 1, width, toolTipHeight);
+		g.setColor(Color.WHITE);
+		g.drawRect(x + 5, y + height + 1, width, toolTipHeight);
+		g.setColor(Color.BLACK);
+		Resource[] r = b.getCost();
+		int yOff = 23;
+		for (int i = 0; i < r.length; i++) {
+			g.drawString(r[i].toString(), x + 5, y + height + 20);
+			yOff += 24 * ScreenRefrence.scale;
+		}
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		if (Village.buildBuilding()) {
+			
+		}
 	}
 	
 }
