@@ -195,18 +195,6 @@ public class GameEngine {
 		this.et.start();
 		
 		// Start adding here
-		if (Reference.HARD_CORE_DEBUG_MODE) { // FOR TESTING OF NEW GUI ELEMENTS
-			this.addNewElement(new ToolTipDemoButton(600, 200, 150, 50));
-			GenericSelectableButton g = new GenericSelectableButton(600, 400, "***REMOVED***", false, new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.err.println("asdfkjyh");
-					EventBus.EVENT_BUS.post(new Event("ASIYUFGDSKD:FUGHA:SKFJG"));
-					GameEngine.this.releaseFocous();
-				}
-			});
-			this.addNewElement(g);
-		}
 		new StorageManager();
 		this.addNewElement(new ScreenSelectionWindow(510, 0, ScreenRefrence.WIDTH / ScreenRefrence.scale, ScreenRefrence.HEIGHT - 1));
 		this.addNewElement(new StorageWindow());
