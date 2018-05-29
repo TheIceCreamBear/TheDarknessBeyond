@@ -6,8 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -16,16 +14,13 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import com.joseph.thedarknessbeyond.event.Event;
-import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.IGuiElement;
-import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
-import com.joseph.thedarknessbeyond.gui.buttons.ToolTipDemoButton;
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
 import com.joseph.thedarknessbeyond.gui.windows.EventWindow;
+import com.joseph.thedarknessbeyond.gui.windows.PauseMenuWindow;
 import com.joseph.thedarknessbeyond.gui.windows.ScreenSelectionWindow;
 import com.joseph.thedarknessbeyond.gui.windows.StorageWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
@@ -200,6 +195,7 @@ public class GameEngine {
 		this.addNewElement(new StorageWindow());
 		this.addNewElement(new EventWindow());
 		this.addNewElement(new ConsoleWindow(0));
+		this.addNewElement(new PauseMenuWindow());
 		com.joseph.thedarknessbeyond.util.FileSaveSystem.init();
 
 		System.gc();
