@@ -37,7 +37,7 @@ public class GenericSelectableButton extends AbstractButton {
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenRefrence.getTheFont();
 		this.al = al;
-		this.addActionListener(this);
+		
 		this.staySelected = staySelected;
 		if (tt == null) {
 			this.tt = ToolTip.NULL;
