@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
+import com.joseph.thedarknessbeyond.gui.ToolTip;
 import com.joseph.thedarknessbeyond.reference.ScreenRefrence;
 
 public class GenericSelectableButton extends AbstractButton {
@@ -20,18 +21,29 @@ public class GenericSelectableButton extends AbstractButton {
 	private FontRenderContext frc;
 	private Font font;
 	private String text;
+	private ToolTip tt;
 	private boolean mouseInSelf;
 	private boolean mouseInSelfPrevious;
 	private boolean selected;
+	private boolean staySelected;
 	
-	public GenericSelectableButton(int x, int y, String s, boolean scaled, ActionListener al) {
-		super(x, y, (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenRefrence.scale), (int) ScreenRefrence.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenRefrence.scale), scaled);
+	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, ActionListener al) {
+		this(x, y, s, scaled, staySelected, null, al);
+	}
+	
+	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, ToolTip tt, ActionListener al) {
+		super(x, y, (int) ScreenRefrence.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenRefrence.scale), (int) ScreenRefrence.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenRefrence.scale), scaled);
 		this.text = s;
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenRefrence.getTheFont();
 		this.al = al;
-		this.addActionListener(this);
 		
+		this.staySelected = staySelected;
+		if (tt == null) {
+			this.tt = ToolTip.NULL;
+		} else {
+			this.tt = tt;
+		}
 	}
 
 	@Override
@@ -42,12 +54,12 @@ public class GenericSelectableButton extends AbstractButton {
 	@Override
 	public void drawUpdateableElements(Graphics g, ImageObserver observer) {
 		if (isMouseInElement()) {
-//			this.displayToolTip(g);
+			this.displayToolTip(g);
 		}
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		Rectangle2D r = font.getStringBounds(text, frc);
-		int yOff = (int) r.getHeight();
+		int yOff = (int) Math.abs(r.getY()) + 2 * ScreenRefrence.scale;
 		int xOff = 5;
 		g.drawString(text, x + xOff, y + yOff);
 	}
@@ -72,13 +84,15 @@ public class GenericSelectableButton extends AbstractButton {
 	
 	@Override
 	public void displayToolTip(Graphics g) {
-		
+		tt.draw(g);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		al.actionPerformed(e);
-		this.selected = true;
+		if (this.staySelected) {
+			this.selected = true;
+		}
 		GameEngine.getInstance().releaseFocous();
 	}
 	
@@ -96,5 +110,9 @@ public class GenericSelectableButton extends AbstractButton {
 	 */
 	public int getWidth0() {
 		return this.width;
+	}
+	
+	public int getHeight0() {
+		return this.height;
 	}
 }

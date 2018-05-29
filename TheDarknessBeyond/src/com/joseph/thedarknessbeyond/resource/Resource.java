@@ -3,6 +3,7 @@
 package com.joseph.thedarknessbeyond.resource;
 	
 public class Resource {
+	// TODO make generic type
 	private EnumResource eResource;
 	private int amount = 0;
 	
@@ -62,4 +63,13 @@ public class Resource {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		return this.eResource.toString() + ": " + this.amount;
+	}
+	
+	public static Resource fromString(String s) {
+		String[] arr = s.split(": ");
+		return new Resource(EnumResource.valueOf(arr[0]), Integer.parseInt(arr[1]));
+	}
 }

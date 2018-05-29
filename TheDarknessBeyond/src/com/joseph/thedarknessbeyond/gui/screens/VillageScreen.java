@@ -8,10 +8,12 @@ import com.joseph.thedarknessbeyond.gui.Screen;
 
 public class VillageScreen extends Screen {
 	private Village village;
+	private static VillageScreen screen;
 	
 	public VillageScreen(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		this.village = new Village();
+		screen = this;
 	}
 
 	@Override
@@ -32,5 +34,9 @@ public class VillageScreen extends Screen {
 	@Override
 	public void displayToolTip(Graphics g) {
 		
-	}	
+	}
+	
+	public static void setVillage(Village v) {
+		screen.village = v;
+	}
 }

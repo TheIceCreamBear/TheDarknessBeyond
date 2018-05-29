@@ -7,7 +7,6 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.util.HashMap;
-import java.util.Set;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.Window;
@@ -20,8 +19,6 @@ import com.joseph.thedarknessbeyond.resource.StorageManager;
 public class StorageWindow extends Window {
 	private FontRenderContext frc;
 	private Font font;
-	
-	private static StorageManager manager = new StorageManager();
 	
 	public StorageWindow() {
 		this(1700, 40, 200, 800);
@@ -61,14 +58,11 @@ public class StorageWindow extends Window {
 		int yOff = (int) r0.getHeight() * 2;
 		int xOff = 5;
 		
-		HashMap<EnumResource, Resource> local = manager.getStores();
-		Set<EnumResource> set = local.keySet();
+		HashMap<EnumResource, Resource> local = StorageManager.getInstance().getStores();
+		EnumResource[] er = EnumResource.values();
 		
-		EnumResource[] er = new EnumResource[set.size()];
-		set.toArray(er);
-		for (int i = 0; i < er.length; i++) {
-			//check for resource
-			//if debug is true, display all resources even though it is 0
+		// Start at 1 to skip invalid, as invalid is only there in the event resource was constructed with the default
+		for (int i = 1; i < er.length; i++) {
 			String s = "";
 			if (local.get(er[i]).getAmount() == 0 && !Reference.DEBUG_MODE) {
 				continue;
@@ -82,23 +76,16 @@ public class StorageWindow extends Window {
 	
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
-		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
 	public boolean isMouseInElement() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
 	@Override
 	public void displayToolTip(Graphics g) {
-		// TODO Auto-generated method stub
 		
-	}
-	
-	public static StorageManager getManager() {
-		return manager;
 	}
 }
