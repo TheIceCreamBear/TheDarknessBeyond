@@ -12,7 +12,10 @@ import com.joseph.thedarknessbeyond.gameobject.Village;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumJob;
 import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
+import com.joseph.thedarknessbeyond.gui.windows.PauseMenuWindow;
+import com.joseph.thedarknessbeyond.resource.EnumItem;
 import com.joseph.thedarknessbeyond.resource.EnumResource;
+import com.joseph.thedarknessbeyond.resource.ItemStack;
 import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
 
@@ -21,7 +24,7 @@ public class FileSaveSystem {
 	private static Scanner prefrencesScanner;
 	private static PrintWriter prefrencesWriter;
 	private static String continueLocation;
-	private static final String saveVersionString = "SaveSystemVersion:0.1";
+	private static final String saveVersionString = "SaveSystemVersion:0.2";
 	
 	public static void init() {
 		prefrencesFile = new File(System.getProperty("user.home") + "/TheDarknessBeyond/prefrences.dat");
@@ -99,29 +102,23 @@ public class FileSaveSystem {
 		scan.nextLine();
 		
 		// StorageManager Items Loading
-//		String label = scan.nextLine();
-//		if (!label.equals("STORAGE: ITEMS")) {
-//			throw new RuntimeException("Error: BAD FILE FORMAT");
-//		}
-//		
-//		EnumResource[] eRes = EnumResource.values();
-//		Resource[] res = new Resource[eRes.length];
-//		s = scan.nextLine();
-//		{
-//			int i = 0;
-//			do {
-//				res[i] = Resource.fromString(s);
-//				i++;
-//				s = scan.nextLine();
-//			} while (!s.equals(":END"));
-//		}
-//		HashMap<EnumResource, Resource> rMap = new HashMap<EnumResource, Resource>();
-//		for (int i = 0; i < res.length; i++) {
-//			rMap.put(eRes[i], res[i]);
-//		}
-//		scan.nextLine();
+		label = scan.nextLine();
+		if (!label.equals("STORAGE: ITEMS")) {
+			scan.close();
+			throw new RuntimeException("Error: BAD FILE FORMAT");
+		}
 		
-		new StorageManager(rMap);
+		HashMap<EnumItem, ItemStack> iMap = new HashMap<EnumItem, ItemStack>();
+		s = scan.nextLine();
+		do {
+			ItemStack is = ItemStack.fromString(s);
+			iMap.put(is.getItem(), is);
+			s = scan.nextLine();
+		} while (!s.equals(":END"));
+		scan.nextLine();
+		
+		
+		new StorageManager(rMap, iMap);
 		
 		
 		// Village Buildings
@@ -196,7 +193,7 @@ public class FileSaveSystem {
 		
 		// StorageManager Resources Saving
 		pw.println("STORAGE: RESOURCES");
-		HashMap<EnumResource, Resource> rStorage = StorageManager.getInstance().getStores();
+		HashMap<EnumResource, Resource> rStorage = StorageManager.getInstance().getResources();
 //		EnumResource[] rKeys = rStorage.keySet().toArray(new EnumResource[rStorage.size()]);
 		EnumResource[] rKeys = EnumResource.values();
 		for (int i = 0; i < rKeys.length; i++) {
@@ -208,15 +205,16 @@ public class FileSaveSystem {
 		
 		// StorageManager Item Saving
 		// TODO
-//		pw.println("STORAGE: ITEMS");
-//		HashMap<EnumItem, Resource> iStorage = StorageManager.getInstance().getStores();
+		pw.println("STORAGE: ITEMS");
+		HashMap<EnumItem, ItemStack> iStorage = StorageManager.getInstance().getItems();
 //		EnumItem[] keys = iStorage.keySet().toArray(new EnumItem[iStorage.size()]);
-//		for (int i = 0; i < keys.length; i++) {
-//			pw.println(iStorage.get(keys[i]).toString());
-//		}
-//		pw.println(":END");
-//		
-//		pw.println();
+		EnumItem[] iKeys = EnumItem.values();
+		for (int i = 0; i < iKeys.length; i++) {
+			pw.println(iStorage.get(iKeys[i]).toString());
+		}
+		pw.println(":END");
+		
+		pw.println();
 		
 		// Village
 		Village theVillage = Village.getInstance();
@@ -245,6 +243,8 @@ public class FileSaveSystem {
 		
 		pw.flush();
 		pw.close();
+		
+		PauseMenuWindow.getInstance().notifyNewFiles(getPossibleLoadableFiles());
 	}
 	
 	private static void markNewContinueLocation(File f) throws IOException {

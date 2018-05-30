@@ -58,7 +58,7 @@ public class StorageWindow extends Window {
 		int yOff = (int) r0.getHeight() * 2;
 		int xOff = 5;
 		
-		HashMap<EnumResource, Resource> local = StorageManager.getInstance().getStores();
+		HashMap<EnumResource, Resource> local = StorageManager.getInstance().getResources();
 		EnumResource[] er = EnumResource.values();
 		
 		// Start at 1 to skip invalid, as invalid is only there in the event resource was constructed with the default
