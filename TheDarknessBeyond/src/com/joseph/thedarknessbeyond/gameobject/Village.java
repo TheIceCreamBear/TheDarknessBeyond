@@ -158,7 +158,7 @@ public class Village {
 		// if the remove something, set the resource to be negative
 		// TODO do something if "20 sec"
 		Idiling(new Resource(EnumResource.PreservedMeat, -1)), // 20 sec
-		Gaurd(new Resource(EnumResource.PreservedMeat, -1)), // 20 sec
+		Guard(new Resource(EnumResource.PreservedMeat, -1)), // 20 sec
 		Lumberjack(new Resource(EnumResource.Wood, 1)),
 		Butcher(new Resource(EnumResource.PreservedMeat, 1), new Resource(EnumResource.Meat, -2), new Resource(EnumResource.Wood, -10)),
 		Miner(new Resource(EnumResource.IronOre, 1), new Resource(EnumResource.SteelOre, 1), new Resource(EnumResource.PreservedMeat, -1)), // 20 sec
