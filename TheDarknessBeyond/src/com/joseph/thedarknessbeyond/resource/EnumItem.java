@@ -26,16 +26,6 @@ public enum EnumItem {
 	Rifle(6.0f, 10, true),
 	SubmachineGun(4.0f, 5, true);
 	
-	/*
-	 * THINGS I NEED TO KNOW:
-	 * 	durability: no
-	 * 	item stats range actual range or just ideas: IDEAS
-	 * 	Where store weight: ???
-	 * 	Where Store Chance: ???
-	 * 	Where store cost: ???
-	 * 	TODO others
-	 */
-	
 	private final float weight;
 	private final int mod;
 	private final boolean isModDamage;

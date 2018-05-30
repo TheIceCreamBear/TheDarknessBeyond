@@ -53,7 +53,7 @@ public class Resource {
 		if (this.eResource != r1.eResource) {
 			return false;
 		}
-		if (this.amount > r1.amount) {
+		if (this.amount >= r1.amount) {
 			if (!simulate) {
 				this.add(-r1.amount);
 			}
