@@ -23,29 +23,6 @@ public enum EnumResource {
 	Bullets,
 	Belief
 	;
+	
+	// TODO weight for all or just some? can you discover these on your travels
 }
-
-/* TODO Items:
- * CLOTHES
- * 		Leather Clothing
- * 		Fur Clothing
- * ARMOR
- * 		Leather Armor
- * 		Chain Armor (Iron)
- * 		Plate Armor (Steel)
- * SWORDS
- * 		Stone Sword
- * 		Iron Sword
- * 		Steel Sword
- * BOWS
- * 		Wood Bow - Upgrades:
- * 			→ Sturdy Ends (Iron Bow)
- * 			→ Reinforced Frame (Steel Bow)
- * 		Stone Arrows - Upgrades:
- * 			→ Improved Shaft (Iron Arrows)
- * 			→ Steel-tipped Arrowhead (Steel Arrows)
- * FIREARMS
- * 		Pistol
- * 		Rifle
- * 		Submachine Gun
- */
