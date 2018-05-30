@@ -214,6 +214,15 @@ public class GameEngine {
 		this.releaseFocous();
 	}
 	
+	public boolean removeButton(AbstractButton b) {
+		if (buttons.contains(b)) {
+			boolean bo = buttons.remove(b);
+			bo &= this.mouseHandlerInstace.removeMouseReliant(b);
+			return bo;
+		}
+		return false;
+	}
+	
 	public void addButton(AbstractButton b) {
 		if (buttons.contains(b)) {
 			return;

@@ -19,9 +19,9 @@ public class MouseHandler implements MouseListener {
 		}
 	}
 	
-	public void removeMouseReliant(IMouseReliant imr) {
+	public boolean removeMouseReliant(IMouseReliant imr) {
 		synchronized (reliants) {
-			this.reliants.remove(imr);
+			return this.reliants.remove(imr);
 		}
 	}
 	
