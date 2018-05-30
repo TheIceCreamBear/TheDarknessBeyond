@@ -19,12 +19,20 @@ public class ToolTipDemoButton extends AbstractButton {
 
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
+		if (!visible) {
+			return;
+		}
+		
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(x, y, width, height);
 	}
 
 	@Override
 	public void drawUpdateableElements(Graphics g, ImageObserver observer) {
+		if (!visible) {
+			return;
+		}
+		
 		g.setColor(Color.BLUE);
 		g.setFont(Reference.Fonts.DEFAULT_FONT);
 		g.drawString("Gather Wood", x + 5, y + 20);
@@ -36,6 +44,10 @@ public class ToolTipDemoButton extends AbstractButton {
 	
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
+		if (!visible) {
+			return;
+		}
+		
 		
 	}
 
@@ -51,6 +63,10 @@ public class ToolTipDemoButton extends AbstractButton {
 
 	@Override
 	public void onMouseEvent(MouseEvent e) {
+		if (!visible) {
+			return;
+		}
+		
 		EventBus.EVENT_BUS.post(new Event("Demo button"));
 		GameEngine.getInstance().releaseFocous();
 	}

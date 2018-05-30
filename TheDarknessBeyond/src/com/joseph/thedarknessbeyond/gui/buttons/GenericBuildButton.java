@@ -24,12 +24,20 @@ public class GenericBuildButton extends AbstractButton {
 
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
+		if (!visible) {
+			return;
+		}
+		
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(x, y, width, height);
 	}
 
 	@Override
 	public void drawUpdateableElements(Graphics g, ImageObserver observer) {
+		if (!visible) {
+			return;
+		}
+		
 		g.setColor(Color.BLUE);
 		g.setFont(Reference.Fonts.DEFAULT_FONT);
 		g.drawString(b.toString(), x + 5, y + 20);
@@ -41,18 +49,15 @@ public class GenericBuildButton extends AbstractButton {
 
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public boolean isMouseInElement() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public void displayToolTip(Graphics g) {
+		if (!visible) {
+			return;
+		}
+		
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(x + 5, y + height + 1, width, toolTipHeight);
 		g.setColor(Color.WHITE);
@@ -69,6 +74,10 @@ public class GenericBuildButton extends AbstractButton {
 
 	@Override
 	public void onMouseEvent(MouseEvent e) {
+		if (!visible) {
+			return;
+		}
+		
 		//if (Village.buildBuilding()) {
 			
 		//}

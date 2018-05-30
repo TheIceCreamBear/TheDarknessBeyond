@@ -32,11 +32,19 @@ public class CollectWood extends AbstractButton {
 	
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
+		if (!visible) {
+			return;
+		}
+		
 		g.drawRect(x, y, width, height);
 	}
 	
 	@Override
 	public void drawUpdateableElements(Graphics g, ImageObserver observer) {
+		if (!visible) {
+			return;
+		}
+		
 		if (isMouseInElement()) {
 //			this.displayToolTip(g);
 		}
@@ -50,6 +58,10 @@ public class CollectWood extends AbstractButton {
 	
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
+		if (!visible) {
+			return;
+		}
+		
 		this.mouseInSelfPrevious = this.mouseInSelf;
 		mouseInSelf = isMouseInElement();
 		if (this.mouseInSelfPrevious != this.mouseInSelf) {
@@ -72,16 +84,12 @@ public class CollectWood extends AbstractButton {
 		
 	}
 	
-	public int getWidth0() {
-		return this.width;
-	}
-	
-	public int getHeight0() {
-		return this.height;
-	}
-
 	@Override
 	public void onMouseEvent(MouseEvent e) {
+		if (!visible) {
+			return;
+		}
+		
 		int x = e.getX();
 		int y = e.getY();
 		// Check mouse is in element on click
@@ -89,6 +97,13 @@ public class CollectWood extends AbstractButton {
 			imr.onMouseEvent(e);
 			GameEngine.getInstance().releaseFocous();
 		}
-		
+	}
+	
+	public int getWidth0() {
+		return this.width;
+	}
+	
+	public int getHeight0() {
+		return this.height;
 	}
 }

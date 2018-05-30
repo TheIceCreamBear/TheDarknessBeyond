@@ -48,11 +48,19 @@ public class HuntAnimalsButton extends AbstractButton {
 	
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
+		if (!visible) {
+			return;
+		}
+		
 		g.drawRect(x, y, width, height);
 	}
 	
 	@Override
 	public void drawUpdateableElements(Graphics g, ImageObserver observer) {
+		if (!visible) {
+			return;
+		}
+		
 		if (isMouseInElement()) {
 			
 		}
@@ -66,6 +74,10 @@ public class HuntAnimalsButton extends AbstractButton {
 	
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
+		if (!visible) {
+			return;
+		}
+		
 		// TODO Auto-generated method stub
 		
 	}
@@ -78,7 +90,16 @@ public class HuntAnimalsButton extends AbstractButton {
 	
 	@Override
 	public void onMouseEvent(MouseEvent e) {
+		if (!visible) {
+			return;
+		}
 		
+		int x = e.getX();
+		int y = e.getY();
+		// Check mouse is in element on click
+		if (x >= this.x && x <= (this.x +this.width) && y >= this.y && y <= (this.y +this.height)) {
+			imr.onMouseEvent(e);
+			GameEngine.getInstance().releaseFocous();
+		}
 	}
-	
 }
