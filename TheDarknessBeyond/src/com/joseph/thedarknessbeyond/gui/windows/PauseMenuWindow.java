@@ -169,6 +169,14 @@ public class PauseMenuWindow extends Window {
 		this.visible = false;
 	}
 	
+	public boolean isLoadWindowVisible() {
+		return this.lgw.isVisible();
+	}
+	
+	public void hideLoadWindow() {
+		this.lgw.hide();
+	}
+	
 	public void notifyNewFiles(File[] f) {
 		this.lgw = new LoadGameWindow(f);
 	}
