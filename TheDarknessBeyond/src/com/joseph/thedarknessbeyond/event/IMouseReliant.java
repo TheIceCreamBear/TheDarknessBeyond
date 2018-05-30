@@ -4,5 +4,10 @@ package com.joseph.thedarknessbeyond.event;
 import java.awt.event.MouseEvent;
 
 public interface IMouseReliant {
-	public void onMouseEvent(MouseEvent e);
+	/**
+	 * 
+	 * @param e
+	 * @return a boolean weather or not this object used the mouse event
+	 */
+	public boolean onMouseEvent(MouseEvent e);
 }

@@ -90,24 +90,27 @@ public class ScreenSelectionWindow extends Window {
 		int yOff = 10 * ScreenReference.scale;
 		this.buttons[0] = new GenericSelectableButton(x + xOff, y + yOff, "Room", true, true, new IMouseReliant() {
 			@Override
-			public void onMouseEvent(MouseEvent e) {
+			public boolean onMouseEvent(MouseEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(0);
+				return true;
 			}
 		});
 		xOff += this.buttons[0].getWidth0() + (yOff * 2);
 		
 		this.buttons[1] = new GenericSelectableButton(x + xOff, y + yOff, "Village", true, true, new IMouseReliant() {
 			@Override
-			public void onMouseEvent(MouseEvent e) {
+			public boolean onMouseEvent(MouseEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(1);
+				return true;
 			}
 		});
 		xOff += this.buttons[1].getWidth0() + (yOff * 2);
 		
 		this.buttons[2] = new GenericSelectableButton(x + xOff, y + yOff, "Travel", true, true, new IMouseReliant() {
 			@Override
-			public void onMouseEvent(MouseEvent e) {
+			public boolean onMouseEvent(MouseEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(2);
+				return true;
 			}
 		});
 		xOff += this.buttons[2].getWidth0() + (yOff * 2);

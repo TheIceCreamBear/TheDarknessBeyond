@@ -85,9 +85,9 @@ public class CollectWood extends AbstractButton {
 	}
 	
 	@Override
-	public void onMouseEvent(MouseEvent e) {
+	public boolean onMouseEvent(MouseEvent e) {
 		if (!visible) {
-			return;
+			return false;
 		}
 		
 		int x = e.getX();
@@ -96,7 +96,9 @@ public class CollectWood extends AbstractButton {
 		if (x >= this.x && x <= (this.x +this.width) && y >= this.y && y <= (this.y +this.height)) {
 			imr.onMouseEvent(e);
 			GameEngine.getInstance().releaseFocous();
+			return true;
 		}
+		return false;
 	}
 	
 	public int getWidth0() {

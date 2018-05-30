@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
+import java.io.File;
 
 import javax.swing.JOptionPane;
 
@@ -45,44 +46,48 @@ public class PauseMenuWindow extends Window {
 		
 		this.resume = new GenericSelectableButton(x + xOff, y + yOff, "Resume Game", true, false, new IMouseReliant() {
 			@Override
-			public void onMouseEvent(MouseEvent e) {
+			public boolean onMouseEvent(MouseEvent e) {
 				// TODO BUG BUG BUG: mouse stays default when menu brought back up and mouse is in resume
 				GameEngine.getInstance().setDefaultMouse();
 				PauseMenuWindow.this.hide();
+				return true;
 			}
 		});
 		yOff += this.resume.getHeight0() + 10 * ScreenReference.scale;
 		
 		this.load = new GenericSelectableButton(x + xOff, y + yOff, "Load Game", true, false, new IMouseReliant() {
 			@Override
-			public void onMouseEvent(MouseEvent e) {
+			public boolean onMouseEvent(MouseEvent e) {
 				lgw.show();
+				return true;
 			}
 		});
 		yOff += this.load.getHeight0() + 10 * ScreenReference.scale;
 		
 		this.save = new GenericSelectableButton(x + xOff, y + yOff, "Save Game", true, false, new IMouseReliant() {
 			@Override
-			public void onMouseEvent(MouseEvent e) {
+			public boolean onMouseEvent(MouseEvent e) {
 				try {
 					String s = JOptionPane.showInputDialog(null, "What would you like to name your save file?");
 					FileSaveSystem.saveGame(s);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
+				return true;
 			}
 		});
 		yOff += this.save.getHeight0() + 10 * ScreenReference.scale;
 		
 		this.exit = new GenericSelectableButton(x + xOff, y + yOff, "Exit Game", true, false, new IMouseReliant() {
 			@Override
-			public void onMouseEvent(MouseEvent e) {
+			public boolean onMouseEvent(MouseEvent e) {
 				try {
 					FileSaveSystem.autoSaveGame();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 				System.exit(0);
+				return true;
 			}
 		});
 		yOff += this.exit.getHeight0() + 10 * ScreenReference.scale;
@@ -162,6 +167,10 @@ public class PauseMenuWindow extends Window {
 	
 	public void hide() {
 		this.visible = false;
+	}
+	
+	public void notifyNewFiles(File[] f) {
+		this.lgw = new LoadGameWindow(f);
 	}
 	
 	public static PauseMenuWindow getInstance() {

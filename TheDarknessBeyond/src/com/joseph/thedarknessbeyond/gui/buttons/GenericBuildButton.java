@@ -73,14 +73,15 @@ public class GenericBuildButton extends AbstractButton {
 	}
 
 	@Override
-	public void onMouseEvent(MouseEvent e) {
+	public boolean onMouseEvent(MouseEvent e) {
 		if (!visible) {
-			return;
+			return false;
 		}
 		
 		//if (Village.buildBuilding()) {
 			
 		//}
+		return false;
 	}
 	
 }

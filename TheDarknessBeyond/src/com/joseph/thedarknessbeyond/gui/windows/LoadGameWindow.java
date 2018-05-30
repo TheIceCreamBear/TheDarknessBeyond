@@ -56,14 +56,15 @@ public class LoadGameWindow extends Window {
 			final int ii = i;
 			gsbs[i] = new GenericSelectableButton(x + xOff, y + yOff, possible[i], true, false, new IMouseReliant() {
 				@Override
-				public void onMouseEvent(MouseEvent e) {
+				public boolean onMouseEvent(MouseEvent e) {
 					LoadGameWindow.this.hide();
 					PauseMenuWindow.getInstance().hide();
 					try {
 						FileSaveSystem.loadGame(files[ii]);
 					} catch (Exception e1) {
 						e1.printStackTrace();
-					}	
+					}
+					return true;
 				}
 			});
 			
