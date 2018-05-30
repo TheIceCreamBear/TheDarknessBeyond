@@ -40,7 +40,12 @@ public class LoadGameWindow extends Window {
 		
 		String[] possible = new String[files.length];
 		for (int i = 0; i < files.length; i++) {
-			possible[i] = files[i].getName().substring(0, files[i].getName().lastIndexOf("."));
+			String name = files[i].getName();
+			if (name.equals("NEW_GAME_FILE.tbdSave")) {
+				possible[i] = "New Game";
+			} else {
+				possible[i] = name.substring(0, name.lastIndexOf("."));
+			}
 			if (maxL < possible[i].length()) {
 				maxL = possible[i].length();
 			}
@@ -72,7 +77,7 @@ public class LoadGameWindow extends Window {
 			yOff += gsbs[i].getHeight0() + 10 * ScreenReference.scale;
 		}
 		
-		System.out.println(this.x + " " + this.y + " " + this.width + " " + this.height);
+//		System.out.println(this.x + " " + this.y + " " + this.width + " " + this.height);
 	}
 
 	@Override
