@@ -24,6 +24,7 @@ import com.joseph.thedarknessbeyond.gui.windows.PauseMenuWindow;
 import com.joseph.thedarknessbeyond.gui.windows.ScreenSelectionWindow;
 import com.joseph.thedarknessbeyond.gui.windows.StorageWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
+import com.joseph.thedarknessbeyond.handlers.MouseHandler;
 import com.joseph.thedarknessbeyond.interfaces.IDrawable;
 import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
 import com.joseph.thedarknessbeyond.reference.Reference;
@@ -86,6 +87,8 @@ public class GameEngine {
 	 * Instance of {@link GKELAH GKELAH} stored to keep a reference to it.
 	 */
 	private GKELAH keyHandlerInstance;
+	
+	private MouseHandler mouseHandlerInstace;
 	
 	private boolean handCursor;
 	
@@ -177,6 +180,9 @@ public class GameEngine {
 		
 		this.keyHandlerInstance = new GKELAH();
 		this.frame.addKeyListener(keyHandlerInstance);
+		
+		this.mouseHandlerInstace = new MouseHandler();
+		this.frame.addMouseListener(mouseHandlerInstace);
 
 		this.i = new BufferedImage(ScreenReference.WIDTH, ScreenReference.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		this.g2 = this.i.createGraphics();
@@ -213,7 +219,7 @@ public class GameEngine {
 			return;
 		}
 		
-		this.frame.add(b);
+		this.mouseHandlerInstace.registerMouseReliant(b);
 	}
 	
 	private void addNewElement(IGuiElement e) {

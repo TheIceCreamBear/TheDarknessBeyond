@@ -2,10 +2,9 @@ package com.joseph.thedarknessbeyond.gui.buttons;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.gameobject.Village;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.reference.Reference;
@@ -18,7 +17,6 @@ public class GenericBuildButton extends AbstractButton {
 	
 	public GenericBuildButton(int x, int y, EnumBuilding b) {
 		super(x, y, 100, 100, false);
-		addActionListener(this);
 		this.b = b;
 		toolTipHeight = 24 * b.getCost().length * ScreenReference.scale;
 	}
@@ -70,7 +68,7 @@ public class GenericBuildButton extends AbstractButton {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void onMouseEvent(MouseEvent e) {
 		//if (Village.buildBuilding()) {
 			
 		//}

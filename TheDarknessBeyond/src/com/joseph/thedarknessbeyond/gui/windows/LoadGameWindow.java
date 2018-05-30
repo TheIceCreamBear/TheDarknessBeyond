@@ -3,14 +3,14 @@ package com.joseph.thedarknessbeyond.gui.windows;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.io.File;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.event.IMouseReliant;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
@@ -54,9 +54,9 @@ public class LoadGameWindow extends Window {
 		
 		for (int i = 0; i < files.length; i++) {
 			final int ii = i;
-			gsbs[i] = new GenericSelectableButton(x + xOff, y + yOff, possible[i], true, false, new ActionListener() {
+			gsbs[i] = new GenericSelectableButton(x + xOff, y + yOff, possible[i], true, false, new IMouseReliant() {
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void onMouseEvent(MouseEvent e) {
 					LoadGameWindow.this.hide();
 					PauseMenuWindow.getInstance().hide();
 					try {

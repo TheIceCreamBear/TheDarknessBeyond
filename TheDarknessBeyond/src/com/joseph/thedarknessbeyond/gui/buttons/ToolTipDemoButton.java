@@ -2,7 +2,7 @@ package com.joseph.thedarknessbeyond.gui.buttons;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
@@ -50,7 +50,7 @@ public class ToolTipDemoButton extends AbstractButton {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void onMouseEvent(MouseEvent e) {
 		EventBus.EVENT_BUS.post(new Event("Demo button"));
 		GameEngine.getInstance().releaseFocous();
 	}

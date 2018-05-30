@@ -1,11 +1,11 @@
 package com.joseph.thedarknessbeyond.gui.windows;
 
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.event.IMouseReliant;
 import com.joseph.thedarknessbeyond.gui.Screen;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
@@ -88,28 +88,26 @@ public class ScreenSelectionWindow extends Window {
 		this.buttons = new GenericSelectableButton[3];
 		int xOff = 0;
 		int yOff = 10 * ScreenReference.scale;
-		this.buttons[0] = new GenericSelectableButton(x + xOff, y + yOff, "Room", true, true, new ActionListener() {
+		this.buttons[0] = new GenericSelectableButton(x + xOff, y + yOff, "Room", true, true, new IMouseReliant() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void onMouseEvent(MouseEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(0);
 			}
 		});
 		xOff += this.buttons[0].getWidth0() + (yOff * 2);
 		
-		this.buttons[1] = new GenericSelectableButton(x + xOff, y + yOff, "Village", true, true, new ActionListener() {
+		this.buttons[1] = new GenericSelectableButton(x + xOff, y + yOff, "Village", true, true, new IMouseReliant() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void onMouseEvent(MouseEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(1);
-				
 			}
 		});
 		xOff += this.buttons[1].getWidth0() + (yOff * 2);
 		
-		this.buttons[2] = new GenericSelectableButton(x + xOff, y + yOff, "Travel", true, true, new ActionListener() {
+		this.buttons[2] = new GenericSelectableButton(x + xOff, y + yOff, "Travel", true, true, new IMouseReliant() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void onMouseEvent(MouseEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(2);
-				
 			}
 		});
 		xOff += this.buttons[2].getWidth0() + (yOff * 2);

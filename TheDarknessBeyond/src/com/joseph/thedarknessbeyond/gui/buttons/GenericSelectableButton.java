@@ -3,8 +3,7 @@ package com.joseph.thedarknessbeyond.gui.buttons;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
@@ -12,12 +11,13 @@ import java.awt.image.ImageObserver;
 import javax.swing.JButton;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.event.IMouseReliant;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.ToolTip;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class GenericSelectableButton extends AbstractButton {
-	private ActionListener al;
+	private IMouseReliant imr;
 	private FontRenderContext frc;
 	private Font font;
 	private String text;
@@ -27,16 +27,16 @@ public class GenericSelectableButton extends AbstractButton {
 	private boolean selected;
 	private boolean staySelected;
 	
-	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, ActionListener al) {
-		this(x, y, s, scaled, staySelected, null, al);
+	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, IMouseReliant imr) {
+		this(x, y, s, scaled, staySelected, null, imr);
 	}
 	
-	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, ToolTip tt, ActionListener al) {
+	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, ToolTip tt, IMouseReliant imr) {
 		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
 		this.text = s;
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
-		this.al = al;
+		this.imr = imr;
 		
 		this.staySelected = staySelected;
 		if (tt == null) {
@@ -88,12 +88,17 @@ public class GenericSelectableButton extends AbstractButton {
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		al.actionPerformed(e);
-		if (this.staySelected) {
-			this.selected = true;
+	public void onMouseEvent(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		// Check mouse is in element on click
+		if (x >= this.x && x <= (this.x +this.width) && y >= this.y && y <= (this.y +this.height)) {
+			imr.onMouseEvent(e);
+			if (this.staySelected) {
+				this.selected = true;
+			}
+			GameEngine.getInstance().releaseFocous();
 		}
-		GameEngine.getInstance().releaseFocous();
 	}
 	
 	public void deslecet() {

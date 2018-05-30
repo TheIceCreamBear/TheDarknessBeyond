@@ -3,8 +3,7 @@ package com.joseph.thedarknessbeyond.gui.windows;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
@@ -12,6 +11,7 @@ import java.awt.image.ImageObserver;
 import javax.swing.JOptionPane;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.event.IMouseReliant;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
@@ -43,9 +43,9 @@ public class PauseMenuWindow extends Window {
 		int yOff = (int) r.getHeight() + 10 * ScreenReference.scale;
 		int xOff = 5 * ScreenReference.scale;
 		
-		this.resume = new GenericSelectableButton(x + xOff, y + yOff, "Resume Game", true, false, new ActionListener() {
+		this.resume = new GenericSelectableButton(x + xOff, y + yOff, "Resume Game", true, false, new IMouseReliant() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void onMouseEvent(MouseEvent e) {
 				// TODO BUG BUG BUG: mouse stays default when menu brought back up and mouse is in resume
 				GameEngine.getInstance().setDefaultMouse();
 				PauseMenuWindow.this.hide();
@@ -53,21 +53,20 @@ public class PauseMenuWindow extends Window {
 		});
 		yOff += this.resume.getHeight0() + 10 * ScreenReference.scale;
 		
-		this.load = new GenericSelectableButton(x + xOff, y + yOff, "Load Game", true, false, new ActionListener() {
+		this.load = new GenericSelectableButton(x + xOff, y + yOff, "Load Game", true, false, new IMouseReliant() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void onMouseEvent(MouseEvent e) {
 				lgw.show();
 			}
 		});
 		yOff += this.load.getHeight0() + 10 * ScreenReference.scale;
 		
-		this.save = new GenericSelectableButton(x + xOff, y + yOff, "Save Game", true, false, new ActionListener() {
+		this.save = new GenericSelectableButton(x + xOff, y + yOff, "Save Game", true, false, new IMouseReliant() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void onMouseEvent(MouseEvent e) {
 				try {
 					String s = JOptionPane.showInputDialog(null, "What would you like to name your save file?");
 					FileSaveSystem.saveGame(s);
-					throw new Exception();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -75,9 +74,9 @@ public class PauseMenuWindow extends Window {
 		});
 		yOff += this.save.getHeight0() + 10 * ScreenReference.scale;
 		
-		this.exit = new GenericSelectableButton(x + xOff, y + yOff, "Exit Game", true, false, new ActionListener() {
+		this.exit = new GenericSelectableButton(x + xOff, y + yOff, "Exit Game", true, false, new IMouseReliant() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void onMouseEvent(MouseEvent e) {
 				try {
 					FileSaveSystem.autoSaveGame();
 				} catch (Exception e1) {

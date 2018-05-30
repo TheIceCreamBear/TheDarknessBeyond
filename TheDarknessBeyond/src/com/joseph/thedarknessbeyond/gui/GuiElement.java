@@ -1,5 +1,6 @@
 package com.joseph.thedarknessbeyond.gui;
 
+import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public abstract class GuiElement implements IGuiElement {
@@ -18,6 +19,11 @@ public abstract class GuiElement implements IGuiElement {
 			this.y = y;
 			this.width = width;
 			this.height = height;
+		} else if (this instanceof GenericSelectableButton && ScreenReference.scale == 2) {
+			this.x = x * 2;
+			this.y = y * 2;
+			this.width = width;
+			this.height = height;
 		} else {
 			this.x = x * 2;
 			this.y = y * 2;
@@ -30,6 +36,11 @@ public abstract class GuiElement implements IGuiElement {
 		if (scaled || ScreenReference.scale == 1) {
 			this.x = x;
 			this.y = y;
+			this.width = width;
+			this.height = height;
+		} else if (this instanceof GenericSelectableButton && ScreenReference.scale == 2) {
+			this.x = x * 2;
+			this.y = y * 2;
 			this.width = width;
 			this.height = height;
 		} else {
