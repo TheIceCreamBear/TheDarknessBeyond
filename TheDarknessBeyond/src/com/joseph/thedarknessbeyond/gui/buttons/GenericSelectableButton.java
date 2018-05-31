@@ -114,6 +114,8 @@ public class GenericSelectableButton extends AbstractButton {
 				this.selected = true;
 			}
 			GameEngine.getInstance().releaseFocous();
+			GameEngine.getInstance().setDefaultMouse();
+			this.mouseInSelf = false;
 			return true;
 		}
 		return false;
