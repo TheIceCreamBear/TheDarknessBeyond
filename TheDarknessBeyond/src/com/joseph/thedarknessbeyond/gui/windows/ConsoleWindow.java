@@ -170,7 +170,7 @@ public class ConsoleWindow extends Window {
 					text.remove(cursorIndex);
 					return;
 				}
-				text.add(temp);
+				text.add(cursorIndex, temp);
 				this.cursorIndex++;
 			} else {
 				if (!previousEdited) {
@@ -192,7 +192,7 @@ public class ConsoleWindow extends Window {
 					previousText.remove(cursorIndex);
 					return;
 				}
-				previousText.add(temp);
+				previousText.add(cursorIndex, temp);
 				this.cursorIndex++;
 			}
 			

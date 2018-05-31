@@ -100,9 +100,9 @@ public class GenericSelectableButton extends AbstractButton {
 	}
 	
 	@Override
-	public void onMouseEvent(MouseEvent e) {
+	public boolean onMouseEvent(MouseEvent e) {
 		if (!visible) {
-			return;
+			return false;
 		}
 		
 		int x = e.getX();
@@ -114,7 +114,11 @@ public class GenericSelectableButton extends AbstractButton {
 				this.selected = true;
 			}
 			GameEngine.getInstance().releaseFocous();
+			GameEngine.getInstance().setDefaultMouse();
+			this.mouseInSelf = false;
+			return true;
 		}
+		return false;
 	}
 	
 	public void deslecet() {

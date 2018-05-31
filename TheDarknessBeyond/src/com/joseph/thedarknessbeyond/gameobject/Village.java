@@ -127,8 +127,20 @@ public class Village {
 	}
 	
 	public enum EnumBuilding {
-		// TODO add the cost of building
-		Hut(new Resource(EnumResource.Wood, 100)), Armory, Garden, Charcuterie, Cathedral;
+		Hut(new Resource(EnumResource.Wood, 100)),
+		Armory(new Resource(EnumResource.Wood, 200)),
+		Garden(new Resource(EnumResource.Wood, 50)),
+		Charcuterie(new Resource(EnumResource.Wood, 100), new Resource(EnumResource.Stone, 50)),
+		Cathedral(new Resource(EnumResource.Wood, 2000), new Resource(EnumResource.Stone, 2000), new Resource(EnumResource.Iron, 600), new Resource(EnumResource.Steel, 600)),
+		Storage(new Resource(EnumResource.Wood, 100)),
+		Quarry(new Resource(EnumResource.Wood, 225)),
+		Blacksmith(new Resource(EnumResource.Wood, 400), new Resource(EnumResource.Stone, 400)),
+		Forge(new Resource(EnumResource.Wood, 400), new Resource(EnumResource.Stone, 200)), 
+		Workshop(new Resource(EnumResource.Wood, 50)),
+		WaterWorks(new Resource(EnumResource.Wood, 1500), new Resource(EnumResource.Stone, 1000), new Resource(EnumResource.Iron, 500), new Resource(EnumResource.Steel, 200)),
+		LumberMill(new Resource(EnumResource.Wood, 400)),
+		GuardPost(new Resource(EnumResource.Wood, 200), new Resource(EnumResource.Stone, 100)),
+		Barricades(new Resource(EnumResource.Stone, 500));
 		
 		private Resource[] cost;
 		
@@ -144,7 +156,13 @@ public class Village {
 	public enum EnumJob {
 		// TODO add the production that one worker produces
 		// if the remove something, set the resource to be negative
-		Idiling(new Resource(EnumResource.Wood, 2)), Gaurd, Lumberjack, Butcher, WaterCollector;
+		// TODO do something if "20 sec"
+		Idiling(new Resource(EnumResource.PreservedMeat, -1)), // 20 sec
+		Guard(new Resource(EnumResource.PreservedMeat, -1)), // 20 sec
+		Lumberjack(new Resource(EnumResource.Wood, 1)),
+		Butcher(new Resource(EnumResource.PreservedMeat, 1), new Resource(EnumResource.Meat, -2), new Resource(EnumResource.Wood, -10)),
+		Miner(new Resource(EnumResource.IronOre, 1), new Resource(EnumResource.SteelOre, 1), new Resource(EnumResource.PreservedMeat, -1)), // 20 sec
+		WaterCollector(new Resource(EnumResource.Water, 1));
 		
 		private Resource[] production;
 		

@@ -14,13 +14,25 @@ public class MouseHandler implements MouseListener {
 	}
 	
 	public void registerMouseReliant(IMouseReliant imr) {
-		this.reliants.add(imr);
+		synchronized (reliants) {
+			this.reliants.add(imr);
+		}
+	}
+	
+	public boolean removeMouseReliant(IMouseReliant imr) {
+		synchronized (reliants) {
+			return this.reliants.remove(imr);
+		}
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		for (IMouseReliant imr : reliants) {
-			imr.onMouseEvent(e);
+		synchronized (reliants) {
+			for (IMouseReliant imr : reliants) {
+				if (imr.onMouseEvent(e)) {
+					break;
+				}
+			}
 		}
 	}
 

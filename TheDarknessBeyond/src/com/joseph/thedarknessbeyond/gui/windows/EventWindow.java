@@ -128,29 +128,31 @@ public class EventWindow extends Window {
 		// Prevent modification from other threads while iterating over events
 		synchronized (events) {
 			this.checkFits(e.getS());
-//			darken();
-//			this.events.add(0, new LoggedEvent(e.getS(), (short) Color.DARK_GRAY.getBlue()));
 		}
 	}
 	
 	private void darken() {
-		for (LoggedEvent e : events) {
-			e.darken();
+		for (int i = 0; i < this.events.size(); i++) {
+			this.events.get(i).darken();
 		}
 	}
 	
 	private void checkFits(String s) {
 		if (s.length() > this.charactersPerLine) {
-			checkFits(s.substring(charactersPerLine + 1));
-//			synchronized (events) {
-				darken();
-				this.events.add(0, new LoggedEvent(s.substring(0, charactersPerLine + 1), (short) Color.DARK_GRAY.getBlue()));
-//			}
+			int breakpointAt = charactersPerLine;
+			for (int i = charactersPerLine; i > 0; i--) {
+				char c = s.charAt(i);
+				if (c == ' ' || c == ',' || c == ':' || c == '-' || c == ';' || c == '/' || c== '_' || c == '&') {
+					breakpointAt = i;
+					break;
+				}
+			}
+			checkFits(s.substring(breakpointAt + 1));
+			darken();
+			this.events.add(0, new LoggedEvent(s.substring(0, breakpointAt + 1), Color.DARK_GRAY.getBlue()));
 		} else {
-//			synchronized (events) {
-				darken();
-				this.events.add(0, new LoggedEvent(s, (short) Color.DARK_GRAY.getBlue()));
-//			}
+			darken();
+			this.events.add(0, new LoggedEvent(s, Color.DARK_GRAY.getBlue()));
 		}
 	}
 	
@@ -160,7 +162,8 @@ public class EventWindow extends Window {
 	
 	private class LoggedEvent {
 		private String s;
-		private short color;
+		private int color;
+		private int maxColor = 255;
 		private boolean isNew;
 		
 		@SuppressWarnings("unused")
@@ -168,7 +171,7 @@ public class EventWindow extends Window {
 			this(s, (short) 0);
 		}
 		
-		public LoggedEvent(String s, short color) {
+		public LoggedEvent(String s, int color) {
 			this.s = s;
 			this.color = color;
 			this.isNew = true;
@@ -187,22 +190,31 @@ public class EventWindow extends Window {
 		}
 		
 		public void fadeIn() {
-			if (this.color == 255) {
+			if (this.color == maxColor) {
 				return;
 			}
 			this.color += 5;
-			if (color >= 255) {
+			if (color >= maxColor) {
 				this.isNew = false;
-				color = 255;
+				color = maxColor;
 			}
 		}
 		
 		public void darken() {
-			if (color == 0) {
+			if (this.isNew) {
+				this.maxColor -= 5;
+				return;
+			}
+			
+			if (color == Color.DARK_GRAY.getBlue()) {
 				return;
 			}
 			
 			this.color -= 5;
+			
+			if (color < Color.DARK_GRAY.getBlue()) {
+				this.color = Color.DARK_GRAY.getBlue();
+			}
 		}
 	}
 }

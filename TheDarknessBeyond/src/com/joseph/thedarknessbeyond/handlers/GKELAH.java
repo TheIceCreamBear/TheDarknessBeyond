@@ -35,6 +35,25 @@ public class GKELAH implements KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_F2) {
+			System.exit(0);
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_F1) {
+			Reference.DEBUG_MODE = !Reference.DEBUG_MODE;
+		}
+		
+		if (PauseMenuWindow.getInstance().isVisible()) {
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				if (PauseMenuWindow.getInstance().isLoadWindowVisible()) {
+					PauseMenuWindow.getInstance().hideLoadWindow();
+					return;
+				}
+				PauseMenuWindow.getInstance().hide();
+			}
+			return;
+		}
+		
 		if (e.getKeyCode() == KeyEvent.VK_SLASH && !ConsoleWindow.getInstance().isVisible()) {
 			ConsoleWindow.getInstance().show();
 			return;
@@ -55,13 +74,6 @@ public class GKELAH implements KeyListener {
 			PauseMenuWindow.getInstance().show();
 		}
 		
-		if (e.getKeyCode() == KeyEvent.VK_F2) {
-			System.exit(0);
-		}
-		
-		if (e.getKeyCode() == KeyEvent.VK_F1) {
-			Reference.DEBUG_MODE = !Reference.DEBUG_MODE;
-		}
 		
 	}
 	
