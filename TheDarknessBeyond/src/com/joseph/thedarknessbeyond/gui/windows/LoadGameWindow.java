@@ -10,9 +10,9 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
-import com.joseph.thedarknessbeyond.event.IMouseReliant;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
+import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.FileSaveSystem;
 

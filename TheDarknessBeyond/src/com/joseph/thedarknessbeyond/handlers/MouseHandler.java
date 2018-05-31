@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import com.joseph.thedarknessbeyond.event.IMouseReliant;
+import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 
 public class MouseHandler implements MouseListener {
 	private ArrayList<IMouseReliant> reliants;

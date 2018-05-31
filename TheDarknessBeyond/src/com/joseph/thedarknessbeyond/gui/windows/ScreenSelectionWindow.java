@@ -5,13 +5,13 @@ import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
-import com.joseph.thedarknessbeyond.event.IMouseReliant;
 import com.joseph.thedarknessbeyond.gui.Screen;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.gui.screens.RoomScreen;
 import com.joseph.thedarknessbeyond.gui.screens.TravelScreen;
 import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
+import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class ScreenSelectionWindow extends Window {

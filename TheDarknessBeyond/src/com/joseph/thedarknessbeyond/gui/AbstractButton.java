@@ -2,7 +2,7 @@ package com.joseph.thedarknessbeyond.gui;
 
 import java.awt.Point;
 
-import com.joseph.thedarknessbeyond.event.IMouseReliant;
+import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 /**

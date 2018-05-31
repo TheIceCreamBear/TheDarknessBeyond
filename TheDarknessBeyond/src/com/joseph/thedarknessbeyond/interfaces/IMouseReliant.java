@@ -1,4 +1,4 @@
-package com.joseph.thedarknessbeyond.event;
+package com.joseph.thedarknessbeyond.interfaces;
 // TODO move to com.joseph.thedarknessbeyond.interfaces
 
 import java.awt.event.MouseEvent;
