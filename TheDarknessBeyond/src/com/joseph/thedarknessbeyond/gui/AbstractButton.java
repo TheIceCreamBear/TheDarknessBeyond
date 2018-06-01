@@ -12,9 +12,7 @@ import com.joseph.thedarknessbeyond.reference.ScreenReference;
  * @see IGuiElement
  *
  */
-public abstract class AbstractButton extends GuiElement implements IMouseReliant {
-	protected boolean visible;
-	
+public abstract class AbstractButton extends GuiElement implements IMouseReliant {	
 	public AbstractButton(int x, int y, int width, int height, boolean scaled) {
 		super(x, y, width, height, scaled);
 		this.visible = true;
@@ -29,15 +27,11 @@ public abstract class AbstractButton extends GuiElement implements IMouseReliant
 		return p.x >= x && p.x <= (x + width) && p.y >= y && p.y <= (y + height);
 	}
 	
-	public void hide() {
-		this.visible = false;
+	public int getWidth0() {
+		return this.width;
 	}
 	
-	public void show() {
-		this.visible = true;
-	}
-	
-	public boolean isVisible() {
-		return this.visible;
+	public int getHeight0() {
+		return this.height;
 	}
 }

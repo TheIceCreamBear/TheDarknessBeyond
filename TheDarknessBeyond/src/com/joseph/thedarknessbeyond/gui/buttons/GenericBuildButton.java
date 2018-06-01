@@ -27,21 +27,21 @@ public class GenericBuildButton extends AbstractButton {
 	private boolean mouseInSelfPrevious;
 	
 	public GenericBuildButton(int x, int y, EnumBuilding b) {
-		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(b.toString(), GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(b.toString(), GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), false);
+		super(x, y, (int) ScreenReference.getTheFont().getStringBounds("Build " + b.toString(), GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds("Build " + b.toString(), GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), true);
 		this.b = b;
-		toolTipHeight = 24 * b.getCost().length * ScreenReference.scale;
+		this.toolTipHeight = 24 * b.getCost().length * ScreenReference.scale;
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
 		
-		toolTipWidth = 0;
+		this.toolTipWidth = 0;
 		Resource[] r = b.getCost();
 		for (int i = 0; i < r.length; i++) {
-		    if (toolTipWidth < r[i].toString().length()) {
-		    	toolTipWidth = r[i].toString().length();
+		    if (this.toolTipWidth < r[i].toString().length()) {
+		    	this.toolTipWidth = r[i].toString().length();
 		    }
 		}
-		toolTipWidth *= ScreenReference.charWidth;
-		toolTipWidth += 10 * ScreenReference.scale;
+		this.toolTipWidth *= ScreenReference.charWidth;
+		this.toolTipWidth += 10 * ScreenReference.scale;
 	}
 	
 
@@ -59,15 +59,12 @@ public class GenericBuildButton extends AbstractButton {
 			return;
 		}
 		
-		if (isMouseInElement()) {
-			this.displayToolTip(g);
-		}
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		Rectangle2D r = font.getStringBounds(b.toString(), frc);
 		int yOff = (int) Math.abs(r.getY()) + 2 * ScreenReference.scale;
 		int xOff = 5;
-		g.drawString(b.toString(), x + xOff, y + yOff);
+		g.drawString("Build " + b.toString(), x + xOff, y + yOff);
 	}
 
 	@Override
@@ -95,6 +92,10 @@ public class GenericBuildButton extends AbstractButton {
 	@Override
 	public void displayToolTip(Graphics g) {
 		if (!visible) {
+			return;
+		}
+		
+		if (!isMouseInElement()) {
 			return;
 		}
 		

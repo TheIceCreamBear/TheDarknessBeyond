@@ -1,9 +1,11 @@
 package com.joseph.thedarknessbeyond.gui;
 
+import com.joseph.thedarknessbeyond.gui.buttons.GenericBuildButton;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public abstract class GuiElement implements IGuiElement {
+	protected boolean visible;
 	protected int x;
 	protected int y;
 	protected int width;
@@ -20,6 +22,11 @@ public abstract class GuiElement implements IGuiElement {
 			this.width = width;
 			this.height = height;
 		} else if (this instanceof GenericSelectableButton && ScreenReference.scale == 2) {
+			this.x = x * 2;
+			this.y = y * 2;
+			this.width = width;
+			this.height = height;
+		} else if (this instanceof GenericBuildButton && ScreenReference.scale == 2) {
 			this.x = x * 2;
 			this.y = y * 2;
 			this.width = width;
@@ -49,5 +56,17 @@ public abstract class GuiElement implements IGuiElement {
 			this.width = width * 2;
 			this.height = height * 2;
 		}
+	}
+	
+	public void show() {
+		this.visible = true;
+	}
+	
+	public void hide() {
+		this.visible = false;
+	}
+	
+	public boolean isVisible() {
+		return this.visible;
 	}
 }

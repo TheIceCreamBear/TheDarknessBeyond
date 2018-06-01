@@ -48,6 +48,9 @@ public class PauseMenuWindow extends Window {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				// TODO BUG BUG BUG: mouse stays default when menu brought back up and mouse is in resume
+				if (!PauseMenuWindow.this.visible) {
+					return false;
+				}
 				GameEngine.getInstance().setDefaultMouse();
 				PauseMenuWindow.this.hide();
 				return true;
@@ -58,6 +61,9 @@ public class PauseMenuWindow extends Window {
 		this.load = new GenericSelectableButton(x + xOff, y + yOff, "Load Game", true, false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
+				if (!PauseMenuWindow.this.visible) {
+					return false;
+				}
 				lgw.show();
 				return true;
 			}
@@ -67,6 +73,9 @@ public class PauseMenuWindow extends Window {
 		this.save = new GenericSelectableButton(x + xOff, y + yOff, "Save Game", true, false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
+				if (!PauseMenuWindow.this.visible) {
+					return false;
+				}
 				try {
 					String s = JOptionPane.showInputDialog(null, "What would you like to name your save file?");
 					FileSaveSystem.saveGame(s);
@@ -81,6 +90,9 @@ public class PauseMenuWindow extends Window {
 		this.exit = new GenericSelectableButton(x + xOff, y + yOff, "Exit Game", true, false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
+				if (!PauseMenuWindow.this.visible) {
+					return false;
+				}
 				try {
 					FileSaveSystem.autoSaveGame();
 				} catch (Exception e1) {

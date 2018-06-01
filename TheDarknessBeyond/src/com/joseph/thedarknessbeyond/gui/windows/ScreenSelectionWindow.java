@@ -132,6 +132,7 @@ public class ScreenSelectionWindow extends Window {
 		xOff += this.buttons[2].getWidth0() + (yOff * 2);
 		
 		this.refocousSelection(0);
+		this.buttons[0].select();
 		
 		for (int i = 0; i < buttons.length; i++) {
 			GameEngine.getInstance().addButton(this.buttons[i]);

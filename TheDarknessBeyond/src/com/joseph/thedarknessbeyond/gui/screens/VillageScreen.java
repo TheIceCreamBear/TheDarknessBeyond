@@ -36,7 +36,6 @@ public class VillageScreen extends Screen {
 		gatherPlantsButton = new ScavengePlantsButton(x + 100, y + 400, "Scavenge Plants", true);
 		GameEngine.getInstance().addButton(gatherPlantsButton);
 		
-		
 		screen = this;
 	}
 
@@ -78,5 +77,23 @@ public class VillageScreen extends Screen {
 	
 	public static void setVillage(Village v) {
 		screen.village = v;
+	}
+	
+	@Override
+	public void hide() {
+		gatherWoodButton.hide();
+		gatherAnimalButton.hide();
+		gatherPlantsButton.hide();
+		gatherStoneButton.hide();
+		super.hide();
+	}
+	
+	@Override
+	public void show() {
+		gatherWoodButton.show();
+		gatherAnimalButton.show();
+		gatherPlantsButton.show();
+		gatherStoneButton.show();
+		super.show();
 	}
 }
