@@ -8,10 +8,12 @@ import java.util.Random;
 
 public class Map {
 	public static final int MAP_RADIUS = 30;
+	private static Map instance;
 	private HashMap<EnumTile, Float> chances;
 	private Tile[][] map;
 	private char[][] mapButAsChars;
 	private Random r;
+	private Player p;
 	
 	/**
 	 * the chance that a tile will be the same type as the tiles next to it
@@ -20,12 +22,15 @@ public class Map {
 	
 	public Map() {
 		this.r = new Random(123456789123456789l);
+		this.p = new Player(MAP_RADIUS, MAP_RADIUS);
 		this.chances = new HashMap<EnumTile, Float>();
 		this.initChances();
 		this.map = new Tile[MAP_RADIUS * 2 + 1][MAP_RADIUS * 2 + 1];
 		this.generate();
 		this.mapButAsChars = new char[MAP_RADIUS * 2 + 1][MAP_RADIUS * 2 + 1];
 		this.makeCharMap();
+		
+		instance = this;
 	}
 	
 	private void makeCharMap() {
@@ -34,6 +39,7 @@ public class Map {
 				this.mapButAsChars[i][j] = this.map[i][j].getChar();
 			}
 		}
+		this.mapButAsChars[p.getY()][p.getX()] = '@';
 	}
 	
 	private void initChances() {
@@ -195,5 +201,25 @@ public class Map {
 	public char[][] getCharArray() {
 		this.makeCharMap();
 		return this.mapButAsChars;
+	}
+	
+	public void movePlayerUp() {
+		this.p.moveUp();
+	}
+		
+	public void movePlayerDown() {
+		this.p.moveDown();
+	}
+	
+	public void movePlayerLeft() {
+		this.p.moveLeft();
+	}
+	
+	public void movePlayerRight() {
+		this.p.moveRight();
+	}
+	
+	public static Map getInstance() {
+		return instance;
 	}
 }

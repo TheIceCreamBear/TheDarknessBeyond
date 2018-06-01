@@ -15,6 +15,7 @@ import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class MapScreen extends Screen {
+	private static MapScreen instance;
 	private Map map;
 	private FontRenderContext frc;
 	private Font font;
@@ -26,6 +27,8 @@ public class MapScreen extends Screen {
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenReference.getMapFont();
 		r = font.getStringBounds(";", frc);
+		
+		instance = this;
 	}
 
 	@Override
@@ -48,11 +51,11 @@ public class MapScreen extends Screen {
 		g.setFont(font);
 		Tile[][] tiles = map.getMap();
 		char[][] chars = map.getCharArray();
-		int yOff = 100 * ScreenReference.scale;
+		int yOff = 65 * ScreenReference.scale;
 		for (int i = 0; i < chars.length; i++) {
 			int xOff = 100 * ScreenReference.scale;
 			for (int j = 0; j < chars[i].length; j++) {
-				if (tiles[i][j].isDiscovered() || Reference.DEBUG_MODE) {
+				if (tiles[i][j].isDiscovered() || chars[i][j] == '@' || Reference.DEBUG_MODE) {
 					g.drawString(String.valueOf(chars[i][j]), x + xOff, y + yOff);
 				}
 				xOff += r.getHeight();
@@ -71,5 +74,9 @@ public class MapScreen extends Screen {
 	@Override
 	public void displayToolTip(Graphics g) {
 		
+	}
+	
+	public static MapScreen getInstance() {
+		return instance;
 	}
 }
