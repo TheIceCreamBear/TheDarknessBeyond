@@ -81,7 +81,21 @@ public class FileSaveSystem {
 	}
 	
 	public static File[] getPossibleLoadableFiles() {
+		File tmp = new File(System.getProperty("user.home") + "/TheDarknessBeyond/saves/tmp.tmp");
+		if (!tmp.exists()) {
+			try {
+				tmp.getParentFile().mkdirs();
+				tmp.createNewFile();
+				tmp.delete();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		File[] f = new File(System.getProperty("user.home") + "/TheDarknessBeyond/saves/").listFiles();
+		if (f == null) {
+			f = new File[0];
+		}
 		File[] f1 = new File[f.length + 1];
 		for (int i = 0; i < f1.length; i++) {
 			if (i == 0) {
