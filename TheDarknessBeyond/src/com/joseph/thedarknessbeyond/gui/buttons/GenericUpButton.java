@@ -8,28 +8,33 @@ import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.event.Event;
-import com.joseph.thedarknessbeyond.event.EventBus;
+import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
-import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class GenericUpButton extends AbstractButton {
 	private static final Polygon TRIANGLE = new Polygon(new int[] {10, 20, 0}, new int[] {0, 20, 20}, 3);
+	private static final Polygon TRIANGLE2 = new Polygon(new int[] {20, 40, 0}, new int[] {0, 40, 40}, 3);
 	private Polygon triangle;
 	private IMouseReliant imr;
+	private boolean mouseInSelf;
+	private boolean mouseInSelfPrevious;
 	
-	public GenericUpButton(int x, int y, int width, int height, boolean scaled, IMouseReliant imr) {
-		super(x, y, 20, 20, scaled);
-		triangle = new Polygon(TRIANGLE.xpoints, TRIANGLE.ypoints, TRIANGLE.npoints);
-		triangle.translate(x + width - 20, y);
+	public GenericUpButton(int x, int y, boolean scaled, IMouseReliant imr) {
+		super(x, y, 20 * ScreenReference.scale, 20 * ScreenReference.scale, scaled);
+		if (ScreenReference.scale == 2) {
+			triangle = new Polygon(TRIANGLE2.xpoints, TRIANGLE2.ypoints, TRIANGLE2.npoints);			
+		} else {
+			triangle = new Polygon(TRIANGLE.xpoints, TRIANGLE.ypoints, TRIANGLE.npoints);
+		}
+		triangle.translate(x, y);
 		this.imr = imr;
 		
 	}
 
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -41,13 +46,19 @@ public class GenericUpButton extends AbstractButton {
 
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
-		// TODO Auto-generated method stub
-		
+		this.mouseInSelfPrevious = this.mouseInSelf;
+		this.mouseInSelf = isMouseInElement();
+		if (this.mouseInSelfPrevious != this.mouseInSelf) {
+			if (mouseInSelf) {
+				GameEngine.getInstance().setSelectMouse();
+			} else {
+				GameEngine.getInstance().setDefaultMouse();
+			}
+		}
 	}
 
 	@Override
 	public void displayToolTip(Graphics g) {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -65,7 +76,6 @@ public class GenericUpButton extends AbstractButton {
 			
 			return true;
 		}
-		
 		return false;
 	}
 	

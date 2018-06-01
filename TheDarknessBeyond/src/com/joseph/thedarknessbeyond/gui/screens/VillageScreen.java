@@ -42,7 +42,7 @@ public class VillageScreen extends Screen {
 		gatherPlantsButton = new ScavengePlantsButton(x + 100, y + 400, "Scavenge Plants", true);
 		GameEngine.getInstance().addButton(gatherPlantsButton);
 		
-		test = new GenericJobAssignmentWindow(x + 100, y + 550, 100, EnumJob.Guard);
+		test = new GenericJobAssignmentWindow(x + 100, y + 550, EnumJob.Guard);
 		
 		screen = this;
 	}

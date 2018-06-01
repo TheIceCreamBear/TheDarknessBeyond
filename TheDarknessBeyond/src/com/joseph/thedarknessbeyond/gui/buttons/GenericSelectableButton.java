@@ -78,7 +78,7 @@ public class GenericSelectableButton extends AbstractButton {
 		}
 		
 		this.mouseInSelfPrevious = this.mouseInSelf;
-		mouseInSelf = isMouseInElement();
+		this.mouseInSelf = isMouseInElement();
 		if (this.mouseInSelfPrevious != this.mouseInSelf) {
 			if (mouseInSelf) {
 				GameEngine.getInstance().setSelectMouse();

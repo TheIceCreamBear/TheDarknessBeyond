@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.gameobject.Village;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumJob;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericDownButton;
@@ -37,25 +38,22 @@ public class GenericJobAssignmentWindow extends Window {
 	private GenericUpButton upButton;
 	private GenericDownButton downButton;
 	
-	public GenericJobAssignmentWindow(int x, int y, int width, EnumJob j) {
-		super(x, y, width, 40);
+	public GenericJobAssignmentWindow(int x, int y, EnumJob j) {
+		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(j.toString() + ": 0000", GameEngine.getInstance().getFrc()).getWidth() + (25 * ScreenReference.scale), 40 * ScreenReference.scale, true);
 		this.job = j;
 		this.visible = true;
-		// TODO Make width dynamic
-		this.upButton = new GenericUpButton(x, y, width, ScreenReference.charHeight + (10 * ScreenReference.scale), true, new IMouseReliant() {
-			
+		
+		this.upButton = new GenericUpButton(this.x + width - 20 * ScreenReference.scale, this.y, true, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
-				System.out.println("GenericJobAssignmentWindow.GenericJobAssignmentWindow(...).new IMouseReliant() {...}.onMouseEvent()");
 				VillageScreen.getVillage().increaseJob(j);
 				return false;
 			}
 		});
-		this.downButton = new GenericDownButton(x, y, width, ScreenReference.charHeight + (10 * ScreenReference.scale), true, new IMouseReliant() {
-			
+		
+		this.downButton = new GenericDownButton(this.x + width - 20 * ScreenReference.scale, this.y + 20 * ScreenReference.scale, true, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
-				System.out.println("GenericJobAssignmentWindow.GenericJobAssignmentWindow(...).new IMouseReliant() {...}.onMouseEvent()");
 				VillageScreen.getVillage().decreaseJob(j);
 				return false;
 			}
@@ -82,7 +80,9 @@ public class GenericJobAssignmentWindow extends Window {
 		g.setColor(Color.WHITE);
 		g.drawRect(x, y, width, height);
 		
-		g.drawString(job.toString(), x + 5 * ScreenReference.scale, y + 4 + ScreenReference.charHeight);
+		g.setFont(ScreenReference.getTheFont());
+		
+		g.drawString(job.toString() + ": " + Village.getInstance().getJobDistrubution().get(job), x + 5 * ScreenReference.scale, y + 4 + ScreenReference.charHeight);
 		
 		upButton.drawUpdateableElements(g, observer);
 		downButton.drawUpdateableElements(g, observer);
@@ -94,6 +94,9 @@ public class GenericJobAssignmentWindow extends Window {
 		if (!visible) {
 			return;
 		}
+		
+		this.downButton.updateUpdateableElements(deltaTime);
+		this.upButton.updateUpdateableElements(deltaTime);
 		
 	}
 
