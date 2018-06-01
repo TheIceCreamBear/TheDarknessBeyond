@@ -72,6 +72,10 @@ public class VillageScreen extends Screen {
 		
 	}
 	
+	public static Village getVillage() {
+		return screen.village;
+	}
+	
 	public static void setVillage(Village v) {
 		screen.village = v;
 	}
