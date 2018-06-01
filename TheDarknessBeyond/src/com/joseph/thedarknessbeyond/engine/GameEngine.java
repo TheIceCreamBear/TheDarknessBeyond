@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import com.joseph.thedarknessbeyond.event.EventMaker;
-import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.IGuiElement;
@@ -26,8 +25,6 @@ import com.joseph.thedarknessbeyond.gui.windows.ScreenSelectionWindow;
 import com.joseph.thedarknessbeyond.gui.windows.StorageWindow;
 import com.joseph.thedarknessbeyond.handlers.GKELAH;
 import com.joseph.thedarknessbeyond.handlers.MouseHandler;
-import com.joseph.thedarknessbeyond.interfaces.IDrawable;
-import com.joseph.thedarknessbeyond.interfaces.IUpdateable;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
@@ -96,19 +93,6 @@ public class GameEngine {
 	private PauseMenuWindow pmw;
 	
 	private EventMaker em;
-
-	/**
-	 * ArrayList of GameObjects - to be looped over to update and draw
-	 */
-	private static ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
-	/**
-	 * Only updatable objects, looped through to update
-	 */
-	private static ArrayList<IUpdateable> updateable = new ArrayList<IUpdateable>();
-	/**
-	 * Drawable only objects
-	 */
-	private static ArrayList<IDrawable> drawable = new ArrayList<IDrawable>();
 	private static ArrayList<IGuiElement> guiElements = new ArrayList<IGuiElement>();
 	private static ArrayList<AbstractButton> buttons = new ArrayList<AbstractButton>();
 
@@ -263,14 +247,6 @@ public class GameEngine {
 			return;
 		}
 		
-		for (GameObject gameObject : gameObjects) {
-			gameObject.update(deltaTime);
-		}
-
-		for (IUpdateable upject : updateable) {
-			upject.update(deltaTime);
-		}
-		
 		for (IGuiElement gui : guiElements) {
 			gui.updateUpdateableElements(deltaTime);
 		}
@@ -285,14 +261,6 @@ public class GameEngine {
 	private void render(Graphics g, ImageObserver observer) {
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 0, ScreenReference.WIDTH, ScreenReference.HEIGHT);
-
-		for (GameObject gameObject : gameObjects) {
-			gameObject.draw(g2, observer);
-		}
-
-		for (IDrawable iDrawable : drawable) {
-			iDrawable.draw(g2, observer);
-		}
 
 		for (IGuiElement iGuiOverlay : guiElements) {
 			iGuiOverlay.drawBackground(g2, observer);
