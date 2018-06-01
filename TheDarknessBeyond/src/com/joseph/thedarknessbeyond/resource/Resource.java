@@ -1,4 +1,5 @@
-// Author: Nathan Lim
+/* Nathan Lim
+ */
 
 package com.joseph.thedarknessbeyond.resource;
 	
