@@ -188,18 +188,6 @@ public class Map {
 		// TODO
 	}
 	
-	public String[] getStrings() {
-		String[] arr = new String[map.length];
-		for (int y = 0; y < arr.length; y++) {
-			StringBuilder sb = new StringBuilder();
-			for (int x = 0; x < map[y].length; x++) {
-				sb.append(this.map[y][x].getChar());
-			}
-			arr[y] = sb.toString();
-		}
-		return arr;
-	}
-	
 	public Tile[][] getMap() {
 		return this.map;
 	}

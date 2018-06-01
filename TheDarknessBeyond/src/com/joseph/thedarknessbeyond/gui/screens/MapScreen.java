@@ -16,7 +16,6 @@ import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class MapScreen extends Screen {
 	private Map map;
-	private String[] nextArr;
 	private FontRenderContext frc;
 	private Font font;
 	private Rectangle2D r;
@@ -47,23 +46,6 @@ public class MapScreen extends Screen {
 		
 		g.setColor(Color.DARK_GRAY);
 		g.setFont(font);
-//		long start = System.nanoTime();
-		/* 
-//		 * Draw by Strings
-		Rectangle2D r = font.getStringBounds("Event Log:", frc);
-		int yOff = (int) r.getHeight() * 2 + 15 * ScreenReference.scale;
-		int xOff = 200;
-		
-		for (int i = 0; i < nextArr.length; i++) {
-			String s = nextArr[i];
-			g.drawString(s, x + xOff, y + yOff);
-			
-			Rectangle2D r0 = font.getStringBounds(s, frc);
-			yOff += r0.getHeight() - 5 * ScreenReference.scale;
-		}
-		*/
-//		/*
-//		 * Draw by chars
 		Tile[][] tiles = map.getMap();
 		char[][] chars = map.getCharArray();
 		int yOff = 100 * ScreenReference.scale;
@@ -71,18 +53,12 @@ public class MapScreen extends Screen {
 			int xOff = 100 * ScreenReference.scale;
 			for (int j = 0; j < chars[i].length; j++) {
 				if (tiles[i][j].isDiscovered() || Reference.DEBUG_MODE) {
-//					long start1 = System.nanoTime();
 					g.drawString(String.valueOf(chars[i][j]), x + xOff, y + yOff);
-//					long stop1 = System.nanoTime();
-//					System.err.println(stop1 - start1);
 				}
 				xOff += r.getHeight();
 			}
 			yOff += r.getHeight();
 		}
-//		 */
-//		long stop = System.nanoTime();
-//		System.out.println(stop - start);
 	}
 
 	@Override
@@ -90,8 +66,6 @@ public class MapScreen extends Screen {
 		if (!visible) {
 			return;
 		}
-		
-		this.nextArr = map.getStrings();
 	}
 
 	@Override
