@@ -64,6 +64,7 @@ public class GenericSelectableButton extends AbstractButton {
 		if (isMouseInElement()) {
 			this.displayToolTip(g);
 		}
+		
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		Rectangle2D r = font.getStringBounds(text, frc);

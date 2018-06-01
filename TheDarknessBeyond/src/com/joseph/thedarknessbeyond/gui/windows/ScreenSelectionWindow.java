@@ -8,6 +8,7 @@ import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gui.Screen;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
+import com.joseph.thedarknessbeyond.gui.screens.MapScreen;
 import com.joseph.thedarknessbeyond.gui.screens.RoomScreen;
 import com.joseph.thedarknessbeyond.gui.screens.TravelScreen;
 import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
@@ -15,6 +16,7 @@ import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class ScreenSelectionWindow extends Window {
+	private static ScreenSelectionWindow instance;
 	private Screen[] screens;
 	private GenericSelectableButton[] buttons;
 	private int selectedIndex;
@@ -23,6 +25,8 @@ public class ScreenSelectionWindow extends Window {
 		super(x, y, width, height);
 		this.initScreens();
 		this.initButtonsToDefault();
+		
+		instance = this;
 	}
 
 	@Override
@@ -72,16 +76,28 @@ public class ScreenSelectionWindow extends Window {
 		// NO-OP
 	}
 	
+	public void depart() {
+		this.refocousSelection(3);
+	}
+	
 	private void refocousSelection(int newIndex) {
-		this.buttons[this.selectedIndex].deslecet();
+		if (this.selectedIndex != 4) {
+			this.buttons[this.selectedIndex].deslecet();
+		}
+		this.screens[selectedIndex].hide();
+		this.screens[newIndex].show();
 		this.selectedIndex = newIndex;
 	}
 	
 	private void initScreens() {
-		this.screens = new Screen[3];
+		this.screens = new Screen[4];
 		this.screens[0] = new RoomScreen(x, y, width, height);
 		this.screens[1] = new VillageScreen(x, y, width, height);
 		this.screens[2] = new TravelScreen(x, y, width, height);
+		this.screens[3] = new MapScreen(x, y, width, height);
+		for (int i = 1; i < screens.length; i++) {
+			this.screens[i].hide();
+		}
 	}
 	
 	private void initButtonsToDefault() {
@@ -114,11 +130,15 @@ public class ScreenSelectionWindow extends Window {
 			}
 		});
 		xOff += this.buttons[2].getWidth0() + (yOff * 2);
-				
-		this.buttons[0].select();
+		
+		this.refocousSelection(0);
 		
 		for (int i = 0; i < buttons.length; i++) {
 			GameEngine.getInstance().addButton(this.buttons[i]);
 		}
+	}
+	
+	public static ScreenSelectionWindow getInstance() {
+		return instance;
 	}
 }

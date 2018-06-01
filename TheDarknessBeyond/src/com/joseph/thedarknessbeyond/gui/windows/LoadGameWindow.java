@@ -52,7 +52,7 @@ public class LoadGameWindow extends Window {
 		}
 		maxL *= ScreenReference.charWidth;
 		maxL += 15 * ScreenReference.scale;
-		int h = ((int) r.getHeight() + 10 * ScreenReference.scale) * (files.length + 1);
+		int h = ((int) r.getHeight() + 12 * ScreenReference.scale) * (files.length + 1);
 //		super.resetDimensions(ScreenRefrence.WIDTH / 2 - (maxL / 2), ScreenRefrence.HEIGHT / 2 - (h / 2), maxL, h, true);
 //		super.resetDimensions(600, 400, maxL, h, true);
 		super.resetDimensions(1100 * ScreenReference.scale, ScreenReference.HEIGHT / 2 - (h / 2), maxL, h, true);

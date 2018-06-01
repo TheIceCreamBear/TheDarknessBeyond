@@ -8,35 +8,73 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 
+import javax.swing.JButton;
+
 import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.event.Event;
+import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
-import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
+import com.joseph.thedarknessbeyond.gui.ToolTip;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
+import com.joseph.thedarknessbeyond.resource.EnumResource;
+import com.joseph.thedarknessbeyond.resource.Resource;
+import com.joseph.thedarknessbeyond.resource.StorageManager;
+
 
 public class CollectWood extends AbstractButton {
-	private IMouseReliant imr;
 	private FontRenderContext frc;
 	private Font font;
 	private String text;
+	private ToolTip tt;
 	private boolean mouseInSelf;
 	private boolean mouseInSelfPrevious;
+	private boolean selected;
+	private StorageManager std;
+	private int cooldown;
+	private final int maxCooldown;
 	
-	public CollectWood(int x, int y, String s, boolean scaled, IMouseReliant imr) {
-		super(x, y, (int) ScreenReference.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (2 * ScreenReference.scale), (int) ScreenReference.getUnderlinedFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (5 * ScreenReference.scale), scaled);
+	public CollectWood(int x, int y, String s, boolean scaled) {
+		this(x, y, s, scaled,null);
+	}
+	
+	public CollectWood(int x, int y, String s, boolean scaled, ToolTip tt) {
+		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
 		this.text = s;
 		this.frc = GameEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
-		this.imr = imr;
+		this.std = StorageManager.getInstance();
 		
+		this.cooldown = 0;
+		this.maxCooldown = 600;
+		
+		if (tt == null) {
+			this.tt = ToolTip.NULL;
+		} else {
+			this.tt = tt;
+		}
 	}
-	
+
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
 		if (!visible) {
 			return;
 		}
 		
-		g.drawRect(x, y, width, height);
+		if (this.cooldown > 0) {
+			g.setColor(Color.DARK_GRAY);
+			g.drawRect(x , y , width, height);
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(x + 1, y + 1, cooldown * (width - 2) / maxCooldown,  height - 1);
+			
+		} else {
+		
+			g.setColor(Color.WHITE);
+			g.drawRect(x, y, width, height);
+			g.setColor(Color.DARK_GRAY);
+			g.fillRect(x + 1, y + 1, width - 1, height - 1);
+			
+		}
+	
 	}
 	
 	@Override
@@ -44,21 +82,32 @@ public class CollectWood extends AbstractButton {
 		if (!visible) {
 			return;
 		}
-		
-		if (isMouseInElement()) {
-//			this.displayToolTip(g);
+		if (this.cooldown > 0) {
+			g.setColor(Color.DARK_GRAY);
 		}
-		g.setColor(Color.WHITE);
+		else {
+			g.setColor(Color.WHITE);
+		}
 		g.setFont(font);
 		Rectangle2D r = font.getStringBounds(text, frc);
-		int yOff = (int) r.getHeight();
+		int yOff = (int) Math.abs(r.getY()) + 2 * ScreenReference.scale;
 		int xOff = 5;
 		g.drawString(text, x + xOff, y + yOff);
+		
+		if (isMouseInElement()) {
+			this.displayToolTip(g);
+			
+		}
 	}
 	
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
 		if (!visible) {
+			return;
+		}
+		
+		if (this.cooldown > 0) {
+			this.cooldown--;
 			return;
 		}
 		
@@ -71,22 +120,21 @@ public class CollectWood extends AbstractButton {
 				GameEngine.getInstance().setDefaultMouse();
 			}
 		}
-		if (this.mouseInSelf) {
+		if (this.mouseInSelf || this.selected) {
 			this.font = ScreenReference.getUnderlinedFont();
 		} else {
 			this.font = ScreenReference.getTheFont();
 		}
-			
 	}
 	
 	@Override
 	public void displayToolTip(Graphics g) {
-		
+		tt.draw(g);
 	}
 	
 	@Override
 	public boolean onMouseEvent(MouseEvent e) {
-		if (!visible) {
+		if (!visible || cooldown > 0) {
 			return false;
 		}
 		
@@ -94,13 +142,34 @@ public class CollectWood extends AbstractButton {
 		int y = e.getY();
 		// Check mouse is in element on click
 		if (x >= this.x && x <= (this.x +this.width) && y >= this.y && y <= (this.y +this.height)) {
-			imr.onMouseEvent(e);
 			GameEngine.getInstance().releaseFocous();
+			GameEngine.getInstance().setDefaultMouse();
+			this.mouseInSelf = false;
+	
+			Resource wood = new Resource(EnumResource.Wood, 20);
+			std.addResource(wood);
+			
+			EventBus.EVENT_BUS.post(new Event("Cutting down trees and picking up sticks seems to be pretty useful."));
+			
+			this.cooldown = maxCooldown;
+			
 			return true;
-		}
+		}	
 		return false;
 	}
 	
+	public void deslecet() {
+		this.selected = false;
+	}
+	
+	public void select() {
+		this.selected = true;
+	}
+	
+	/**
+	 * Gets the width of the button, but does not override {@link JButton#getWidth()} 
+	 * @return
+	 */
 	public int getWidth0() {
 		return this.width;
 	}

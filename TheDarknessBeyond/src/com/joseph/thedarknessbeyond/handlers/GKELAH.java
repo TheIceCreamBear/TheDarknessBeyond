@@ -2,9 +2,12 @@ package com.joseph.thedarknessbeyond.handlers;
 
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import com.joseph.thedarknessbeyond.gameobject.map.Map;
+import com.joseph.thedarknessbeyond.gui.screens.MapScreen;
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
 import com.joseph.thedarknessbeyond.gui.windows.PauseMenuWindow;
 import com.joseph.thedarknessbeyond.reference.Reference;
@@ -30,6 +33,7 @@ public class GKELAH implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		if (ConsoleWindow.getInstance().isVisible()) {
 			ConsoleWindow.getInstance().notifyKeyTyped(e);
+			return;
 		}
 	}
 	
@@ -41,6 +45,7 @@ public class GKELAH implements KeyListener {
 		
 		if (e.getKeyCode() == KeyEvent.VK_F1) {
 			Reference.DEBUG_MODE = !Reference.DEBUG_MODE;
+			return;
 		}
 		
 		if (PauseMenuWindow.getInstance().isVisible()) {
@@ -50,6 +55,7 @@ public class GKELAH implements KeyListener {
 					return;
 				}
 				PauseMenuWindow.getInstance().hide();
+				return;
 			}
 			return;
 		}
@@ -66,14 +72,37 @@ public class GKELAH implements KeyListener {
 				return;
 			} else {
 				ConsoleWindow.getInstance().notifyKeyPressed(e);
+				return;
 			}
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//			System.exit(0);
 			PauseMenuWindow.getInstance().show();
 		}
 		
+		if (MapScreen.getInstance().isVisible()) {
+			switch (e.getKeyCode()) {
+				case KeyEvent.VK_UP:
+				case KeyEvent.VK_W:
+					Map.getInstance().movePlayerUp();
+					break;
+				case KeyEvent.VK_DOWN:
+				case KeyEvent.VK_S:
+					Map.getInstance().movePlayerDown();
+					break;
+				case KeyEvent.VK_LEFT:
+				case KeyEvent.VK_A:
+					Map.getInstance().movePlayerLeft();
+					break;
+				case KeyEvent.VK_RIGHT:
+				case KeyEvent.VK_D:
+					Map.getInstance().movePlayerRight();
+					break;
+				default:
+					break;
+			}
+			
+		}
 		
 	}
 	
