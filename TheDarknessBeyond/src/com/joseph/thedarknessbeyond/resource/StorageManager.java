@@ -26,7 +26,6 @@ public class StorageManager {
 		instance = this;
 	}
 	
-	//Initializes a StorageManager object, if no HashMaps are passed in
 	public void init() {
 		EnumResource[] v = EnumResource.values();
 		for (int i = 0; i < v.length; i++) {
