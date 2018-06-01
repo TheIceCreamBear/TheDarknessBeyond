@@ -20,7 +20,7 @@ public class VillageScreen extends Screen {
 	private ScavengePlantsButton gatherPlantsButton;
 	
 	public VillageScreen(int x, int y, int width, int height) {
-		super(x, y, width, height);
+		super(x, y, width, height, true);
 		this.village = new Village();
 		
 		

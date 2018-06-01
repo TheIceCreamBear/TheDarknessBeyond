@@ -32,6 +32,8 @@ public class Reference {
 		
 		public static final Font DEFAULT_FONT = new Font("Consolas", 0, 20);
 		public static final Font SCALED_UP_FONT = new Font("Consolas", 0, 40);
+		public static final Font MAP_FONT = new Font("Consolas", 0, 14);
+		public static final Font SCALED_UP_MAP_FONT = new Font("Consolas", 0, 28);
 		public static Font DEFAULT_UNDERLINED_FONT;
 		public static Font SCALED_UP_UNDERLINED_FONT;
 	}
