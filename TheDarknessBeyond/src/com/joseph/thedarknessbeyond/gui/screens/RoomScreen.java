@@ -12,7 +12,7 @@ public class RoomScreen extends Screen {
 	private GenericBuildButton[] buttons; 
 	
 	public RoomScreen(int x, int y, int width, int height) {
-		super(x, y, width, height);
+		super(x, y, width, height, true);
 		buttons = new GenericBuildButton[14];
 		EnumBuilding[] values = EnumBuilding.values();
 		buttons[0] = new GenericBuildButton(x + 100, y + 150, EnumBuilding.Hut);
