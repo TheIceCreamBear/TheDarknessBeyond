@@ -9,7 +9,6 @@ import com.joseph.thedarknessbeyond.gameobject.map.Map;
 import com.joseph.thedarknessbeyond.gui.screens.MapScreen;
 import com.joseph.thedarknessbeyond.gui.windows.ConsoleWindow;
 import com.joseph.thedarknessbeyond.gui.windows.PauseMenuWindow;
-import com.joseph.thedarknessbeyond.reference.Reference;
 
 /**
  * GKELAH, or GlobalKeyEventHandlerAndListener, is a key event handler that listens for all
@@ -36,14 +35,14 @@ public class GKELAH implements KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_F2) {
-			System.exit(0);
-		}
-		
-		if (e.getKeyCode() == KeyEvent.VK_F1) {
-			Reference.DEBUG_MODE = !Reference.DEBUG_MODE;
-			return;
-		}
+//		if (e.getKeyCode() == KeyEvent.VK_F2) {
+//			System.exit(0);
+//		}
+//		
+//		if (e.getKeyCode() == KeyEvent.VK_F1) {
+//			Reference.DEBUG_MODE = !Reference.DEBUG_MODE;
+//			return;
+//		}
 		
 		if (PauseMenuWindow.getInstance().isVisible()) {
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
