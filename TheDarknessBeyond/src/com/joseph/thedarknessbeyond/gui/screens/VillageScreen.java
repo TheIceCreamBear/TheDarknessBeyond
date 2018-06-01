@@ -1,10 +1,13 @@
 package com.joseph.thedarknessbeyond.gui.screens;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
+import java.util.HashMap;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gameobject.Village;
+import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumJob;
 import com.joseph.thedarknessbeyond.gui.Screen;
 import com.joseph.thedarknessbeyond.gui.buttons.CollectWood;
@@ -81,8 +84,23 @@ public class VillageScreen extends Screen {
 		gatherStoneButton.drawUpdateableElements(g, observer);
 		gatherPlantsButton.drawUpdateableElements(g, observer);
 		
+		g.setFont(ScreenReference.getTheFont());
+		g.setColor(Color.white);
+		g.drawString("Jobs: ", x + 300 * ScreenReference.scale, y + 80 * ScreenReference.scale);
+		
 		for (int i = 0; i < assignments.length; i++) {
 			assignments[i].drawUpdateableElements(g, observer);
+		}
+		
+		EnumBuilding[] buildings = EnumBuilding.values();
+		HashMap<EnumBuilding, Integer> map = village.getBuildingCount();
+		g.setFont(ScreenReference.getTheFont());
+		g.setColor(Color.white);
+		int xOff = 600 * ScreenReference.scale;
+		int yOff = 100 * ScreenReference.scale;
+		for (int i = 0; i < buildings.length; i++) {
+			g.drawString(buildings[i] + ": " + map.get(buildings[i]), x + xOff, y + yOff);
+			yOff += ScreenReference.charHeight + 10 * ScreenReference.scale;
 		}
 	}
 	
