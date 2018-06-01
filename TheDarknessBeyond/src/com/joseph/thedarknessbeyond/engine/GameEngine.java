@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import com.joseph.thedarknessbeyond.event.EventMaker;
 import com.joseph.thedarknessbeyond.gameobject.GameObject;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
@@ -93,6 +94,8 @@ public class GameEngine {
 	private boolean handCursor;
 	
 	private PauseMenuWindow pmw;
+	
+	private EventMaker em;
 
 	/**
 	 * ArrayList of GameObjects - to be looped over to update and draw
@@ -201,6 +204,8 @@ public class GameEngine {
 		
 		this.pmw = new PauseMenuWindow();
 		
+		this.em = new EventMaker();
+		
 		// Start adding here
 		new StorageManager();
 		this.addNewElement(new ScreenSelectionWindow(510, 0, ScreenReference.WIDTH / ScreenReference.scale, ScreenReference.HEIGHT - 1));
@@ -251,6 +256,8 @@ public class GameEngine {
 	 *            update methods of each object)
 	 */
 	private void update(double deltaTime) {
+		em.update();
+		
 		if (pmw.isVisible()) {
 			pmw.updateUpdateableElements(deltaTime);
 			return;

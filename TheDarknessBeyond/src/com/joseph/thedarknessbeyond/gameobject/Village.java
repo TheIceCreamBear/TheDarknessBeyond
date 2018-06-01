@@ -3,6 +3,8 @@ package com.joseph.thedarknessbeyond.gameobject;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.joseph.thedarknessbeyond.event.Event;
+import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.resource.EnumResource;
 import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
@@ -49,14 +51,23 @@ public class Village {
 		}
 	}
 	
+	public int maxGainableVillagers() {
+		return canGainNewVillagers(3) ? 3 : this.numMaxResidents - numResidents;
+	}
+	
+	public boolean canGainNewVillagers(int numGained) {
+		return this.numResidents + numGained <= this.numMaxResidents;
+	}
+	
 	public boolean gainNewVilagers(int numGained) {
-		if (this.numResidents + numGained <= this.numMaxResidents) {
+		if (this.canGainNewVillagers(numGained)) {
 			Integer i = jobDistrubution.get(EnumJob.Idiling);
 			i += numGained;
 			jobDistrubution.put(EnumJob.Idiling, i);
 			if (!this.verifyResidentsEqual()) {
 				// TODO DO SOMETHING
 			}
+			EventBus.EVENT_BUS.post(new Event(numGained + " villagers setteled in your village."));
 			return true;
 		} else {
 			return false;
