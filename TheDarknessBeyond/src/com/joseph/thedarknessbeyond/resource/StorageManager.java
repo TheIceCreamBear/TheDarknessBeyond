@@ -1,3 +1,6 @@
+/* Nathan Lim, streamlined by Joseph Terrible
+ */
+
 package com.joseph.thedarknessbeyond.resource;
 
 import java.util.HashMap;
@@ -23,6 +26,7 @@ public class StorageManager {
 		instance = this;
 	}
 	
+	//Initializes a StorageManager object, if no HashMaps are passed in
 	public void init() {
 		EnumResource[] v = EnumResource.values();
 		for (int i = 0; i < v.length; i++) {
@@ -67,6 +71,7 @@ public class StorageManager {
 		return flag;
 	}
 	
+	//Checks to make sure that the appropriate resources can be allocated from the storage
 	public boolean canUseResources(Resource... resources) {
 		return this.useResources(true, resources);
 	}

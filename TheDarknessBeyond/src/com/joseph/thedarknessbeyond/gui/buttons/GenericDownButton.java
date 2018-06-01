@@ -1,16 +1,29 @@
+/* Nathan Lim
+ */
+
 package com.joseph.thedarknessbeyond.gui.buttons;
 
 import java.awt.Graphics;
+import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
+import com.joseph.thedarknessbeyond.event.Event;
+import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
+import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
+import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 
 public class GenericDownButton extends AbstractButton {
+	private static final Polygon TRIANGLE = new Polygon(new int[] {10, 20, 0}, new int[] {20, 0, 0}, 3);
+	private Polygon triangle;
+	private IMouseReliant imr;
 
-	public GenericDownButton(int x, int y, int width, int height, boolean scaled) {
-		super(x, y, width, height, scaled);
-		// TODO Auto-generated constructor stub
+	public GenericDownButton(int x, int y, int width, int height, boolean scaled, IMouseReliant imr) {
+		super(x, y, 20, 20, scaled);
+		triangle = new Polygon(TRIANGLE.xpoints, TRIANGLE.ypoints, TRIANGLE.npoints);
+		triangle.translate(x + width - 20, y + 20);
+		this.imr = imr;
 	}
 
 	@Override
@@ -21,7 +34,7 @@ public class GenericDownButton extends AbstractButton {
 
 	@Override
 	public void drawUpdateableElements(Graphics g, ImageObserver observer) {
-		// TODO Auto-generated method stub
+		g.drawPolygon(triangle);
 		
 	}
 
@@ -39,8 +52,19 @@ public class GenericDownButton extends AbstractButton {
 	
 	@Override
 	public boolean onMouseEvent(MouseEvent e) {
-		// TODO Auto-generated method stub
-		return false;
+		if (!visible) {
+			return false;
+		}
+		
+		int x = e.getX();
+		int y = e.getY();
+		// Check mouse is in element on click
+		if (x >= this.x && x <= (this.x +this.width) && y >= this.y && y <= (this.y +this.height)) {
+			
+			return true;
+		}
+	
+		return false;	
 	}
 	
 }

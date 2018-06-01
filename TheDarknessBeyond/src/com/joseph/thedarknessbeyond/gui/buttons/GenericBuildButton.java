@@ -1,3 +1,6 @@
+/* Nathan Lim
+ */
+
 package com.joseph.thedarknessbeyond.gui.buttons;
 
 import java.awt.Color;
