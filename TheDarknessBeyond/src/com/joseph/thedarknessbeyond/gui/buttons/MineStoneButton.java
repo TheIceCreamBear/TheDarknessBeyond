@@ -21,7 +21,7 @@ import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
 
 
-public class HuntAnimalsButton extends AbstractButton {
+public class MineStoneButton extends AbstractButton {
 	private FontRenderContext frc;
 	private Font font;
 	private String text;
@@ -33,11 +33,11 @@ public class HuntAnimalsButton extends AbstractButton {
 	private int cooldown;
 	private final int maxCooldown;
 	
-	public HuntAnimalsButton(int x, int y, String s, boolean scaled) {
+	public MineStoneButton(int x, int y, String s, boolean scaled) {
 		this(x, y, s, scaled,null);
 	}
 	
-	public HuntAnimalsButton(int x, int y, String s, boolean scaled, ToolTip tt) {
+	public MineStoneButton(int x, int y, String s, boolean scaled, ToolTip tt) {
 		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
 		this.text = s;
 		this.frc = GameEngine.getInstance().getFrc();
@@ -45,7 +45,7 @@ public class HuntAnimalsButton extends AbstractButton {
 		this.std = StorageManager.getInstance();
 		
 		this.cooldown = 0;
-		this.maxCooldown = 800;
+		this.maxCooldown = 1200;
 		
 		if (tt == null) {
 			this.tt = ToolTip.NULL;
@@ -146,13 +146,10 @@ public class HuntAnimalsButton extends AbstractButton {
 			GameEngine.getInstance().setDefaultMouse();
 			this.mouseInSelf = false;
 	
-			Resource fur = new Resource(EnumResource.Fur, 3);
-			std.addResource(fur);
+			Resource stone = new Resource(EnumResource.Stone, 10);
+			std.addResource(stone);
 			
-			Resource meat = new Resource(EnumResource.Meat, 4);
-			std.addResource(meat);
-			
-			EventBus.EVENT_BUS.post(new Event("Killing animals suck, but their fur and meat sure do come in handy!"));
+			EventBus.EVENT_BUS.post(new Event("*Sweat drips down your face* I hope its useful."));
 			
 			this.cooldown = maxCooldown;
 			
