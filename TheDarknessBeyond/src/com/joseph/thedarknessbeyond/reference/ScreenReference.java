@@ -38,6 +38,10 @@ public class ScreenReference {
 		charHeight = 23 * scale;
 	}
 	
+	public static Font getMapFont() {
+		return (scale == 2) ? Reference.Fonts.SCALED_UP_MAP_FONT : Reference.Fonts.MAP_FONT;
+	}
+	
 	public static Font getTheFont() {
 		return (scale == 2) ? Reference.Fonts.SCALED_UP_FONT : Reference.Fonts.DEFAULT_FONT;
 	}

@@ -8,7 +8,7 @@ import com.joseph.thedarknessbeyond.gui.Screen;
 public class RoomScreen extends Screen {
 
 	public RoomScreen(int x, int y, int width, int height) {
-		super(x, y, width, height);
+		super(x, y, width, height, true);
 	}
 
 	@Override
