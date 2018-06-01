@@ -1,6 +1,3 @@
-/* Nathan Lim
- */
-
 package com.joseph.thedarknessbeyond.gui.screens;
 
 import java.awt.Graphics;
@@ -14,14 +11,16 @@ import com.joseph.thedarknessbeyond.gui.buttons.GenericCraftButton;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.EnumItem;
 
+/**
+ * the First screen the player sees. contains the crafting and building
+ * @author Nathan
+ *
+ */
 public class RoomScreen extends Screen {
 	private GenericBuildButton[] buttons; 
 	private GenericCraftButton[] crafters;
+
 	
-	/* When first running the game, you are placed in the room screen. In this screen, each building that can be made is displayed. 
-	   When the user's mouse is hovered over the buttons, a cost will be displayed underneath, showing you how of a specific resource
-	   it takes to build it. 
-	*/
 	public RoomScreen(int x, int y, int width, int height) {
 		super(x, y, width, height, true);
 		buttons = new GenericBuildButton[14];

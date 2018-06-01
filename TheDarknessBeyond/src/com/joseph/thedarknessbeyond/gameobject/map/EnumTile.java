@@ -1,5 +1,10 @@
 package com.joseph.thedarknessbeyond.gameobject.map;
 
+/**
+ * Specifies all of the possible tile types
+ * @author Joseph
+ *
+ */
 public enum EnumTile {
 	// Null
 	Null(' ', -1 , -1, -1),
@@ -58,10 +63,18 @@ public enum EnumTile {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return - an array of tiles that are deemed as "terrain"
+	 */
 	public static EnumTile[] terrain() {
 		return new EnumTile[] {EnumTile.Forest, EnumTile.Field, EnumTile.Barrens};
 	}
 	
+	/**
+	 * 
+	 * @return - an array of tiles that are deemed as "landmakrs"
+	 */
 	public static EnumTile[] landmarks() {
 		return new EnumTile[] {EnumTile.House, EnumTile.Cave, EnumTile.Town, EnumTile.City, EnumTile.Battlefield, EnumTile.IronMine, EnumTile.CoalMine};
 	}

@@ -1,8 +1,10 @@
-/* Nathan Lim
- */
-
 package com.joseph.thedarknessbeyond.resource;
-	
+
+/**
+ * object representation of {@link EnumResource}
+ * @author Nathan
+ *
+ */
 public class Resource {
 	// TODO make generic type
 	private EnumResource eResource;
@@ -46,7 +48,7 @@ public class Resource {
 	
 	/**
 	 * 
-	 * @param r1
+	 * @param r1 - the resource
 	 * @param simulate - weather or not the resource should actually be subtracted or only the checks should be run only.
 	 * @return
 	 */
@@ -69,6 +71,11 @@ public class Resource {
 		return this.eResource.toString() + ": " + this.amount;
 	}
 	
+	/**
+	 * loads a new Resource from the given String. Used in file loading
+	 * @param s - the string
+	 * @return - the new resource
+	 */
 	public static Resource fromString(String s) {
 		String[] arr = s.split(": ");
 		return new Resource(EnumResource.valueOf(arr[0]), Integer.parseInt(arr[1]));

@@ -18,6 +18,11 @@ import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.FileSaveSystem;
 
+/**
+ * The window that pauses the game and has the buttons associated with pausing a game
+ * @author Joseph
+ *
+ */
 public class PauseMenuWindow extends Window {
 	private static PauseMenuWindow instance;
 	

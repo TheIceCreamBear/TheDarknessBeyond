@@ -4,6 +4,11 @@ import com.joseph.thedarknessbeyond.gui.buttons.GenericBuildButton;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
+/**
+ * Object realization of the {@link IGuiElement} interface. Top level class, handles position and visible
+ * @author Joseph
+ *
+ */
 public abstract class GuiElement implements IGuiElement {
 	protected boolean visible;
 	protected int x;
@@ -39,6 +44,14 @@ public abstract class GuiElement implements IGuiElement {
 		}
 	}
 	
+	/**
+	 * resets the dimensions of the element to the given params
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param scaled
+	 */
 	protected void resetDimensions(int x, int y, int width, int height, boolean scaled) {
 		if (scaled || ScreenReference.scale == 1) {
 			this.x = x;

@@ -1,10 +1,10 @@
-/* Nathan Lim
- */
-
 package com.joseph.thedarknessbeyond.resource;
 
-// This shows you all of the resources in the game
-
+/**
+ * specifies all the possible Resources
+ * @author Nathan
+ *
+ */
 public enum EnumResource {
 	Invalid,
 	// Material

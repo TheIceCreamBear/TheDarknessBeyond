@@ -16,6 +16,11 @@ import com.joseph.thedarknessbeyond.resource.EnumResource;
 import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
 
+/**
+ * The windo that shows what is in the sotres
+ * @author Nathan
+ *
+ */
 public class StorageWindow extends Window {
 	private FontRenderContext frc;
 	private Font font;

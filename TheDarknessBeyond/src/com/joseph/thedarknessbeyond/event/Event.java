@@ -1,5 +1,11 @@
 package com.joseph.thedarknessbeyond.event;
 
+/**
+ * Simple event class
+ * 
+ * @author Joseph
+ *
+ */
 public class Event {
 	private String s;
 	

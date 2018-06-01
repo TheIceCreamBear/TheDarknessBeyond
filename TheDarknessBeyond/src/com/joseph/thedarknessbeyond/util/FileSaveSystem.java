@@ -22,14 +22,42 @@ import com.joseph.thedarknessbeyond.resource.ItemStack;
 import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
 
+/**
+ * The class responsible for ALL file IO
+ * @author Joseph
+ *
+ */
 public class FileSaveSystem {
+	/**
+	 * the file object of the file that contains prefrences
+	 */
 	private static File prefrencesFile;
+	
+	/**
+	 * the file that holds a blank game
+	 */
 	private static File newGameFile;
+	
+	/**
+	 * scanner for the preferences file
+	 */
 	private static Scanner prefrencesScanner;
+	
+	/**
+	 * writer for the prefrences file
+	 */
 	private static PrintWriter prefrencesWriter;
+	
+	/**
+	 * string representation of the file that was last saved/loaded
+	 */
 	private static String continueLocation;
+	
 	private static final String saveVersionString = "SaveSystemVersion:0.2";
 	
+	/**
+	 * initializes the File system
+	 */
 	public static void init() {
 		prefrencesFile = new File(System.getProperty("user.home") + "/TheDarknessBeyond/prefrences.dat");
 		if (!prefrencesFile.exists()) {
@@ -80,6 +108,10 @@ public class FileSaveSystem {
 		
 	}
 	
+	/**
+	 * 
+	 * @return - and array with all the possilbe save games to load
+	 */
 	public static File[] getPossibleLoadableFiles() {
 		File tmp = new File(System.getProperty("user.home") + "/TheDarknessBeyond/saves/tmp.tmp");
 		if (!tmp.exists()) {
@@ -107,10 +139,19 @@ public class FileSaveSystem {
 		return f1;
 	}
 	
+	/**
+	 * continues the game from the last loaded/saved game
+	 * @throws Exception
+	 */
 	public static void contineGame() throws Exception {
 		loadGame(new File(continueLocation));
 	}
 	
+	/**
+	 * Loads the game form the given file
+	 * @param f - the file
+	 * @throws Exception
+	 */
 	public static void loadGame(File f) throws Exception {
 		if (f == null || f.getAbsolutePath().lastIndexOf('.') == -1 || f.isDirectory()) {
 			throw new RuntimeException("Error: INVALID SAVE LOCATION");
@@ -211,15 +252,30 @@ public class FileSaveSystem {
 		scan.close();
 	}
 	
+	/**
+	 * save the game into the autosave file
+	 * @throws Exception
+	 */
 	public static void autoSaveGame() throws Exception {
 		saveGame(new File(System.getProperty("user.home") + "/TheDarknessBeyond/saves/autoSave.tdbSave"));
 	}
 	
+	/**
+	 * save the game in the save location with the given name
+	 * @param name - the name
+	 * @throws Exception
+	 */
 	public static void saveGame(String name) throws Exception {
 		saveGame(new File(System.getProperty("user.home") + "/TheDarknessBeyond/saves/" + name + ".tdbSave"));
 	}
 	
-	public static void saveGame(File f) throws Exception {
+	
+	/**
+	 * does the actual saving of the game
+	 * @param f - the file
+	 * @throws Exception
+	 */
+	private static void saveGame(File f) throws Exception {
 		if (f == null || f.getAbsolutePath().lastIndexOf('.') == -1 || f.isDirectory()) {
 			throw new RuntimeException("Error: INVALID SAVE LOCATION");
 		}
@@ -303,6 +359,11 @@ public class FileSaveSystem {
 		PauseMenuWindow.getInstance().notifyNewFiles(getPossibleLoadableFiles());
 	}
 	
+	/**
+	 * marks the given file as the last edited file
+	 * @param f - the file
+	 * @throws IOException
+	 */
 	private static void markNewContinueLocation(File f) throws IOException {
 		if (!f.exists()) {
 			throw new IllegalArgumentException("Some programmer called this method on a non existant file. Report this bug and wait for an update.");

@@ -10,9 +10,15 @@ import java.util.ArrayList;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.event.Event;
+import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
+/**
+ * The window that shows all of the events that get fired on the {@link EventBus}
+ * @author Joseph
+ *
+ */
 public class EventWindow extends Window {
 	private ArrayList<LoggedEvent> events;
 	private FontRenderContext frc;

@@ -17,6 +17,11 @@ import com.joseph.thedarknessbeyond.resource.EnumItem;
 import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
 
+/**
+ * A generic button that crafts the given item
+ * @author Joseph
+ *
+ */
 public class GenericCraftButton extends AbstractButton {
 	private FontRenderContext frc;
 	private Font font;

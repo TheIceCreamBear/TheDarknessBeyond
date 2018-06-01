@@ -13,6 +13,11 @@ import com.joseph.thedarknessbeyond.gui.buttons.GenericCoolDownButton;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
+/**
+ * The Window that displays the combat
+ * @author Joseph
+ *
+ */
 public class CombatWindow extends Window {
 	private Player player;
 	private Enemy enemy;

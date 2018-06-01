@@ -15,6 +15,11 @@ import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
+/**
+ * the window that selects which screen is to be shown
+ * @author Joseph
+ *
+ */
 public class ScreenSelectionWindow extends Window {
 	private static ScreenSelectionWindow instance;
 	private Screen[] screens;

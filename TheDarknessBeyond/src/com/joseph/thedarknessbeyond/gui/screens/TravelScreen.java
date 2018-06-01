@@ -10,6 +10,11 @@ import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.gui.windows.ScreenSelectionWindow;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 
+/**
+ * The Screen that you go to before you depart on a trip into the wilderness
+ * @author Joseph
+ *
+ */
 public class TravelScreen extends Screen {
 	private GenericSelectableButton depart;
 	

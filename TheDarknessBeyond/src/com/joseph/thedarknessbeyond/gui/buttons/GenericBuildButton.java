@@ -1,6 +1,3 @@
-/* Nathan Lim
- */
-
 package com.joseph.thedarknessbeyond.gui.buttons;
 
 import java.awt.Color;
@@ -20,6 +17,11 @@ import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.Resource;
 
+/**
+ * A button the is used to build the given building. It is a generic and allocates its size based of the size of the string it will draw
+ * @author Nathan
+ *
+ */
 public class GenericBuildButton extends AbstractButton {
 	private FontRenderContext frc;
 	private Font font;

@@ -1,10 +1,12 @@
-/* Nathan Lim, streamlined by Joseph Terrible
- */
-
 package com.joseph.thedarknessbeyond.resource;
 
 import java.util.HashMap;
 
+/**
+ * the class responsible for managing the storage
+ * @author Nathan Lim, streamlined by Joseph Terrible
+ *
+ */
 public class StorageManager {
 	private static StorageManager instance;
 	private HashMap<EnumResource, Resource> resources;
@@ -94,18 +96,33 @@ public class StorageManager {
 		return this.items;
 	}
 	
+	/**
+	 * adds a resource
+	 * @param r1 - the resource
+	 */
 	public void addResource(Resource r1) {
 		EnumResource er = r1.getResourceEnum();
 		Resource r = this.resources.get(er);
 		r.addResource(r1);
 	}
 	
+	/**
+	 * uses a resource
+	 * @param r1 - the resource
+	 * @return - true if successful
+	 */
 	public boolean useResource(Resource r1) {
 		EnumResource er = r1.getResourceEnum();
 		Resource r = this.resources.get(er);
 		return r.subtractResource(r1, false);
 	}
 	
+	/**
+	 * uses resources
+	 * @param simulate - should the subtraction be done
+	 * @param resources - the resources
+	 * @return - if simulate weather or not it will work when simulate is false
+	 */
 	public boolean useResources(boolean simulate, Resource... resources) {
 		if (resources == null || resources.length == 0) {
 			return true;

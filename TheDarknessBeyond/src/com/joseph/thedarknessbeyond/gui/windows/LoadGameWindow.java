@@ -16,6 +16,11 @@ import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.FileSaveSystem;
 
+/**
+ * the window that displays the available saves and loads the game
+ * @author Joseph
+ *
+ */
 public class LoadGameWindow extends Window {
 	private boolean visible;
 	private Font font;

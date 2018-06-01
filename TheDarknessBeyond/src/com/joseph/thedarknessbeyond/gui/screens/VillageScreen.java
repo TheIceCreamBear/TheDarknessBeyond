@@ -17,6 +17,12 @@ import com.joseph.thedarknessbeyond.gui.buttons.ScavengePlantsButton;
 import com.joseph.thedarknessbeyond.gui.windows.GenericJobAssignmentWindow;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
+/**
+ * the screen responsible for containing, drawing, and updating the village on the screen and internally
+ * @author Joseph
+ * @author Justin
+ *
+ */
 public class VillageScreen extends Screen {
 	private Village village;
 	private static VillageScreen screen;
@@ -24,7 +30,6 @@ public class VillageScreen extends Screen {
 	private HuntAnimalsButton gatherAnimalButton;
 	private MineStoneButton gatherStoneButton;
 	private ScavengePlantsButton gatherPlantsButton;
-	private GenericJobAssignmentWindow test;
 	private GenericJobAssignmentWindow[] assignments;
 	
 	public VillageScreen(int x, int y, int width, int height) {

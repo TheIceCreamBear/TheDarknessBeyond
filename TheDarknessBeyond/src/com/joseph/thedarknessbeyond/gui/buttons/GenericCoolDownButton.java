@@ -13,6 +13,11 @@ import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
+/**
+ * A generic type button that has a cool down and dynamically allocates its size
+ * @author Joseph
+ *
+ */
 public class GenericCoolDownButton extends AbstractButton {
 	private IMouseReliant imr;
 	private FontRenderContext frc;

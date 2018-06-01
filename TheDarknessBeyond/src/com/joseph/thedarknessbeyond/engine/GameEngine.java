@@ -33,13 +33,14 @@ import com.joseph.thedarknessbeyond.threads.RenderThread;
 import com.joseph.thedarknessbeyond.threads.ShutdownThread;
 
 /**
- * Class responsible for doing all the heavy lifting in the game. Hold the engine 
- * Algorithm and references to all objects used by the game.
+ * Class responsible for doing all the heavy lifting in the game. Hold the
+ * engine Algorithm and references to all objects used by the game.
+ * 
  * @author David Santamaria - Original Author
  * @author Joseph Terribile - Current Maintainer
  */
 public class GameEngine {
-
+	
 	/**
 	 * boolean that expressed the state of the engine, whether it is
 	 * <code> running </code> or not
@@ -54,12 +55,12 @@ public class GameEngine {
 	 * such things
 	 */
 	private static String stats = "";
-
+	
 	/**
 	 * Used to display the screen
 	 */
 	private JFrame frame;
-
+	
 	/**
 	 * First graphics instance
 	 */
@@ -74,7 +75,7 @@ public class GameEngine {
 	private BufferedImage i;
 	
 	private FontRenderContext frc;
-
+	
 	// Threads
 	private RenderLockObject rlo;
 	private RenderThread rtInstance;
@@ -86,16 +87,30 @@ public class GameEngine {
 	 */
 	private GKELAH keyHandlerInstance;
 	
+	/**
+	 * the instance of the mouse handler object
+	 */
 	private MouseHandler mouseHandlerInstace;
 	
+	/**
+	 * if the cursor is in the hand mode
+	 */
 	private boolean handCursor;
 	
+	/**
+	 * the instance of the pause menu window
+	 */
 	private PauseMenuWindow pmw;
 	
+	/**
+	 * the event maker object that handles making new random events
+	 */
 	private EventMaker em;
+	
+	// LISTS OF OBJECTS
 	private static ArrayList<IGuiElement> guiElements = new ArrayList<IGuiElement>();
 	private static ArrayList<AbstractButton> buttons = new ArrayList<AbstractButton>();
-
+	
 	/**
 	 * 
 	 * @return the instance of the GameEngine
@@ -103,7 +118,7 @@ public class GameEngine {
 	public static GameEngine getInstance() {
 		return instance;
 	}
-
+	
 	/**
 	 * 
 	 * @return state of {@link GameEngine#running GameEngine.running}
@@ -111,7 +126,7 @@ public class GameEngine {
 	public static boolean isRunning() {
 		return running;
 	}
-
+	
 	public static void main(String[] args) {
 		if (Reference.DEBUG_MODE) {
 			System.out.println(Runtime.getRuntime().maxMemory());
@@ -120,7 +135,7 @@ public class GameEngine {
 		instance = new GameEngine();
 		instance.run();
 	}
-
+	
 	/**
 	 * Starts the GameEngine
 	 */
@@ -128,14 +143,14 @@ public class GameEngine {
 		instance = new GameEngine();
 		instance.run();
 	}
-
+	
 	/**
 	 * Initializes and instantiates
 	 */
 	private GameEngine() {
 		initialize();
 	}
-
+	
 	/**
 	 * Initializes all the stuff
 	 */
@@ -152,15 +167,14 @@ public class GameEngine {
 		this.sdtInstance = new ShutdownThread();
 		Runtime.getRuntime().addShutdownHook(sdtInstance);
 		
-
 		this.frame = new JFrame("Game Template");
-//		this.frame.setBounds(-1, -1, 1, 1); // Trolololololol hehehehhe
+		// this.frame.setBounds(-1, -1, 1, 1); // Trolololololol hehehehhe
 		this.frame.setBounds(0, 0, ScreenReference.WIDTH, ScreenReference.HEIGHT);
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setUndecorated(true);
 		this.frame.setVisible(true);
-
+		
 		this.rlo = new RenderLockObject();
 		this.rtInstance = new RenderThread("RenderThread", this.rlo, this);
 		this.rtInstance.start();
@@ -170,13 +184,15 @@ public class GameEngine {
 		
 		this.mouseHandlerInstace = new MouseHandler();
 		this.frame.addMouseListener(mouseHandlerInstace);
-
+		
 		this.i = new BufferedImage(ScreenReference.WIDTH, ScreenReference.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		this.g2 = this.i.createGraphics();
 		this.g = frame.getGraphics();
+		
 		// Turn on AntiAliasing
 		if (g2 instanceof Graphics2D) {
-			((Graphics2D)g2).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			((Graphics2D) g2).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			((Graphics2D) g2).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		}
 		
 		this.frc = ((Graphics2D) g2).getFontRenderContext();
@@ -197,7 +213,7 @@ public class GameEngine {
 		this.addNewElement(new EventWindow());
 		this.addNewElement(new ConsoleWindow(0));
 		this.addNewElement(pmw);
-
+		
 		com.joseph.thedarknessbeyond.util.FileSaveSystem.postInit();
 		
 		System.gc();
@@ -205,6 +221,13 @@ public class GameEngine {
 		this.releaseFocous();
 	}
 	
+	/**
+	 * removes a button from the mouse listeners
+	 * 
+	 * @param b
+	 *            - the button
+	 * @return if the removal was successful
+	 */
 	public boolean removeButton(AbstractButton b) {
 		if (buttons.contains(b)) {
 			boolean bo = buttons.remove(b);
@@ -214,6 +237,12 @@ public class GameEngine {
 		return false;
 	}
 	
+	/**
+	 * adds a new button to listen to for mouse events
+	 * 
+	 * @param b
+	 *            - the button
+	 */
 	public void addButton(AbstractButton b) {
 		if (buttons.contains(b)) {
 			return;
@@ -222,6 +251,12 @@ public class GameEngine {
 		this.mouseHandlerInstace.registerMouseReliant(b);
 	}
 	
+	/**
+	 * adds a new element to the elements list
+	 * 
+	 * @param e
+	 *            - the element
+	 */
 	private void addNewElement(IGuiElement e) {
 		if (guiElements.contains(e)) {
 			return;
@@ -232,11 +267,12 @@ public class GameEngine {
 			this.addButton((AbstractButton) e);
 		}
 	}
-
+	
 	/**
 	 * Loops through all the updatables and updates them
 	 * 
-	 * @param deltaTime - Time between each frame (used to evaluate things within
+	 * @param deltaTime
+	 *            - Time between each frame (used to evaluate things within
 	 *            update methods of each object)
 	 */
 	private void update(double deltaTime) {
@@ -251,22 +287,24 @@ public class GameEngine {
 			gui.updateUpdateableElements(deltaTime);
 		}
 	}
-
+	
 	/**
 	 * Loops through all the Drawables and draws them
 	 * 
-	 * @param g - Graphics instance to draw upon
-	 * @param observer - observer to put graphics instance upon
+	 * @param g
+	 *            - Graphics instance to draw upon
+	 * @param observer
+	 *            - observer to put graphics instance upon
 	 */
 	private void render(Graphics g, ImageObserver observer) {
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 0, ScreenReference.WIDTH, ScreenReference.HEIGHT);
-
+		
 		for (IGuiElement iGuiOverlay : guiElements) {
 			iGuiOverlay.drawBackground(g2, observer);
 			iGuiOverlay.drawUpdateableElements(g2, observer);
 		}
-
+		
 		if (Reference.DEBUG_MODE) {
 			g2.setColor(Color.GREEN);
 			if (ScreenReference.scale == 2) {
@@ -288,23 +326,23 @@ public class GameEngine {
 					r = Reference.Fonts.DEFAULT_FONT.getStringBounds(s, frc);
 				}
 				int yOff = (int) r.getHeight();
-//				System.err.println(s + "," + p.x + "," + (p.y+ yOff));
+				// System.err.println(s + "," + p.x + "," + (p.y+ yOff));
 				g2.drawString(s, p.x, p.y + yOff);
 			}
 		}
-
+		
 		g.drawImage(this.i, 0, 0, this.frame);
 	}
-
+	
 	/**
-	 * Short hand for {@link GameEngine#render(Graphics, ImageObserver)}, 
-	 * used by {@link com.joseph.thedarknessbeyond.threads.RenderThread RenderThread}
+	 * Short hand for {@link GameEngine#render(Graphics, ImageObserver)}, used
+	 * by {@link com.joseph.thedarknessbeyond.threads.RenderThread RenderThread}
 	 * to render the game onto the frame.
 	 */
 	public void render() {
 		render(g, frame);
 	}
-
+	
 	/**
 	 * Runs the GameEngine
 	 */
@@ -321,46 +359,45 @@ public class GameEngine {
 		int seconds = 0;
 		int minutes = 0;
 		int hours = 0;
-
+		
 		while (running) {
 			currentTime = System.nanoTime();
 			deltaTime += (currentTime - time) / ms;
 			time = currentTime;
-
+			
 			if (deltaTime >= 1) {
 				ticks++;
 				update(deltaTime);
 				deltaTime--;
 			}
-
+			
 			synchronized (rlo) {
 				rlo.setWasNotified(true);
 				rlo.notify();
 			}
 			fps++;
-
+			
 			while (deltaTime < frameLimit) {
 				currentTime = System.nanoTime();
 				deltaTime += (currentTime - time) / ms;
 				time = currentTime;
 			}
-
+			
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				seconds++;
 				if (seconds > 60) {
 					seconds %= 60;
 					minutes++;
-
+					
 					if (minutes > 60) {
 						minutes %= 60;
 						hours++;
 					}
 				}
-
+				
 				// GT stands for GameTime.
-				stats = "Ticks: " + ticks + ", FPS: " + fps + ", GT: " + ((hours < 10) ? "0" + hours : hours) + ":"
-						+ ((minutes < 10) ? "0" + minutes : minutes) + ":" + ((seconds < 10) ? "0" + seconds : seconds);
+				stats = "Ticks: " + ticks + ", FPS: " + fps + ", GT: " + ((hours < 10) ? "0" + hours : hours) + ":" + ((minutes < 10) ? "0" + minutes : minutes) + ":" + ((seconds < 10) ? "0" + seconds : seconds);
 				if (Reference.DEBUG_MODE) {
 					System.out.println(stats);
 				}
@@ -377,6 +414,9 @@ public class GameEngine {
 		}
 	}
 	
+	/**
+	 * sets the cursor of the frame to the hand
+	 */
 	public void setSelectMouse() {
 		if (handCursor) {
 			return;
@@ -385,6 +425,9 @@ public class GameEngine {
 		this.handCursor = true;
 	}
 	
+	/**
+	 * sets the cursor of the frame to the default
+	 */
 	public void setDefaultMouse() {
 		if (!handCursor) {
 			return;
@@ -393,10 +436,18 @@ public class GameEngine {
 		this.handCursor = false;
 	}
 	
+	/**
+	 * gets the location of the mouse in the frame
+	 * 
+	 * @return - the location of the mouse relative to the frame
+	 */
 	public Point getMouseLocation() {
 		return this.frame.getContentPane().getMousePosition();
 	}
 	
+	/**
+	 * Refocuses the frame to make sure that key events are captured
+	 */
 	public void releaseFocous() {
 		this.frame.requestFocus();
 	}

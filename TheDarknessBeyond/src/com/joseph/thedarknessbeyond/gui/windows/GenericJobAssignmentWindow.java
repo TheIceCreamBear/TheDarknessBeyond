@@ -1,6 +1,3 @@
-/* Nathan Lim
- */
-
 package com.joseph.thedarknessbeyond.gui.windows;
 
 import java.awt.Color;
@@ -18,20 +15,11 @@ import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
-//element will contain a string, two buttons
-//string will be the job name; assigned via constructor
-//Up-Button will be a GenericUpButton?
-//Down-Button will be a GenericDownButton?
-//Both buttons will have the polygon assignment
-//Constructor: takes in EnumJob
-//On mouse click, they will attempt to call Village.getInstance().increaseJob()
-//Define increaseJob();
-/*	public void increaseJob(EnumJob j) {
- * 		(look at functionality of buildBuilding gets count from hashmap, increments)
- * 		Check idling people, if no idling, cannot increase job
- * 	}
+/**
+ * Generic button that assigns the jobs between the different jobs in the village
+ * @author Nathan Lim
+ *
  */
-//decreaseJob(): opposite of increaseJob()
 public class GenericJobAssignmentWindow extends Window {
 	private boolean visible;
 	private EnumJob job;

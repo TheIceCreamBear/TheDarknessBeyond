@@ -2,7 +2,15 @@ package com.joseph.thedarknessbeyond.gui;
 
 import java.awt.Graphics;
 
+/**
+ * object realization of {@link IToolTip}
+ * @author S25338732
+ *
+ */
 public class ToolTip {
+	/**
+	 * a null tool tip to prevent {@link NullPointerException}s
+	 */
 	public static final ToolTip NULL = new ToolTip(-1, -1, new IToolTip() {
 		public void draw(int x, int y, Graphics g) { }
 	});

@@ -6,6 +6,13 @@ import java.util.ArrayList;
 
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 
+/**
+ * Like {@link GKELAH} but for mouse events. Use to distribute the mouse events
+ * to all of the objects that are registered to rely on mouse events
+ * 
+ * @author Joseph
+ *
+ */
 public class MouseHandler implements MouseListener {
 	private ArrayList<IMouseReliant> reliants;
 	
@@ -35,22 +42,22 @@ public class MouseHandler implements MouseListener {
 			}
 		}
 	}
-
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// NO-OP
 	}
-
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// NO-OP
 	}
-
+	
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// NO-OP
 	}
-
+	
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// NO-OP

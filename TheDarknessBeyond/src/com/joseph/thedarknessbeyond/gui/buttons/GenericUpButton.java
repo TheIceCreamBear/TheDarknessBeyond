@@ -1,6 +1,3 @@
-/* Nathan Lim
- */
-
 package com.joseph.thedarknessbeyond.gui.buttons;
 
 import java.awt.Graphics;
@@ -13,6 +10,11 @@ import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
+/**
+ * a button that is used to increment some variable
+ * @author Nathan
+ *
+ */
 public class GenericUpButton extends AbstractButton {
 	private static final Polygon TRIANGLE = new Polygon(new int[] {10, 20, 0}, new int[] {0, 20, 20}, 3);
 	private static final Polygon TRIANGLE2 = new Polygon(new int[] {20, 40, 0}, new int[] {0, 40, 40}, 3);

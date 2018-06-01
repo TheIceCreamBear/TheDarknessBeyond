@@ -8,8 +8,6 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 
-import javax.swing.JButton;
-
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.event.Event;
 import com.joseph.thedarknessbeyond.event.EventBus;
@@ -20,7 +18,11 @@ import com.joseph.thedarknessbeyond.resource.EnumResource;
 import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
 
-
+/**
+ * Scavenges plant material from the wilderness and adds it to the stores
+ * @author Justin
+ *
+ */
 public class ScavengePlantsButton extends AbstractButton {
 	private FontRenderContext frc;
 	private Font font;
@@ -189,17 +191,5 @@ public class ScavengePlantsButton extends AbstractButton {
 	
 	public void select() {
 		this.selected = true;
-	}
-	
-	/**
-	 * Gets the width of the button, but does not override {@link JButton#getWidth()} 
-	 * @return
-	 */
-	public int getWidth0() {
-		return this.width;
-	}
-	
-	public int getHeight0() {
-		return this.height;
 	}
 }

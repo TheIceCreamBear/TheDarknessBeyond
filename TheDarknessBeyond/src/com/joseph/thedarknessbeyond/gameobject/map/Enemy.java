@@ -1,5 +1,10 @@
 package com.joseph.thedarknessbeyond.gameobject.map;
 
+/**
+ * An enemy to the player
+ * @author Joseph
+ *
+ */
 public class Enemy {
 	private int health;
 	private int attack;
@@ -23,10 +28,18 @@ public class Enemy {
 		return this.attack;
 	}
 	
+	/**
+	 * hurts the enemy by damage
+	 * @param damage
+	 */
 	public void damage(int damage) {
 		this.health -= damage;
 	}
 	
+	/**
+	 * 
+	 * @return true if the enemy is dead
+	 */
 	public boolean isDead() {
 		return this.health <= 0;
 	}

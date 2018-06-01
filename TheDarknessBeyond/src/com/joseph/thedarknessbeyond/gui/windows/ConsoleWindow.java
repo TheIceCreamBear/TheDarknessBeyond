@@ -22,6 +22,11 @@ import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.FileSaveSystem;
 import com.joseph.thedarknessbeyond.util.Utilities;
 
+/**
+ * the window that acts as a console for command input
+ * @author Joseph
+ *
+ */
 public class ConsoleWindow extends Window {
 	private ArrayList<String> previousCommands;
 	private ArrayList<Character> text;

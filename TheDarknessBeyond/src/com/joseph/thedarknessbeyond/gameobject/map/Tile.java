@@ -1,5 +1,10 @@
 package com.joseph.thedarknessbeyond.gameobject.map;
 
+/**
+ * An object realization of the {@link EnumTile} class will some extras
+ * @author Joseph
+ *
+ */
 public class Tile {
 	public static final Tile NULL = new Tile(-1, -1, false, EnumTile.Null);
 	public static final Tile VILLAGE = new Tile(Map.MAP_RADIUS, Map.MAP_RADIUS, true, EnumTile.Village);

@@ -6,8 +6,7 @@ import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 /**
- * Extension of JButton that makes all paint functions <code>NO-OP</code>, and implements {@link IGuiElement IGuiOverlay}
- * to allow for painting of the button using the methods available in the engine.
+ * Extension of GuiElement that acts as a clickable button
  * @author Joseph
  * @see IGuiElement
  *

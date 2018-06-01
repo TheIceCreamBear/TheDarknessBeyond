@@ -7,6 +7,11 @@ import com.joseph.thedarknessbeyond.resource.EnumResource;
 import com.joseph.thedarknessbeyond.resource.ItemStack;
 import com.joseph.thedarknessbeyond.resource.Resource;
 
+/**
+ * an object representation of the player on the map. Used only when the player is travleling
+ * @author Joseph
+ *
+ */
 public class Player {
 	private int x;
 	private int y;

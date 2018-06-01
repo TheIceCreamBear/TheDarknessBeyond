@@ -14,6 +14,11 @@ import com.joseph.thedarknessbeyond.gui.ToolTip;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
+/**
+ * A generic button that has a selectable property and gets underlined when hovered over
+ * @author Joseph
+ *
+ */
 public class GenericSelectableButton extends AbstractButton {
 	private IMouseReliant imr;
 	private FontRenderContext frc;

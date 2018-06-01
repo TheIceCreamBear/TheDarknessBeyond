@@ -2,7 +2,6 @@ package com.joseph.thedarknessbeyond.handlers;
 
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -18,8 +17,6 @@ import com.joseph.thedarknessbeyond.reference.Reference;
  * Used for KeyStroke logging for text typing or for special key that must perform a specific 
  * action the moment they are pressed as opposed to waiting for the next update cycle of the 
  * object that will be using that special key.
- * 
- * <p>For legacy input, use {@link InputHandler InputHandler}.
  * 
  * @author Joseph
  * @see InputHandler

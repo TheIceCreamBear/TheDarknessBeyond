@@ -9,17 +9,49 @@ import java.util.Random;
 import com.joseph.thedarknessbeyond.gui.screens.MapScreen;
 import com.joseph.thedarknessbeyond.gui.windows.ScreenSelectionWindow;
 
+/**
+ * An object representing the Map of the world.
+ * @author Joseph
+ *
+ */
 public class Map {
+	/**
+	 * the distance of the edge of the map from the center
+	 */
 	public static final int MAP_RADIUS = 30;
+	
+	/**
+	 * the radius of tiles around the player that are exlpored when the player moves.
+	 */
 	private static final int EXPLORE_DISTANCE = 2;
+	
+	/**
+	 * the minimum distance the player will travel before encountering another fight.
+	 */
 	private static final int MIN_DIST_AFTER_FIGHT = 3;
+	
+	/**
+	 * the chance on any given tile to encounter an enemy 
+	 */
 	private static final float FIGHT_CHANCE = 0.2f;
 	private static Map instance;
+	
+	/**
+	 * map of tile types to floats of the chance that a tile will be generated
+	 */
 	private HashMap<EnumTile, Float> chances;
+	
+	/**
+	 * the map
+	 */
 	private Tile[][] map;
 	private char[][] mapButAsChars;
 	private Random r;
 	private Player player;
+	
+	/**
+	 * counter to go along with {@link this#MIN_DIST_AFTER_FIGHT Map.MIN_DIST_AFTER_FIGHT}
+	 */
 	private int distanceTravledAfterLastFight;
 	
 	/**
@@ -42,6 +74,9 @@ public class Map {
 		instance = this;
 	}
 	
+	/**
+	 * build the char map from the tile map
+	 */
 	private void makeCharMap() {
 		for (int i = 0; i < mapButAsChars.length; i++) {
 			for (int j = 0; j < mapButAsChars[i].length; j++) {
@@ -57,6 +92,9 @@ public class Map {
 		this.chances.put(EnumTile.Barrens, 0.5f);
 	}
 	
+	/**
+	 * generates the map spiraling outward from the center to the out
+	 */
 	private void generate() {
 		// THIS ALGO generates in a box formation around the center
 		// Generates top, right, bottom, left and then increases the distance from the origin
@@ -95,6 +133,10 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * randomly generates the location of the given landmark
+	 * @param landmark - the landmark to generate
+	 */
 	private void placeLandmark(EnumTile landmark) {
 		// init to middle of map
 		int x = MAP_RADIUS;
@@ -136,6 +178,12 @@ public class Map {
 		
 	}
 	
+	/**
+	 * generates a new tile a position (x, y) with a random terrain type but has a higher chance to be of a type that is adjacent to it
+	 * @param x - location x
+	 * @param y - location y
+	 * @return - the tile generated for the given position
+	 */
 	private Tile generateTile(int x, int y) {
 		Tile[] adjecents = new Tile[4];
 		adjecents[0] = (y > 0) ? map[y - 1][x] : Tile.NULL;
@@ -199,6 +247,9 @@ public class Map {
 		return new Tile(x, y, false, EnumTile.Barrens);
 	}
 	
+	/**
+	 * reveals part of the map at the players location
+	 */
 	private void illuminate() {
 		map[player.getY()][player.getX()].discover();
 		
@@ -259,6 +310,9 @@ public class Map {
 		this.move();
 	}
 	
+	/**
+	 * common statements that need to run every time a player moves
+	 */
 	private void move() {
 		this.illuminate();
 		if (player.getX() == MAP_RADIUS && player.getY() == MAP_RADIUS) {

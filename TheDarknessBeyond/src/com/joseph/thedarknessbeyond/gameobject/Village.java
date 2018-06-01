@@ -9,6 +9,11 @@ import com.joseph.thedarknessbeyond.resource.EnumResource;
 import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
 
+/**
+ * A village class. Handles all the logic involved with having a village.
+ * @author Joseph
+ *
+ */
 public class Village {
 	private int numResidents;
 	private int numMaxResidents;
@@ -28,6 +33,11 @@ public class Village {
 		instance = this;
 	}
 	
+	/**
+	 * loads a village from file
+	 * @param buildings
+	 * @param jobs
+	 */
 	public Village(HashMap<EnumBuilding, Integer> buildings, HashMap<EnumJob, Integer> jobs) {
 		this.buildingCount = buildings;
 		this.jobDistrubution = jobs;
@@ -35,6 +45,9 @@ public class Village {
 		instance = this;
 	}
 	
+	/**
+	 * updates the village logic of the village
+	 */
 	public void update() {
 		if (this.gainResourceTimer == this.resourceTimerMax) {
 			StorageManager sm = StorageManager.getInstance();
@@ -59,14 +72,17 @@ public class Village {
 		return this.numResidents + numGained <= this.numMaxResidents;
 	}
 	
+	/**
+	 * adds new villagers to the village with the job Idiling
+	 * @param numGained - the amount of villagers to gain
+	 * @return - true if the operation was successful
+	 */
 	public boolean gainNewVilagers(int numGained) {
 		if (this.canGainNewVillagers(numGained)) {
 			Integer i = jobDistrubution.get(EnumJob.Idiling);
 			i += numGained;
 			jobDistrubution.put(EnumJob.Idiling, i);
-			if (!this.verifyResidentsEqual()) {
-				// TODO DO SOMETHING
-			}
+			
 			EventBus.EVENT_BUS.post(new Event(numGained + " villagers setteled in your village."));
 			return true;
 		} else {
@@ -82,14 +98,6 @@ public class Village {
 		return this.jobDistrubution;
 	}
 	
-	private boolean verifyResidentsEqual() {
-		int i = 0;
-		for (EnumJob job : jobDistrubution.keySet()) {
-			i += jobDistrubution.get(job);
-		}
-		return i == this.numResidents && i <= this.numMaxResidents;
-	}
-	
 	private void initEmptyJobMap() {
 		EnumJob[] v = EnumJob.values();
 		for (int i = 0; i < v.length; i++) {
@@ -97,6 +105,11 @@ public class Village {
 		}
 	}
 	
+	/**
+	 * adds villager to the specified job
+	 * @param job - the specific job
+	 * @return - true if successful
+	 */
 	public boolean increaseJob(EnumJob job) {
 		int numIdling = this.jobDistrubution.get(EnumJob.Idiling);
 		if (numIdling > 0) {
@@ -111,6 +124,11 @@ public class Village {
 		return false;
 	}
 	
+	/**
+	 * opposite of {@link this#increaseJob(EnumJob)}
+	 * @param job - the specific job
+	 * @return - true if successful
+	 */
 	public boolean decreaseJob(EnumJob job) {
 		int numInJob = this.jobDistrubution.get(job);
 		if (numInJob > 0) {
@@ -132,6 +150,11 @@ public class Village {
 		}
 	}
 	
+	/**
+	 * builds a new building of type building
+	 * @param building - the building
+	 * @return - true if successful
+	 */
 	public boolean buildBuilding(EnumBuilding building) {
 		StorageManager sm = StorageManager.getInstance();
 		if (sm.canUseResources(building.cost)) {
@@ -165,6 +188,10 @@ public class Village {
 		return this.buildingCount.toString() + " " + this.jobDistrubution.toString();
 	}
 	
+	/**
+	 * specifies all possible buildings and their cost
+	 * @author Joseph
+	 */
 	public enum EnumBuilding {
 		Hut(new Resource(EnumResource.Wood, 100)),
 		Armory(new Resource(EnumResource.Wood, 200)),
@@ -192,11 +219,15 @@ public class Village {
 		}
 	}
 	
+	
+	/**
+	 * specifies all the possible jobs of a villager
+	 * @author Joseph
+	 *
+	 */
 	public enum EnumJob {
-		// TODO add the production that one worker produces
-		// if the remove something, set the resource to be negative
 		// TODO do something if "20 sec"
-		Idiling(new Resource(EnumResource.PreservedMeat, -1)), // 20 sec
+		Idiling(),
 		Guard(new Resource(EnumResource.PreservedMeat, -1)), // 20 sec
 		Lumberjack(new Resource(EnumResource.Wood, 1)),
 		Butcher(new Resource(EnumResource.PreservedMeat, 1), new Resource(EnumResource.Meat, -2), new Resource(EnumResource.Wood, -10)),

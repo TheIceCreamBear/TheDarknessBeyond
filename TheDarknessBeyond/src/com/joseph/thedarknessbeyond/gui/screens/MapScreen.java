@@ -16,9 +16,13 @@ import com.joseph.thedarknessbeyond.gui.Screen;
 import com.joseph.thedarknessbeyond.gui.windows.CombatWindow;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
-import com.joseph.thedarknessbeyond.resource.EnumItem;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
 
+/**
+ * Screen responsible for containing, drawing, and updating the map on the screen and internally
+ * @author Joseph
+ *
+ */
 public class MapScreen extends Screen {
 	private static MapScreen instance;
 	private Map map;
@@ -93,7 +97,6 @@ public class MapScreen extends Screen {
 	
 	@Override
 	public void show() {
-		
 		player = new Player(null, StorageManager.getInstance().getBestMele(), StorageManager.getInstance().getBestRanged(), StorageManager.getInstance().getBestAmmo(), StorageManager.getInstance().getBestArmor());
 		this.map.addPlayer(player);
 		super.show();
