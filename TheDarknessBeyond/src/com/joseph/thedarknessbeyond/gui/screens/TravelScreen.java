@@ -13,6 +13,8 @@ import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 public class TravelScreen extends Screen {
 	private GenericSelectableButton depart;
 
+	// This depart button will be displayed on the travel screen. When clicked on, it will take you to the map of your adventure!
+	
 	public TravelScreen(int x, int y, int width, int height) {
 		super(x, y, width, height, true);
 		this.depart = new GenericSelectableButton(x, y + 200, "Depart", true, false, new IMouseReliant() {

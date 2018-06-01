@@ -23,6 +23,9 @@ public class VillageScreen extends Screen {
 		super(x, y, width, height, true);
 		this.village = new Village();
 		
+		/* When on the village screen, these buttons should be displayed, with the appropriate string on each button saying what they do 
+		   and setting each button at certain coordinates.
+		*/
 		
 		gatherWoodButton = new CollectWood(x + 100, y + 100, "Collect Wood", true);
 		GameEngine.getInstance().addButton(gatherWoodButton);
@@ -39,6 +42,8 @@ public class VillageScreen extends Screen {
 		screen = this;
 	}
 
+	// These methods implement and add the buttons to the village screen for the user
+	
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
 		gatherWoodButton.drawBackground(g, observer);
