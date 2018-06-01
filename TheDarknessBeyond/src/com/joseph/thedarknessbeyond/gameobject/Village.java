@@ -86,6 +86,34 @@ public class Village {
 		}
 	}
 	
+	public boolean increaseJob(EnumJob job) {
+		int numIdling = this.jobDistrubution.get(EnumJob.Idiling);
+		if (numIdling > 0) {
+			Integer i = this.jobDistrubution.get(job);
+			i++;
+			this.jobDistrubution.put(job, i);
+			numIdling--;
+			this.jobDistrubution.put(EnumJob.Idiling, numIdling);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean decreaseJob(EnumJob job) {
+		int numInJob = this.jobDistrubution.get(job);
+		if (numInJob > 0) {
+			Integer i = this.jobDistrubution.get(EnumJob.Idiling);
+			i++;
+			this.jobDistrubution.put(EnumJob.Idiling, i);
+			numInJob--;
+			this.jobDistrubution.put(job, numInJob);
+			return true;
+		}	
+		
+		return false;
+	}
+	
 	private void initEmptyBuildingMap() {
 		EnumBuilding[] v = EnumBuilding.values();
 		for (int i = 0; i < v.length; i++) {

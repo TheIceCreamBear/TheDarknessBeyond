@@ -5,11 +5,13 @@ import java.awt.image.ImageObserver;
 
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 import com.joseph.thedarknessbeyond.gameobject.Village;
+import com.joseph.thedarknessbeyond.gameobject.Village.EnumJob;
 import com.joseph.thedarknessbeyond.gui.Screen;
 import com.joseph.thedarknessbeyond.gui.buttons.CollectWood;
 import com.joseph.thedarknessbeyond.gui.buttons.HuntAnimalsButton;
 import com.joseph.thedarknessbeyond.gui.buttons.MineStoneButton;
 import com.joseph.thedarknessbeyond.gui.buttons.ScavengePlantsButton;
+import com.joseph.thedarknessbeyond.gui.windows.GenericJobAssignmentWindow;
 
 public class VillageScreen extends Screen {
 	private Village village;
@@ -18,6 +20,7 @@ public class VillageScreen extends Screen {
 	private HuntAnimalsButton gatherAnimalButton;
 	private MineStoneButton gatherStoneButton;
 	private ScavengePlantsButton gatherPlantsButton;
+	private GenericJobAssignmentWindow test;
 	
 	public VillageScreen(int x, int y, int width, int height) {
 		super(x, y, width, height, true);
@@ -36,6 +39,7 @@ public class VillageScreen extends Screen {
 		gatherPlantsButton = new ScavengePlantsButton(x + 100, y + 400, "Scavenge Plants", true);
 		GameEngine.getInstance().addButton(gatherPlantsButton);
 		
+		test = new GenericJobAssignmentWindow(x + 100, y + 550, 100, EnumJob.Guard);
 		
 		screen = this;
 	}
@@ -46,7 +50,7 @@ public class VillageScreen extends Screen {
 		gatherAnimalButton.drawBackground(g, observer);
 		gatherStoneButton.drawBackground(g, observer);
 		gatherPlantsButton.drawBackground(g, observer);
-		
+		test.drawBackground(g, observer);
 	}
 	
 	@Override
@@ -55,6 +59,7 @@ public class VillageScreen extends Screen {
 		gatherAnimalButton.drawUpdateableElements(g,observer);
 		gatherStoneButton.drawUpdateableElements(g, observer);
 		gatherPlantsButton.drawUpdateableElements(g, observer);
+		test.drawUpdateableElements(g, observer);
 	}
 	
 	@Override
@@ -63,6 +68,7 @@ public class VillageScreen extends Screen {
 		gatherAnimalButton.updateUpdateableElements(deltaTime);
 		gatherStoneButton.updateUpdateableElements(deltaTime);
 		gatherPlantsButton.updateUpdateableElements(deltaTime);
+		test.updateUpdateableElements(deltaTime);
 		
 		this.village.update();
 	}
