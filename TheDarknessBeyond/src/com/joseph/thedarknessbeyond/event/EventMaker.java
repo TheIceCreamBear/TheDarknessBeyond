@@ -17,7 +17,12 @@ public class EventMaker {
 		if (this.populateWaitCounter > 0) {
 			this.populateWaitCounter--;
 			if (this.populateWaitCounter == 0) {
-				Village.getInstance().gainNewVilagers(r.nextInt(Village.getInstance().maxGainableVillagers() - 1) + 1);
+				int possible = Village.getInstance().maxGainableVillagers() - 1;
+				if (possible > 0) {
+					Village.getInstance().gainNewVilagers(r.nextInt(possible) + 1);
+				}
+
+				this.populateWaitCounter = r.nextInt(40 * 60) + 20 * 60;
 			}
 			return;
 		}

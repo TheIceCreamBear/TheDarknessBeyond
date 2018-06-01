@@ -69,4 +69,12 @@ public abstract class GuiElement implements IGuiElement {
 	public boolean isVisible() {
 		return this.visible;
 	}
+	
+	public int getWidth0() {
+		return this.width;
+	}
+	
+	public int getHeight0() {
+		return this.height;
+	}
 }

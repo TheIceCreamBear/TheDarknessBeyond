@@ -12,6 +12,7 @@ import com.joseph.thedarknessbeyond.gui.buttons.HuntAnimalsButton;
 import com.joseph.thedarknessbeyond.gui.buttons.MineStoneButton;
 import com.joseph.thedarknessbeyond.gui.buttons.ScavengePlantsButton;
 import com.joseph.thedarknessbeyond.gui.windows.GenericJobAssignmentWindow;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 public class VillageScreen extends Screen {
 	private Village village;
@@ -21,6 +22,7 @@ public class VillageScreen extends Screen {
 	private MineStoneButton gatherStoneButton;
 	private ScavengePlantsButton gatherPlantsButton;
 	private GenericJobAssignmentWindow test;
+	private GenericJobAssignmentWindow[] assignments;
 	
 	public VillageScreen(int x, int y, int width, int height) {
 		super(x, y, width, height, true);
@@ -29,20 +31,31 @@ public class VillageScreen extends Screen {
 		/* When on the village screen, these buttons should be displayed, with the appropriate string on each button saying what they do 
 		   and setting each button at certain coordinates.
 		*/
-		
-		gatherWoodButton = new CollectWood(x + 100, y + 100, "Collect Wood", true);
+		int xOff = 100 * ScreenReference.scale;
+		int yOff = 100 * ScreenReference.scale;
+		gatherWoodButton = new CollectWood(x + xOff, y + yOff, "Collect Wood", true);
 		GameEngine.getInstance().addButton(gatherWoodButton);
+		yOff += gatherWoodButton.getHeight0() + 20 * ScreenReference.scale;
 		
-		gatherAnimalButton = new HuntAnimalsButton(x + 100, y + 200, "Hunt Animals", true);
+		gatherAnimalButton = new HuntAnimalsButton(x + xOff, y + yOff, "Hunt Animals", true);
 		GameEngine.getInstance().addButton(gatherAnimalButton);
+		yOff += gatherAnimalButton.getHeight0() + 20 * ScreenReference.scale;
 		
-		gatherStoneButton = new MineStoneButton(x + 100, y + 300, "Mine Stone", true);
+		gatherStoneButton = new MineStoneButton(x + xOff, y + yOff, "Mine Stone", true);
 		GameEngine.getInstance().addButton(gatherStoneButton);
+		yOff += gatherStoneButton.getHeight0() + 20 * ScreenReference.scale;
 		
-		gatherPlantsButton = new ScavengePlantsButton(x + 100, y + 400, "Scavenge Plants", true);
+		gatherPlantsButton = new ScavengePlantsButton(x + xOff, y + yOff, "Scavenge Plants", true);
 		GameEngine.getInstance().addButton(gatherPlantsButton);
 		
-		test = new GenericJobAssignmentWindow(x + 100, y + 550, EnumJob.Guard);
+		
+		xOff = 300 * ScreenReference.scale;
+		yOff = 100 * ScreenReference.scale;
+		this.assignments = new GenericJobAssignmentWindow[village.getJobDistrubution().size()];
+		for (int i = 0; i < assignments.length; i++) {
+			assignments[i] = new GenericJobAssignmentWindow(x + xOff, y + yOff, EnumJob.values()[i]);
+			yOff += assignments[i].getHeight0() + 20 * ScreenReference.scale;
+		}		
 		
 		screen = this;
 	}
@@ -55,7 +68,10 @@ public class VillageScreen extends Screen {
 		gatherAnimalButton.drawBackground(g, observer);
 		gatherStoneButton.drawBackground(g, observer);
 		gatherPlantsButton.drawBackground(g, observer);
-		test.drawBackground(g, observer);
+		
+		for (int i = 0; i < assignments.length; i++) {
+			assignments[i].drawBackground(g, observer);
+		}
 	}
 	
 	@Override
@@ -64,7 +80,10 @@ public class VillageScreen extends Screen {
 		gatherAnimalButton.drawUpdateableElements(g,observer);
 		gatherStoneButton.drawUpdateableElements(g, observer);
 		gatherPlantsButton.drawUpdateableElements(g, observer);
-		test.drawUpdateableElements(g, observer);
+		
+		for (int i = 0; i < assignments.length; i++) {
+			assignments[i].drawUpdateableElements(g, observer);
+		}
 	}
 	
 	@Override
@@ -73,7 +92,10 @@ public class VillageScreen extends Screen {
 		gatherAnimalButton.updateUpdateableElements(deltaTime);
 		gatherStoneButton.updateUpdateableElements(deltaTime);
 		gatherPlantsButton.updateUpdateableElements(deltaTime);
-		test.updateUpdateableElements(deltaTime);
+		
+		for (int i = 0; i < assignments.length; i++) {
+			assignments[i].updateUpdateableElements(deltaTime);
+		}
 		
 		this.village.update();
 	}

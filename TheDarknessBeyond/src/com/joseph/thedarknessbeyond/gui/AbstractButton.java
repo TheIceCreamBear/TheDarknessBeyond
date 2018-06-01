@@ -26,12 +26,4 @@ public abstract class AbstractButton extends GuiElement implements IMouseReliant
 		}
 		return p.x >= x && p.x <= (x + width) && p.y >= y && p.y <= (y + height);
 	}
-	
-	public int getWidth0() {
-		return this.width;
-	}
-	
-	public int getHeight0() {
-		return this.height;
-	}
 }

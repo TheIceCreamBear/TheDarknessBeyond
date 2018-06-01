@@ -43,24 +43,26 @@ public class GenericJobAssignmentWindow extends Window {
 		this.job = j;
 		this.visible = true;
 		
-		this.upButton = new GenericUpButton(this.x + width - 20 * ScreenReference.scale, this.y, true, new IMouseReliant() {
-			@Override
-			public boolean onMouseEvent(MouseEvent e) {
-				VillageScreen.getVillage().increaseJob(j);
-				return false;
-			}
-		});
+		if (this.job != EnumJob.Idiling) {
+			this.upButton = new GenericUpButton(this.x + width - 20 * ScreenReference.scale, this.y, true, new IMouseReliant() {
+				@Override
+				public boolean onMouseEvent(MouseEvent e) {
+					VillageScreen.getVillage().increaseJob(j);
+					return false;
+				}
+			});
+			
+			this.downButton = new GenericDownButton(this.x + width - 20 * ScreenReference.scale, this.y + 20 * ScreenReference.scale, true, new IMouseReliant() {
+				@Override
+				public boolean onMouseEvent(MouseEvent e) {
+					VillageScreen.getVillage().decreaseJob(j);
+					return false;
+				}
+			});
+			GameEngine.getInstance().addButton(upButton);
+			GameEngine.getInstance().addButton(downButton);
+		}
 		
-		this.downButton = new GenericDownButton(this.x + width - 20 * ScreenReference.scale, this.y + 20 * ScreenReference.scale, true, new IMouseReliant() {
-			@Override
-			public boolean onMouseEvent(MouseEvent e) {
-				VillageScreen.getVillage().decreaseJob(j);
-				return false;
-			}
-		});
-		
-		GameEngine.getInstance().addButton(upButton);
-		GameEngine.getInstance().addButton(downButton);
 	}
 
 	@Override
@@ -84,8 +86,10 @@ public class GenericJobAssignmentWindow extends Window {
 		
 		g.drawString(job.toString() + ": " + Village.getInstance().getJobDistrubution().get(job), x + 5 * ScreenReference.scale, y + 4 + ScreenReference.charHeight);
 		
-		upButton.drawUpdateableElements(g, observer);
-		downButton.drawUpdateableElements(g, observer);
+		if (this.job != EnumJob.Idiling) {
+			upButton.drawUpdateableElements(g, observer);
+			downButton.drawUpdateableElements(g, observer);
+		}
 		
 	}
 
@@ -95,9 +99,10 @@ public class GenericJobAssignmentWindow extends Window {
 			return;
 		}
 		
-		this.downButton.updateUpdateableElements(deltaTime);
-		this.upButton.updateUpdateableElements(deltaTime);
-		
+		if (this.job != EnumJob.Idiling) {
+			this.downButton.updateUpdateableElements(deltaTime);
+			this.upButton.updateUpdateableElements(deltaTime);
+		}
 	}
 
 	@Override
