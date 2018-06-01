@@ -14,7 +14,9 @@ import com.joseph.thedarknessbeyond.event.ConsoleEvent;
 import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gameobject.Village;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
+import com.joseph.thedarknessbeyond.gameobject.map.Enemy;
 import com.joseph.thedarknessbeyond.gui.Window;
+import com.joseph.thedarknessbeyond.gui.screens.MapScreen;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.FileSaveSystem;
@@ -79,8 +81,10 @@ public class ConsoleWindow extends Window {
 		if (!visible) {
 			return;
 		}
+		g.setColor(Color.BLACK);
+		g.drawRect(x, y, width, height);
 		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(x, y, width, height);
+		g.fillRect(x + 1, y + 1, width - 1, height - 1);
 	}
 
 	@Override
@@ -262,6 +266,8 @@ public class ConsoleWindow extends Window {
 			EventBus.EVENT_BUS.post(new ConsoleEvent(Village.getInstance().getDebugString()));
 		} else if (s.startsWith("/populate")) {
 			Village.getInstance().gainNewVilagers(Integer.parseInt(s.split(" ")[1]));
+		} else if (s.startsWith("/e")) {
+			MapScreen.getInstance().showEnemy(new Enemy(10, 2, 700));
 		} else {
 			EventBus.EVENT_BUS.post(new ConsoleEvent("ERROR: Invalid command"));
 		}

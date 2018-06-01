@@ -80,6 +80,10 @@ public class ScreenSelectionWindow extends Window {
 		this.refocousSelection(3);
 	}
 	
+	public void returnHome() {
+		this.refocousSelection(2);
+	}
+	
 	private void refocousSelection(int newIndex) {
 		if (this.selectedIndex != 3) {
 			this.buttons[this.selectedIndex].deslecet();

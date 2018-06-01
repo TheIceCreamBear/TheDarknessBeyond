@@ -17,6 +17,14 @@ public class ItemStack {
 		return this.amount;
 	}
 	
+	public void craft() {
+		this.amount++;
+	}
+	
+	public void consume() {
+		this.amount--;
+	}
+	
 	public void add(ItemStack i) {
 		if (this.item == i .item) {
 			this.add(i.getAmount());

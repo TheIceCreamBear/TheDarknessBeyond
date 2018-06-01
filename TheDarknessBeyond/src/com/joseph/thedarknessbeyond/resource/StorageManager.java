@@ -23,6 +23,54 @@ public class StorageManager {
 		instance = this;
 	}
 	
+	public EnumItem getBestArmor() {
+		if (items.containsKey(EnumItem.PlateArmor) && items.get(EnumItem.PlateArmor).getAmount() > 0) {
+			return EnumItem.PlateArmor;
+		} else if (items.containsKey(EnumItem.ChainArmor) && items.get(EnumItem.ChainArmor).getAmount() > 0) {
+			return EnumItem.ChainArmor;
+		} else if (items.containsKey(EnumItem.LeatherArmor) && items.get(EnumItem.LeatherArmor).getAmount() > 0) {
+			return EnumItem.LeatherArmor;
+		} else {
+			return EnumItem.FurClothes;
+		}
+	}
+	
+	public EnumItem getBestMele() {
+		if (items.containsKey(EnumItem.SteelSword) && items.get(EnumItem.SteelSword).getAmount() > 0) {
+			return EnumItem.SteelSword;
+		} else if (items.containsKey(EnumItem.IronSword) && items.get(EnumItem.IronSword).getAmount() > 0) {
+			return EnumItem.IronSword;
+		} else if (items.containsKey(EnumItem.StoneSword) && items.get(EnumItem.StoneSword).getAmount() > 0) {
+			return EnumItem.StoneSword;
+		} else {
+			return EnumItem.None;
+		}
+	}
+	
+	public EnumItem getBestRanged() {
+		if (items.containsKey(EnumItem.SteelBow) && items.get(EnumItem.SteelBow).getAmount() > 0) {
+			return EnumItem.SteelBow;
+		} else if (items.containsKey(EnumItem.IronBow) && items.get(EnumItem.IronBow).getAmount() > 0) {
+			return EnumItem.IronBow;
+		} else if (items.containsKey(EnumItem.WoodBow) && items.get(EnumItem.WoodBow).getAmount() > 0) {
+			return EnumItem.WoodBow;
+		} else {
+			return EnumItem.None;
+		}
+	}
+	
+	public ItemStack getBestAmmo() {
+		if (items.containsKey(EnumItem.SteelArrows) && items.get(EnumItem.SteelArrows).getAmount() > 0) {
+			return items.get(EnumItem.SteelArrows);
+		} else if (items.containsKey(EnumItem.IronArrows) && items.get(EnumItem.IronArrows).getAmount() > 0) {
+			return items.get(EnumItem.IronArrows);
+		} else if (items.containsKey(EnumItem.StoneArrows) && items.get(EnumItem.StoneArrows).getAmount() > 0) {
+			return items.get(EnumItem.StoneArrows);
+		} else {
+			return null;
+		}
+	}
+	
 	public void init() {
 		EnumResource[] v = EnumResource.values();
 		for (int i = 0; i < v.length; i++) {
@@ -69,6 +117,15 @@ public class StorageManager {
 	
 	public boolean canUseResources(Resource... resources) {
 		return this.useResources(true, resources);
+	}
+	
+	public boolean craftItem(EnumItem item) {
+		if (this.canUseResources(item.getCost())) {
+			this.useResources(false, item.getCost());
+			this.items.get(item).craft();
+			return true;
+		}
+		return false;
 	}
 	
 	public static StorageManager getInstance() {
