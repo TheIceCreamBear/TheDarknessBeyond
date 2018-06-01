@@ -25,7 +25,7 @@ public enum EnumResource {
 	// Other
 	Water,
 	HolyWater,
-	Bullets,
+	Bullets, // TODO make item
 	Belief
 	;
 	
