@@ -81,7 +81,7 @@ public class ScreenSelectionWindow extends Window {
 	}
 	
 	private void refocousSelection(int newIndex) {
-		if (this.selectedIndex != 4) {
+		if (this.selectedIndex != 3) {
 			this.buttons[this.selectedIndex].deslecet();
 		}
 		this.screens[selectedIndex].hide();
