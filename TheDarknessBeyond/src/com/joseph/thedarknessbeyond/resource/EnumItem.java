@@ -1,5 +1,8 @@
 package com.joseph.thedarknessbeyond.resource;
 
+
+// Below displays all of the resources it takes to build certain clothing, armor, swords, bows, and arrows.
+
 public enum EnumItem {
 	// Clothes
 	LeadtherClothes(0.0f, 0, false), // TODO remove???

@@ -44,6 +44,8 @@ public class CollectWood extends AbstractButton {
 		this.font = ScreenReference.getTheFont();
 		this.std = StorageManager.getInstance();
 		
+		// Set a cooldown (timer)  of 600 seconds on the collect wood button
+		
 		this.cooldown = 0;
 		this.maxCooldown = 600;
 		
@@ -54,6 +56,10 @@ public class CollectWood extends AbstractButton {
 		}
 	}
 
+	/* If a button was pressed and currently on cooldown, a gray progress bar is displayed behind the button, showing how long is left until you can click
+	   on the next button
+	*/
+	
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
 		if (!visible) {
@@ -77,6 +83,9 @@ public class CollectWood extends AbstractButton {
 	
 	}
 	
+	/*Draws any elements in the overlay that might change each tick. In the drawUpdateableElements method, we are creating our shape for the button
+	  and setting the color to white or gray, depending on whether or not the button was clicked and is on cooldown.
+	*/
 	@Override
 	public void drawUpdateableElements(Graphics g, ImageObserver observer) {
 		if (!visible) {
@@ -99,6 +108,11 @@ public class CollectWood extends AbstractButton {
 			
 		}
 	}
+	
+	/* This method makes sure that the button cooldown is decreasing each second. Also, it underlines the elements that are being hovered over by the
+	   user's mouse, helping them recognize that they are on it.
+	
+	 */
 	
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
@@ -127,10 +141,17 @@ public class CollectWood extends AbstractButton {
 		}
 	}
 	
+	// Can disregard this, as tooltip is not needed for the CollectWoodButton
+	
 	@Override
 	public void displayToolTip(Graphics g) {
 		tt.draw(g);
 	}
+	
+	/* While the CollectWood button is clicked, add 20 wood to our storage, and set the cooldown to 600 seconds before being able to be clicked again.
+	   The EventBus method displays a string in the event tab of the game (showing an interesting description of what happens when the button is clicked.)
+		
+	 */
 	
 	@Override
 	public boolean onMouseEvent(MouseEvent e) {
