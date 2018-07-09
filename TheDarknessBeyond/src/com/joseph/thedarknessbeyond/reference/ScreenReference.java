@@ -7,7 +7,7 @@ import java.awt.Toolkit;
 import com.joseph.thedarknessbeyond.engine.GameEngine;
 
 /**
- * Like Reference.java, but for the Screen
+ * Like {@link Reference}, but for the Screen
  * 
  * @author David Santamaria
  *

@@ -64,11 +64,11 @@ public class GameEngine {
 	/**
 	 * First graphics instance
 	 */
-	private Graphics g;
+	private Graphics2D g;
 	/**
 	 * BufferedImage graphics instance
 	 */
-	private Graphics g2;
+	private Graphics2D g2;
 	/**
 	 * Image that is displayed on the screen
 	 */
@@ -112,7 +112,6 @@ public class GameEngine {
 	private static ArrayList<AbstractButton> buttons = new ArrayList<AbstractButton>();
 	
 	/**
-	 * 
 	 * @return the instance of the GameEngine
 	 */
 	public static GameEngine getInstance() {
@@ -120,7 +119,6 @@ public class GameEngine {
 	}
 	
 	/**
-	 * 
 	 * @return state of {@link GameEngine#running GameEngine.running}
 	 */
 	public static boolean isRunning() {
@@ -187,13 +185,11 @@ public class GameEngine {
 		
 		this.i = new BufferedImage(ScreenReference.WIDTH, ScreenReference.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		this.g2 = this.i.createGraphics();
-		this.g = frame.getGraphics();
+		this.g = (Graphics2D) frame.getGraphics();
 		
 		// Turn on AntiAliasing
-		if (g2 instanceof Graphics2D) {
-			((Graphics2D) g2).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			((Graphics2D) g2).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		}
+		this.g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		this.g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		this.frc = ((Graphics2D) g2).getFontRenderContext();
 		

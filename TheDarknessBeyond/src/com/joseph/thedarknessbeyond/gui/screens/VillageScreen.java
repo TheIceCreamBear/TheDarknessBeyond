@@ -39,7 +39,7 @@ public class VillageScreen extends Screen {
 		/* When on the village screen, these buttons should be displayed, with the appropriate string on each button saying what they do 
 		   and setting each button at certain coordinates.
 		*/
-		int xOff = 100 * ScreenReference.scale;
+		int xOff = 00 * ScreenReference.scale;
 		int yOff = 100 * ScreenReference.scale;
 		gatherWoodButton = new CollectWood(x + xOff, y + yOff, "Collect Wood", true);
 		GameEngine.getInstance().addButton(gatherWoodButton);
@@ -57,7 +57,7 @@ public class VillageScreen extends Screen {
 		GameEngine.getInstance().addButton(gatherPlantsButton);
 		
 		
-		xOff = 300 * ScreenReference.scale;
+		xOff += 200 * ScreenReference.scale;
 		yOff = 100 * ScreenReference.scale;
 		this.assignments = new GenericJobAssignmentWindow[village.getJobDistrubution().size()];
 		for (int i = 0; i < assignments.length; i++) {
@@ -101,7 +101,7 @@ public class VillageScreen extends Screen {
 		HashMap<EnumBuilding, Integer> map = village.getBuildingCount();
 		g.setFont(ScreenReference.getTheFont());
 		g.setColor(Color.white);
-		int xOff = 600 * ScreenReference.scale;
+		int xOff = 500 * ScreenReference.scale;
 		int yOff = 100 * ScreenReference.scale;
 		for (int i = 0; i < buildings.length; i++) {
 			g.drawString(buildings[i] + ": " + map.get(buildings[i]), x + xOff, y + yOff);

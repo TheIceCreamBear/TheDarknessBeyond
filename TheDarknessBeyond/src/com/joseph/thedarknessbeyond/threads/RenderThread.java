@@ -8,7 +8,7 @@ import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
  * Using multithreading techniques, this thread is designed to only run once the engine
  * notifies the {@link com.joseph.thedarknessbeyond.gameobject.RenderLockObject RenderLockObject}
  * allowing the update thread to update for the next frame while this thread renders the
- * current thread.
+ * current frame.
  * @author Joseph
  *
  */
