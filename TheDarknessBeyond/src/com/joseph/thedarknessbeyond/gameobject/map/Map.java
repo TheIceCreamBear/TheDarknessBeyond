@@ -101,17 +101,17 @@ public class Map {
 		// it was borrowed from the original game to save time (and not reinvent the wheel)
 		// SOURCE: https://github.com/Continuities/adarkroom/blob/5fcd897b17e82b43f24e60e8e0009cfb0c64d375/script/world.js#L627
 		this.map[MAP_RADIUS][MAP_RADIUS] = Tile.VILLAGE;
-		for(int r = 1; r <= MAP_RADIUS; r++) {
-			for(int t = 0; t < r * 8; t++) {
+		for (int r = 1; r <= MAP_RADIUS; r++) {
+			for (int t = 0; t < r * 8; t++) {
 				int x;
 				int y;
-				if(t < 2 * r) {
+				if (t < 2 * r) {
 					x = MAP_RADIUS - r + t;
 					y = MAP_RADIUS - r;
-				} else if(t < 4 * r) {
+				} else if (t < 4 * r) {
 					x = MAP_RADIUS + r;
 					y = MAP_RADIUS - (3 * r) + t;
-				} else if(t < 6 * r) {
+				} else if (t < 6 * r) {
 					x = MAP_RADIUS + (5 * r) - t;
 					y = MAP_RADIUS + r;
 				} else {
@@ -191,7 +191,7 @@ public class Map {
 		adjecents[2] = (x < MAP_RADIUS * 2) ? map[y][x + 1] : Tile.NULL;
 		adjecents[3] = (x > 0) ? map[y][x - 1] : Tile.NULL;
 		
-		LinkedHashMap<EnumTile, Float> loaclChances = new LinkedHashMap<EnumTile, Float>();
+		LinkedHashMap<EnumTile, Float> localChances = new LinkedHashMap<EnumTile, Float>();
 		
 		float stickyLeft = 1;
 		for (int i = 0; i < adjecents.length; i++) {
@@ -199,10 +199,10 @@ public class Map {
 				return new Tile(x, y, false, EnumTile.Forest);
 			} else if (adjecents[i] != null) {
 				EnumTile key = adjecents[i].getTile();
-				if (loaclChances.containsKey(key)) {
-					loaclChances.put(key, loaclChances.get(key) + howSticky);
+				if (localChances.containsKey(key)) {
+					localChances.put(key, localChances.get(key) + howSticky);
 				} else {
-					loaclChances.put(key, howSticky);
+					localChances.put(key, howSticky);
 				}
 				stickyLeft -= howSticky;
 			}
@@ -212,19 +212,19 @@ public class Map {
 		for (int i = 0; i < tiles.length; i++) {
 			EnumTile key = tiles[i];
 			float var = 0;
-			if (loaclChances.containsKey(key)) {
-				var += loaclChances.get(key);
+			if (localChances.containsKey(key)) {
+				var += localChances.get(key);
 			}
 			var += this.chances.get(key) * stickyLeft;
-			loaclChances.put(key, var);
+			localChances.put(key, var);
 		}
 		
-		ArrayList<EnumTile> keys = new ArrayList<EnumTile>(loaclChances.keySet());
+		ArrayList<EnumTile> keys = new ArrayList<EnumTile>(localChances.keySet());
 		keys.sort(new Comparator<EnumTile>() {
 			@Override
 			public int compare(EnumTile o1, EnumTile o2) {
-				float f1 = loaclChances.get(o1);
-				float f2 = loaclChances.get(o2);
+				float f1 = localChances.get(o1);
+				float f2 = localChances.get(o2);
 				if (f1 < f2) {
 					return -1;
 				} else if (f1 > f2) {
@@ -235,11 +235,13 @@ public class Map {
 			}
 			
 		});
+		System.out.println(keys);
+		System.out.println(localChances);
 		
 		float chance = 0;
 		float chanceNeeded = r.nextFloat();
 		for (int i = 0; i < keys.size(); i++) {
-			chance += loaclChances.get(keys.get(i));
+			chance += localChances.get(keys.get(i));
 			if (chance > chanceNeeded) {
 				return new Tile(x, y, false, keys.get(i));
 			}
