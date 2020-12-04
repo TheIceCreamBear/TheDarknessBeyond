@@ -1,0 +1,69 @@
+SaveSystemVersion:0.2
+
+STORAGE: RESOURCES
+Invalid: 0
+Wood: 0
+Stone: 0
+Coal: 0
+IronOre: 0
+Iron: 0
+SteelOre: 0
+Steel: 0
+Berries: 0
+Meat: 0
+PreservedMeat: 0
+Cotton: 0
+Fur: 0
+Leather: 0
+Water: 0
+HolyWater: 0
+Bullets: 0
+Belief: 0
+:END
+
+STORAGE: ITEMS
+LeadtherClothes: 0
+FurClothes: 0
+LeatherArmor: 0
+ChainArmor: 0
+PlateArmor: 0
+StoneSword: 0
+IronSword: 0
+SteelSword: 0
+WoodBow: 0
+IronBow: 0
+SteelBow: 0
+WoodArrows: 0
+StoneArrows: 0
+IronArrows: 0
+SteelArrows: 0
+Pistol: 0
+Rifle: 0
+SubmachineGun: 0
+:END
+
+VILLAGE: BUILDINGS
+Hut: 0
+Armory: 0
+Garden: 0
+Charcuterie: 0
+Cathedral: 0
+Storage: 0
+Quarry: 0
+Blacksmith: 0
+Forge: 0
+Workshop: 0
+WaterWorks: 0
+LumberMill: 0
+GuardPost: 0
+Barricades: 0
+:END
+
+VILLAGE: JOBS
+Idiling: 0
+Guard: 0
+Lumberjack: 0
+Butcher: 0
+Miner: 0
+WaterCollector: 0
+:END
