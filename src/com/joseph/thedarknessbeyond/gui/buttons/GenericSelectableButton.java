@@ -8,7 +8,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.ToolTip;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
@@ -35,9 +35,9 @@ public class GenericSelectableButton extends AbstractButton {
 	}
 	
 	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, ToolTip tt, IMouseReliant imr) {
-		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
+		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, TheDarknessBeyondEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, TheDarknessBeyondEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
 		this.text = s;
-		this.frc = GameEngine.getInstance().getFrc();
+		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
 		this.imr = imr;
 		
@@ -86,9 +86,9 @@ public class GenericSelectableButton extends AbstractButton {
 		this.mouseInSelf = isMouseInElement();
 		if (this.mouseInSelfPrevious != this.mouseInSelf) {
 			if (mouseInSelf) {
-				GameEngine.getInstance().setSelectMouse();
+				TheDarknessBeyondEngine.getInstance().setSelectMouse();
 			} else {
-				GameEngine.getInstance().setDefaultMouse();
+				TheDarknessBeyondEngine.getInstance().setDefaultMouse();
 			}
 		}
 		if (this.mouseInSelf || this.selected) {
@@ -117,8 +117,8 @@ public class GenericSelectableButton extends AbstractButton {
 			if (this.staySelected) {
 				this.selected = true;
 			}
-			GameEngine.getInstance().releaseFocous();
-			GameEngine.getInstance().setDefaultMouse();
+			TheDarknessBeyondEngine.getInstance().releaseFocous();
+			TheDarknessBeyondEngine.getInstance().setDefaultMouse();
 			this.mouseInSelf = false;
 			return true;
 		}

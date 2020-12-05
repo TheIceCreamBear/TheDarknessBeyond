@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.util.HashMap;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gameobject.Village;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumJob;
@@ -42,19 +42,19 @@ public class VillageScreen extends Screen {
 		int xOff = 00 * ScreenReference.scale;
 		int yOff = 100 * ScreenReference.scale;
 		gatherWoodButton = new CollectWood(x + xOff, y + yOff, "Collect Wood", true);
-		GameEngine.getInstance().addButton(gatherWoodButton);
+		TheDarknessBeyondEngine.getInstance().addButton(gatherWoodButton);
 		yOff += gatherWoodButton.getHeight0() + 20 * ScreenReference.scale;
 		
 		gatherAnimalButton = new HuntAnimalsButton(x + xOff, y + yOff, "Hunt Animals", true);
-		GameEngine.getInstance().addButton(gatherAnimalButton);
+		TheDarknessBeyondEngine.getInstance().addButton(gatherAnimalButton);
 		yOff += gatherAnimalButton.getHeight0() + 20 * ScreenReference.scale;
 		
 		gatherStoneButton = new MineStoneButton(x + xOff, y + yOff, "Mine Stone", true);
-		GameEngine.getInstance().addButton(gatherStoneButton);
+		TheDarknessBeyondEngine.getInstance().addButton(gatherStoneButton);
 		yOff += gatherStoneButton.getHeight0() + 20 * ScreenReference.scale;
 		
 		gatherPlantsButton = new ScavengePlantsButton(x + xOff, y + yOff, "Scavenge Plants", true);
-		GameEngine.getInstance().addButton(gatherPlantsButton);
+		TheDarknessBeyondEngine.getInstance().addButton(gatherPlantsButton);
 		
 		
 		xOff += 200 * ScreenReference.scale;

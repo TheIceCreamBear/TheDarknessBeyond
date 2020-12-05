@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gameobject.map.Enemy;
 import com.joseph.thedarknessbeyond.gameobject.map.Player;
 import com.joseph.thedarknessbeyond.gui.Window;
@@ -56,9 +56,9 @@ public class CombatWindow extends Window {
 			}
 		});
 		
-		GameEngine.getInstance().addButton(attack);
-		GameEngine.getInstance().addButton(ranged);
-		GameEngine.getInstance().addButton(heal);
+		TheDarknessBeyondEngine.getInstance().addButton(attack);
+		TheDarknessBeyondEngine.getInstance().addButton(ranged);
+		TheDarknessBeyondEngine.getInstance().addButton(heal);
 	}
 
 	@Override

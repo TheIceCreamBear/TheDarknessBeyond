@@ -8,7 +8,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.event.Event;
 import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
@@ -32,10 +32,10 @@ public class GenericBuildButton extends AbstractButton {
 	private boolean mouseInSelfPrevious;
 	
 	public GenericBuildButton(int x, int y, EnumBuilding b) {
-		super(x, y, (int) ScreenReference.getTheFont().getStringBounds("Build " + b.toString(), GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds("Build " + b.toString(), GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), true);
+		super(x, y, (int) ScreenReference.getTheFont().getStringBounds("Build " + b.toString(), TheDarknessBeyondEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds("Build " + b.toString(), TheDarknessBeyondEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), true);
 		this.b = b;
 		this.toolTipHeight = 24 * b.getCost().length * ScreenReference.scale;
-		this.frc = GameEngine.getInstance().getFrc();
+		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
 		
 		this.toolTipWidth = 0;
@@ -82,9 +82,9 @@ public class GenericBuildButton extends AbstractButton {
 		mouseInSelf = isMouseInElement();
 		if (this.mouseInSelfPrevious != this.mouseInSelf) {
 			if (mouseInSelf) {
-				GameEngine.getInstance().setSelectMouse();
+				TheDarknessBeyondEngine.getInstance().setSelectMouse();
 			} else {
-				GameEngine.getInstance().setDefaultMouse();
+				TheDarknessBeyondEngine.getInstance().setDefaultMouse();
 			}
 		}
 		if (this.mouseInSelf) {

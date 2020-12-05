@@ -1,6 +1,6 @@
 package com.joseph.thedarknessbeyond.threads;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.event.EventBus;
 
 /**
@@ -15,7 +15,7 @@ public class EventThread extends Thread {
 
 	@Override
 	public void run() {
-		while (GameEngine.isRunning()) {
+		while (TheDarknessBeyondEngine.isRunning()) {
 			if (EventBus.EVENT_BUS.hasUnResolved()) {
 				EventBus.EVENT_BUS.resolve();
 			}

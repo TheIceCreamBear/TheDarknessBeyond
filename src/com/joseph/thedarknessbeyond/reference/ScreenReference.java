@@ -4,7 +4,7 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.Toolkit;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 
 /**
  * Like {@link Reference}, but for the Screen
@@ -51,6 +51,6 @@ public class ScreenReference {
 	}
 	
 	public static Point getMouseLocation() {
-		return GameEngine.getInstance().getMouseLocation();
+		return TheDarknessBeyondEngine.getInstance().getMouseLocation();
 	}
 }

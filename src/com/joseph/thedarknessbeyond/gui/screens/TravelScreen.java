@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gui.Screen;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.gui.windows.ScreenSelectionWindow;
@@ -29,7 +29,7 @@ public class TravelScreen extends Screen {
 				return true;
 			}
 		});
-		GameEngine.getInstance().addButton(depart);
+		TheDarknessBeyondEngine.getInstance().addButton(depart);
 	}
 
 	@Override

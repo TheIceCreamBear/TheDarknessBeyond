@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.event.ConsoleEvent;
 import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gameobject.Village;
@@ -61,7 +61,7 @@ public class ConsoleWindow extends Window {
 		this.cursorTick = 0;
 		this.cursorIndex = 0;
 		this.visible = false;
-		this.frc = GameEngine.getInstance().getFrc();
+		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
 		
 		instance = this;

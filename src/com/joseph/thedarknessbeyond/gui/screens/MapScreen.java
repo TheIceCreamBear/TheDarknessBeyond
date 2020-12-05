@@ -7,7 +7,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gameobject.map.Enemy;
 import com.joseph.thedarknessbeyond.gameobject.map.Map;
 import com.joseph.thedarknessbeyond.gameobject.map.Player;
@@ -35,7 +35,7 @@ public class MapScreen extends Screen {
 	public MapScreen(int x, int y, int width, int height) {
 		super(x, y, width, height, true);
 		this.map = new Map();
-		this.frc = GameEngine.getInstance().getFrc();
+		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getMapFont();
 		this.r = font.getStringBounds(";", frc);
 		this.cw = new CombatWindow(x + (200 * ScreenReference.scale), y + (400 * ScreenReference.scale), 450 * ScreenReference.scale, 200 * ScreenReference.scale, player);

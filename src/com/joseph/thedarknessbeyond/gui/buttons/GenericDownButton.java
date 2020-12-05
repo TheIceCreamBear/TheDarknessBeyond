@@ -5,7 +5,7 @@ import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
@@ -51,9 +51,9 @@ public class GenericDownButton extends AbstractButton {
 		this.mouseInSelf = isMouseInElement();
 		if (this.mouseInSelfPrevious != this.mouseInSelf) {
 			if (mouseInSelf) {
-				GameEngine.getInstance().setSelectMouse();
+				TheDarknessBeyondEngine.getInstance().setSelectMouse();
 			} else {
-				GameEngine.getInstance().setDefaultMouse();
+				TheDarknessBeyondEngine.getInstance().setDefaultMouse();
 			}
 		}
 	}

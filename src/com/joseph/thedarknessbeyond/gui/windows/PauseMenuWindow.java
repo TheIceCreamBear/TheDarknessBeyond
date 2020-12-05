@@ -11,7 +11,7 @@ import java.io.File;
 
 import javax.swing.JOptionPane;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
@@ -41,7 +41,7 @@ public class PauseMenuWindow extends Window {
 	public PauseMenuWindow() {
 		super((ScreenReference.WIDTH / 2 - (75 * ScreenReference.scale)) / ScreenReference.scale, (ScreenReference.HEIGHT / 2 - (85 * ScreenReference.scale)) / ScreenReference.scale, 150, 170, false);
 		this.visible = false;
-		this.frc = GameEngine.getInstance().getFrc();
+		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
 		this.lgw = new LoadGameWindow(FileSaveSystem.getPossibleLoadableFiles());
 		
@@ -56,7 +56,7 @@ public class PauseMenuWindow extends Window {
 				if (!PauseMenuWindow.this.visible) {
 					return false;
 				}
-				GameEngine.getInstance().setDefaultMouse();
+				TheDarknessBeyondEngine.getInstance().setDefaultMouse();
 				PauseMenuWindow.this.hide();
 				return true;
 			}
@@ -109,10 +109,10 @@ public class PauseMenuWindow extends Window {
 		});
 		yOff += this.exit.getHeight0() + 10 * ScreenReference.scale;
 		
-		GameEngine.getInstance().addButton(resume);
-		GameEngine.getInstance().addButton(load);
-		GameEngine.getInstance().addButton(save);
-		GameEngine.getInstance().addButton(exit);
+		TheDarknessBeyondEngine.getInstance().addButton(resume);
+		TheDarknessBeyondEngine.getInstance().addButton(load);
+		TheDarknessBeyondEngine.getInstance().addButton(save);
+		TheDarknessBeyondEngine.getInstance().addButton(exit);
 		
 		
 		instance = this;

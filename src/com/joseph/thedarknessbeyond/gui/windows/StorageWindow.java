@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.util.HashMap;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
@@ -31,7 +31,7 @@ public class StorageWindow extends Window {
 	
 	public StorageWindow(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		this.frc = GameEngine.getInstance().getFrc();
+		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		if (ScreenReference.scale == 2) {
 			this.font = Reference.Fonts.SCALED_UP_FONT;
 		} else {

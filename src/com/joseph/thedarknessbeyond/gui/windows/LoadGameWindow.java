@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.io.File;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
@@ -34,7 +34,7 @@ public class LoadGameWindow extends Window {
 			return;
 		}
 		this.visible = false;
-		this.frc = GameEngine.getInstance().getFrc();
+		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
 		this.gsbs = new GenericSelectableButton[files.length];
 		
@@ -78,7 +78,7 @@ public class LoadGameWindow extends Window {
 				}
 			});
 			
-			GameEngine.getInstance().addButton(gsbs[i]);
+			TheDarknessBeyondEngine.getInstance().addButton(gsbs[i]);
 			yOff += gsbs[i].getHeight0() + 10 * ScreenReference.scale;
 		}
 		

@@ -3,7 +3,7 @@ package com.joseph.thedarknessbeyond.gui.screens;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gui.Screen;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericBuildButton;
@@ -41,7 +41,7 @@ public class RoomScreen extends Screen {
 		}
 		
 		for (int i = 0; i < buttons.length; i++) {
-			GameEngine.getInstance().addButton(this.buttons[i]);
+			TheDarknessBeyondEngine.getInstance().addButton(this.buttons[i]);
 		}
 	}
 

@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gameobject.Village;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumJob;
 import com.joseph.thedarknessbeyond.gui.Window;
@@ -27,7 +27,7 @@ public class GenericJobAssignmentWindow extends Window {
 	private GenericDownButton downButton;
 	
 	public GenericJobAssignmentWindow(int x, int y, EnumJob j) {
-		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(j.toString() + ": 0000", GameEngine.getInstance().getFrc()).getWidth() + (25 * ScreenReference.scale), 40 * ScreenReference.scale, true);
+		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(j.toString() + ": 0000", TheDarknessBeyondEngine.getInstance().getFrc()).getWidth() + (25 * ScreenReference.scale), 40 * ScreenReference.scale, true);
 		this.job = j;
 		this.visible = true;
 		
@@ -47,8 +47,8 @@ public class GenericJobAssignmentWindow extends Window {
 					return false;
 				}
 			});
-			GameEngine.getInstance().addButton(upButton);
-			GameEngine.getInstance().addButton(downButton);
+			TheDarknessBeyondEngine.getInstance().addButton(upButton);
+			TheDarknessBeyondEngine.getInstance().addButton(downButton);
 		}
 		
 	}

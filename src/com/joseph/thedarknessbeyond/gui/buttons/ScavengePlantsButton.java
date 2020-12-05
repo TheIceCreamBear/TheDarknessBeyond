@@ -8,7 +8,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.event.Event;
 import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
@@ -40,9 +40,9 @@ public class ScavengePlantsButton extends AbstractButton {
 	}
 	
 	public ScavengePlantsButton(int x, int y, String s, boolean scaled, ToolTip tt) {
-		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, GameEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
+		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, TheDarknessBeyondEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, TheDarknessBeyondEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
 		this.text = s;
-		this.frc = GameEngine.getInstance().getFrc();
+		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
 		this.std = StorageManager.getInstance();
 		
@@ -132,9 +132,9 @@ public class ScavengePlantsButton extends AbstractButton {
 		mouseInSelf = isMouseInElement();
 		if (this.mouseInSelfPrevious != this.mouseInSelf) {
 			if (mouseInSelf) {
-				GameEngine.getInstance().setSelectMouse();
+				TheDarknessBeyondEngine.getInstance().setSelectMouse();
 			} else {
-				GameEngine.getInstance().setDefaultMouse();
+				TheDarknessBeyondEngine.getInstance().setDefaultMouse();
 			}
 		}
 		if (this.mouseInSelf || this.selected) {
@@ -166,8 +166,8 @@ public class ScavengePlantsButton extends AbstractButton {
 		int y = e.getY();
 		// Check mouse is in element on click
 		if (x >= this.x && x <= (this.x +this.width) && y >= this.y && y <= (this.y +this.height)) {
-			GameEngine.getInstance().releaseFocous();
-			GameEngine.getInstance().setDefaultMouse();
+			TheDarknessBeyondEngine.getInstance().releaseFocous();
+			TheDarknessBeyondEngine.getInstance().setDefaultMouse();
 			this.mouseInSelf = false;
 	
 			Resource berries = new Resource(EnumResource.Berries, 2);

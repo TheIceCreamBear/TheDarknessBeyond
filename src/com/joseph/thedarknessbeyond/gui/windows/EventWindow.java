@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.event.Event;
 import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gui.Window;
@@ -35,7 +35,7 @@ public class EventWindow extends Window {
 	public EventWindow(int x, int y, int width, int height) {
 		super(x, y, width, height, true);
 		this.events = new ArrayList<LoggedEvent>();
-		this.frc = GameEngine.getInstance().getFrc();
+		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
 		this.visible = true;
 		this.charactersPerLine = this.width / (11 * ScreenReference.scale) - 1;

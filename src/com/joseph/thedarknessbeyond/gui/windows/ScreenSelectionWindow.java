@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.image.ImageObserver;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gui.Screen;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
@@ -144,7 +144,7 @@ public class ScreenSelectionWindow extends Window {
 		this.buttons[0].select();
 		
 		for (int i = 0; i < buttons.length; i++) {
-			GameEngine.getInstance().addButton(this.buttons[i]);
+			TheDarknessBeyondEngine.getInstance().addButton(this.buttons[i]);
 		}
 	}
 	

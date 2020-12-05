@@ -1,6 +1,6 @@
 package com.joseph.thedarknessbeyond.threads;
 
-import com.joseph.thedarknessbeyond.engine.GameEngine;
+import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
 
 /**
@@ -14,16 +14,16 @@ import com.joseph.thedarknessbeyond.gameobject.RenderLockObject;
  */
 public class RenderThread extends Thread {
 	private RenderLockObject rlo;
-	private GameEngine gEngine;
+	private TheDarknessBeyondEngine gEngine;
 	
 	/**
 	 * Constructs a new RenderThread
 	 * @param name - name of the thread
 	 * @param rlo - {@link com.joseph.thedarknessbeyond.gameobject.RenderLockObject RenderLockObject} 
-	 * 		used by {@link com.joseph.thedarknessbeyond.engine.GameEngine GameEngine} to communicate across threads.
+	 * 		used by {@link com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine GameEngine} to communicate across threads.
 	 * @param ge - 
 	 */
-	public RenderThread(String name, RenderLockObject rlo, GameEngine ge) {
+	public RenderThread(String name, RenderLockObject rlo, TheDarknessBeyondEngine ge) {
 		super(name);
 		this.rlo = rlo;
 		this.gEngine = ge;
@@ -32,7 +32,7 @@ public class RenderThread extends Thread {
 	@Override
 	public void run() {
 		synchronized (rlo) {
-			while (GameEngine.isRunning()) {
+			while (TheDarknessBeyondEngine.isRunning()) {
 				try {
 					rlo.wait();
 					if (!rlo.wasNotified()) {
