@@ -153,7 +153,8 @@ public class ConsoleWindow extends Window {
 			return;
 		}
 		
-		if (e.getKeyChar() == KeyEvent.VK_SLASH && this.cursorIndex != 0) {
+		// permantly disable the back quote from showing up in the console
+		if (e.getKeyChar() == KeyEvent.VK_BACK_QUOTE) {
 			return;
 		}
 		
@@ -253,25 +254,25 @@ public class ConsoleWindow extends Window {
 	
 	@SuppressWarnings("deprecation")
 	private void command(String s) {
-		if (s.startsWith("/save")) {
+		if (s.startsWith("save")) {
 			try {
 				FileSaveSystem.autoSaveGame();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (s.startsWith("/load")) {
+		} else if (s.startsWith("load")) {
 			try {
 				FileSaveSystem.contineGame();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (s.startsWith("/build")) {
+		} else if (s.startsWith("build")) {
 			Village.getInstance().buildCheatBuilding(EnumBuilding.valueOf(s.split(" ")[1]));
-		} else if (s.startsWith("/village")) {
+		} else if (s.startsWith("village")) {
 			EventBus.EVENT_BUS.post(new ConsoleEvent(Village.getInstance().getDebugString()));
-		} else if (s.startsWith("/populate")) {
+		} else if (s.startsWith("populate")) {
 			Village.getInstance().gainNewVilagers(Integer.parseInt(s.split(" ")[1]));
-		} else if (s.startsWith("/e")) {
+		} else if (s.startsWith("e")) {
 			MapScreen.getInstance().showEnemy(new Enemy(10, 2, 700));
 		} else {
 			EventBus.EVENT_BUS.post(new ConsoleEvent("ERROR: Invalid command"));
