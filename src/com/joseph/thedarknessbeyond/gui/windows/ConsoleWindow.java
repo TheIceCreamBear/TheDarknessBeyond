@@ -116,8 +116,11 @@ public class ConsoleWindow extends Window {
 		
 		g.drawString(s, this.x, this.y + yOffset);
 		if (this.cursor) {
-			String offsetStr = s.substring(0, this.cursorIndex);
-			int xOffset = (int) font.getStringBounds(offsetStr, frc).getWidth() + 1;
+			int xOffset = 0;
+			if (this.cursorIndex > 0) {
+				String offsetStr = s.substring(0, this.cursorIndex);
+				xOffset = (int) font.getStringBounds(offsetStr, frc).getWidth() + 1;
+			}
 			g.setColor(Reference.Colors.CURSOR_COLOR);
 			g.fillRect(this.x + xOffset, this.y + 5, 2, yOffset);
 		}
@@ -154,7 +157,7 @@ public class ConsoleWindow extends Window {
 		}
 		
 		// permantly disable the back quote from showing up in the console
-		if (e.getKeyChar() == KeyEvent.VK_BACK_QUOTE) {
+		if (e.getKeyChar() == '`' || e.getKeyChar() == '~') {
 			return;
 		}
 		
@@ -166,8 +169,8 @@ public class ConsoleWindow extends Window {
 			if (this.previousIndex == 0) {
 				char temp = e.getKeyChar();
 				if (temp == KeyEvent.VK_BACK_SPACE) {
-					if (cursorIndex - 1 == 0) {
-						hide();
+					if (cursorIndex == 0) {
+//						hide();
 						return;
 					}
 					text.remove(cursorIndex - 1);
@@ -189,7 +192,7 @@ public class ConsoleWindow extends Window {
 				
 				char temp = e.getKeyChar();
 				if ((int) temp == KeyEvent.VK_BACK_SPACE) {
-					if (cursorIndex - 1 == 0) {
+					if (cursorIndex == 0) {
 						return;
 					}
 					previousText.remove(cursorIndex - 1);
@@ -246,8 +249,8 @@ public class ConsoleWindow extends Window {
 		}
 		
 		this.text.clear();
-		this.text.add('/');
-		this.cursorIndex = 1;
+//		this.text.add('/');
+		this.cursorIndex = 0;
 		
 		command(s);
 	}

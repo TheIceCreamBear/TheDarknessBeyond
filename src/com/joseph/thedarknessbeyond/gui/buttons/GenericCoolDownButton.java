@@ -12,6 +12,7 @@ import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
+import com.joseph.thedarknessbeyond.util.Utilities;
 
 /**
  * A generic type button that has a cool down and dynamically allocates its size
@@ -29,8 +30,8 @@ public class GenericCoolDownButton extends AbstractButton {
 	private int cooldown;
 	private final int maxCooldown;
 	
-	public GenericCoolDownButton(int x, int y, String s, boolean scaled, int maxCooldown, IMouseReliant imr) {
-		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, TheDarknessBeyondEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, TheDarknessBeyondEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
+	public GenericCoolDownButton(int x, int y, String s, int maxCooldown, IMouseReliant imr) {
+		super(x, y, Utilities.getGuiSizeFromString(s));
 		this.text = s;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();

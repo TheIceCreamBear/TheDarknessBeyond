@@ -33,12 +33,12 @@ public class MapScreen extends Screen {
 	private CombatWindow cw;
 
 	public MapScreen(int x, int y, int width, int height) {
-		super(x, y, width, height, true);
+		super(x, y, width, height);
 		this.map = new Map();
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getMapFont();
 		this.r = font.getStringBounds(";", frc);
-		this.cw = new CombatWindow(x + (200 * ScreenReference.scale), y + (400 * ScreenReference.scale), 450 * ScreenReference.scale, 200 * ScreenReference.scale, player);
+		this.cw = new CombatWindow(x + 200, y + 400, 450, 200, player);
 		this.cw.hide();
 		
 		instance = this;

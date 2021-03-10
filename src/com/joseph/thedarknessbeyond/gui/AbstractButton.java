@@ -16,6 +16,11 @@ public abstract class AbstractButton extends GuiElement implements IMouseReliant
 		super(x, y, width, height, scaled);
 		this.visible = true;
 	}
+	
+	public AbstractButton(int x, int y, GuiSize size) {
+		super(x, y, size);
+		this.visible = true;
+	}
 
 	@Override
 	public boolean isMouseInElement() {
