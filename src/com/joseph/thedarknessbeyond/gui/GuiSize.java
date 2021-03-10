@@ -14,4 +14,9 @@ public class GuiSize {
 		this.width = width;
 		this.height = height;
 	}
+	
+	@Override
+	public String toString() {
+		return width + "x" + height;
+	}
 }
