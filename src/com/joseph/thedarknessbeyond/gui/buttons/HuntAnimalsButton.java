@@ -17,6 +17,7 @@ import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.EnumResource;
 import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
+import com.joseph.thedarknessbeyond.util.Utilities;
 
 /**
  * hunts animals in the wilderness
@@ -35,12 +36,12 @@ public class HuntAnimalsButton extends AbstractButton {
 	private int cooldown;
 	private final int maxCooldown;
 	
-	public HuntAnimalsButton(int x, int y, String s, boolean scaled) {
-		this(x, y, s, scaled,null);
+	public HuntAnimalsButton(int x, int y, String s) {
+		this(x, y, s, null);
 	}
 	
-	public HuntAnimalsButton(int x, int y, String s, boolean scaled, ToolTip tt) {
-		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, TheDarknessBeyondEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, TheDarknessBeyondEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
+	public HuntAnimalsButton(int x, int y, String s, ToolTip tt) {
+		super(x, y, Utilities.getGuiSizeFromString(s));
 		this.text = s;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();

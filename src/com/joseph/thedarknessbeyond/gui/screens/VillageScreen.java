@@ -33,36 +33,36 @@ public class VillageScreen extends Screen {
 	private GenericJobAssignmentWindow[] assignments;
 	
 	public VillageScreen(int x, int y, int width, int height) {
-		super(x, y, width, height, true);
+		super(x, y, width, height);
 		this.village = new Village();
 		
 		/* When on the village screen, these buttons should be displayed, with the appropriate string on each button saying what they do 
 		   and setting each button at certain coordinates.
 		*/
-		int xOff = 00 * ScreenReference.scale;
-		int yOff = 100 * ScreenReference.scale;
-		gatherWoodButton = new CollectWood(x + xOff, y + yOff, "Collect Wood", true);
+		int xOff = 0;
+		int yOff = 100;
+		gatherWoodButton = new CollectWood(x + xOff, y + yOff, "Collect Wood");
 		TheDarknessBeyondEngine.getInstance().addButton(gatherWoodButton);
-		yOff += gatherWoodButton.getHeight0() + 20 * ScreenReference.scale;
+		yOff += gatherWoodButton.getHeight0() + 20;
 		
-		gatherAnimalButton = new HuntAnimalsButton(x + xOff, y + yOff, "Hunt Animals", true);
+		gatherAnimalButton = new HuntAnimalsButton(x + xOff, y + yOff, "Hunt Animals");
 		TheDarknessBeyondEngine.getInstance().addButton(gatherAnimalButton);
-		yOff += gatherAnimalButton.getHeight0() + 20 * ScreenReference.scale;
+		yOff += gatherAnimalButton.getHeight0() + 20;
 		
-		gatherStoneButton = new MineStoneButton(x + xOff, y + yOff, "Mine Stone", true);
+		gatherStoneButton = new MineStoneButton(x + xOff, y + yOff, "Mine Stone");
 		TheDarknessBeyondEngine.getInstance().addButton(gatherStoneButton);
-		yOff += gatherStoneButton.getHeight0() + 20 * ScreenReference.scale;
+		yOff += gatherStoneButton.getHeight0() + 20;
 		
-		gatherPlantsButton = new ScavengePlantsButton(x + xOff, y + yOff, "Scavenge Plants", true);
+		gatherPlantsButton = new ScavengePlantsButton(x + xOff, y + yOff, "Scavenge Plants");
 		TheDarknessBeyondEngine.getInstance().addButton(gatherPlantsButton);
 		
 		
-		xOff += 200 * ScreenReference.scale;
-		yOff = 100 * ScreenReference.scale;
+		xOff += 200;
+		yOff = 100;
 		this.assignments = new GenericJobAssignmentWindow[village.getJobDistrubution().size()];
 		for (int i = 0; i < assignments.length; i++) {
 			assignments[i] = new GenericJobAssignmentWindow(x + xOff, y + yOff, EnumJob.values()[i]);
-			yOff += assignments[i].getHeight0() + 20 * ScreenReference.scale;
+			yOff += assignments[i].getHeight0() + 20;
 		}		
 		
 		screen = this;
