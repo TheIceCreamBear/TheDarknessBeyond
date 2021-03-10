@@ -43,15 +43,15 @@ public class VillageScreen extends Screen {
 		int yOff = 100;
 		gatherWoodButton = new CollectWood(x + xOff, y + yOff, "Collect Wood");
 		TheDarknessBeyondEngine.getInstance().addButton(gatherWoodButton);
-		yOff += gatherWoodButton.getHeight0() + 20;
+		yOff += gatherWoodButton.getHeight() + 20;
 		
 		gatherAnimalButton = new HuntAnimalsButton(x + xOff, y + yOff, "Hunt Animals");
 		TheDarknessBeyondEngine.getInstance().addButton(gatherAnimalButton);
-		yOff += gatherAnimalButton.getHeight0() + 20;
+		yOff += gatherAnimalButton.getHeight() + 20;
 		
 		gatherStoneButton = new MineStoneButton(x + xOff, y + yOff, "Mine Stone");
 		TheDarknessBeyondEngine.getInstance().addButton(gatherStoneButton);
-		yOff += gatherStoneButton.getHeight0() + 20;
+		yOff += gatherStoneButton.getHeight() + 20;
 		
 		gatherPlantsButton = new ScavengePlantsButton(x + xOff, y + yOff, "Scavenge Plants");
 		TheDarknessBeyondEngine.getInstance().addButton(gatherPlantsButton);
@@ -62,7 +62,7 @@ public class VillageScreen extends Screen {
 		this.assignments = new GenericJobAssignmentWindow[village.getJobDistrubution().size()];
 		for (int i = 0; i < assignments.length; i++) {
 			assignments[i] = new GenericJobAssignmentWindow(x + xOff, y + yOff, EnumJob.values()[i]);
-			yOff += assignments[i].getHeight0() + 20;
+			yOff += assignments[i].getHeight() + 20;
 		}		
 		
 		screen = this;

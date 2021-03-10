@@ -79,7 +79,7 @@ public class LoadGameWindow extends Window {
 			});
 			
 			TheDarknessBeyondEngine.getInstance().addButton(gsbs[i]);
-			yOff += gsbs[i].getHeight0() + 10 * ScreenReference.scale;
+			yOff += gsbs[i].getHeight() + 10 * ScreenReference.scale;
 		}
 		
 //		System.out.println(this.x + " " + this.y + " " + this.width + " " + this.height);

@@ -61,7 +61,7 @@ public class PauseMenuWindow extends Window {
 				return true;
 			}
 		});
-		yOff += this.resume.getHeight0() + 10 * ScreenReference.scale;
+		yOff += this.resume.getHeight() + 10 * ScreenReference.scale;
 		
 		this.load = new GenericSelectableButton(x + xOff, y + yOff, "Load Game", true, false, new IMouseReliant() {
 			@Override
@@ -73,7 +73,7 @@ public class PauseMenuWindow extends Window {
 				return true;
 			}
 		});
-		yOff += this.load.getHeight0() + 10 * ScreenReference.scale;
+		yOff += this.load.getHeight() + 10 * ScreenReference.scale;
 		
 		this.save = new GenericSelectableButton(x + xOff, y + yOff, "Save Game", true, false, new IMouseReliant() {
 			@Override
@@ -90,7 +90,7 @@ public class PauseMenuWindow extends Window {
 				return true;
 			}
 		});
-		yOff += this.save.getHeight0() + 10 * ScreenReference.scale;
+		yOff += this.save.getHeight() + 10 * ScreenReference.scale;
 		
 		this.exit = new GenericSelectableButton(x + xOff, y + yOff, "Exit Game", true, false, new IMouseReliant() {
 			@Override
@@ -107,7 +107,7 @@ public class PauseMenuWindow extends Window {
 				return true;
 			}
 		});
-		yOff += this.exit.getHeight0() + 10 * ScreenReference.scale;
+		yOff += this.exit.getHeight() + 10 * ScreenReference.scale;
 		
 		TheDarknessBeyondEngine.getInstance().addButton(resume);
 		TheDarknessBeyondEngine.getInstance().addButton(load);

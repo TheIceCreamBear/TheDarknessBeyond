@@ -39,7 +39,7 @@ public class CombatWindow extends Window {
 			}
 		});
 		
-		this.ranged = new GenericCoolDownButton(x + 20, y + 55 + attack.getHeight0(), "Ranged Attack", 600, new IMouseReliant() {
+		this.ranged = new GenericCoolDownButton(x + 20, y + 55 + attack.getHeight(), "Ranged Attack", 600, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				enemy.damage(CombatWindow.this.player.getRangedAttack());
@@ -47,7 +47,7 @@ public class CombatWindow extends Window {
 			}
 		});
 		
-		this.heal = new GenericCoolDownButton(x + 20, y + 60 + attack.getHeight0() + ranged.getHeight0(), "Heal", 600, new IMouseReliant() {
+		this.heal = new GenericCoolDownButton(x + 20, y + 60 + attack.getHeight() + ranged.getHeight(), "Heal", 600, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				CombatWindow.this.player.heal();

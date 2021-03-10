@@ -120,7 +120,7 @@ public class ScreenSelectionWindow extends Window {
 				return true;
 			}
 		});
-		xOff += this.buttons[0].getWidth0() + (yOff * 2);
+		xOff += this.buttons[0].getWidth() + (yOff * 2);
 		
 		this.buttons[1] = new GenericSelectableButton(x + xOff, y + yOff, "Village", true, true, new IMouseReliant() {
 			@Override
@@ -129,7 +129,7 @@ public class ScreenSelectionWindow extends Window {
 				return true;
 			}
 		});
-		xOff += this.buttons[1].getWidth0() + (yOff * 2);
+		xOff += this.buttons[1].getWidth() + (yOff * 2);
 		
 		this.buttons[2] = new GenericSelectableButton(x + xOff, y + yOff, "Travel", true, true, new IMouseReliant() {
 			@Override
@@ -138,7 +138,7 @@ public class ScreenSelectionWindow extends Window {
 				return true;
 			}
 		});
-		xOff += this.buttons[2].getWidth0() + (yOff * 2);
+		xOff += this.buttons[2].getWidth() + (yOff * 2);
 		
 		this.refocousSelection(0);
 		this.buttons[0].select();
