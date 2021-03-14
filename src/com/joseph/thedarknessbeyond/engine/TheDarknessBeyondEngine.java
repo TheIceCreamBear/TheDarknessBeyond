@@ -126,6 +126,8 @@ public class TheDarknessBeyondEngine {
 	}
 	
 	public static void main(String[] args) {
+		System.setProperty("sun.java2d.dpiaware", "false");
+		System.setProperty("sun.java2d.uiScale", "1");
 		if (Reference.DEBUG_MODE) {
 			System.out.println(Runtime.getRuntime().maxMemory());
 			System.err.println("x: " + ScreenReference.WIDTH + "y: " + ScreenReference.HEIGHT);
@@ -296,9 +298,9 @@ public class TheDarknessBeyondEngine {
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 0, ScreenReference.WIDTH, ScreenReference.HEIGHT);
 		
-		for (IGuiElement iGuiOverlay : guiElements) {
-			iGuiOverlay.drawBackground(g2, observer);
-			iGuiOverlay.drawUpdateableElements(g2, observer);
+		for (IGuiElement iGuiElement : guiElements) {
+			iGuiElement.drawBackground(g2, observer);
+			iGuiElement.drawUpdateableElements(g2, observer);
 		}
 		
 		if (Reference.DEBUG_MODE) {
