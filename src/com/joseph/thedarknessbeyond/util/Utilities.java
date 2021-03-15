@@ -39,7 +39,7 @@ public class Utilities {
 		FontRenderContext frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		Rectangle2D bounds = current.getStringBounds(s, frc);
 		
-		int width = ((int) bounds.getWidth()) + (5 * ScreenReference.scale);
+		int width = ((int) bounds.getWidth()) + (10 * ScreenReference.scale);
 		int height = ((int) bounds.getHeight()) + (2 * ScreenReference.scale);
 		GuiSize size = new GuiSize(width, height);
 		System.out.println(s + "=" + size);
