@@ -68,7 +68,7 @@ public class GenericCoolDownButton extends AbstractButton {
 			return;
 		}
 		if (this.cooldown > 0) {
-			g.setColor(Color.BLACK);
+			g.setColor(Color.DARK_GRAY);
 		}
 		else {
 			g.setColor(Color.WHITE);
@@ -81,7 +81,6 @@ public class GenericCoolDownButton extends AbstractButton {
 		
 		if (isMouseInElement()) {
 			this.displayToolTip(g);
-			
 		}
 	}
 	
@@ -134,6 +133,7 @@ public class GenericCoolDownButton extends AbstractButton {
 			imr.onMouseEvent(e);
 			TheDarknessBeyondEngine.getInstance().releaseFocous();
 			TheDarknessBeyondEngine.getInstance().setDefaultMouse();
+			this.font = ScreenReference.getTheFont();
 			this.mouseInSelf = false;
 				
 			this.cooldown = maxCooldown;
