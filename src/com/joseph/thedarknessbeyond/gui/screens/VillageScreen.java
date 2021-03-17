@@ -13,11 +13,7 @@ import com.joseph.thedarknessbeyond.gameobject.Village;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumJob;
 import com.joseph.thedarknessbeyond.gui.Screen;
-import com.joseph.thedarknessbeyond.gui.buttons.CollectWood;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericCoolDownButton;
-import com.joseph.thedarknessbeyond.gui.buttons.HuntAnimalsButton;
-import com.joseph.thedarknessbeyond.gui.buttons.MineStoneButton;
-import com.joseph.thedarknessbeyond.gui.buttons.ScavengePlantsButton;
 import com.joseph.thedarknessbeyond.gui.windows.GenericJobAssignmentWindow;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
@@ -34,11 +30,10 @@ import com.joseph.thedarknessbeyond.resource.StorageManager;
 public class VillageScreen extends Screen {
 	private Village village;
 	private static VillageScreen screen;
-	private CollectWood gatherWoodButton;
 	private GenericCoolDownButton collectWood;
-	private HuntAnimalsButton gatherAnimalButton;
-	private MineStoneButton gatherStoneButton;
-	private ScavengePlantsButton gatherPlantsButton;
+	private GenericCoolDownButton huntAnimals;
+	private GenericCoolDownButton mineStone;
+	private GenericCoolDownButton scavengePlants;
 	private GenericJobAssignmentWindow[] assignments;
 	
 	public VillageScreen(int x, int y, int width, int height) {
@@ -50,10 +45,6 @@ public class VillageScreen extends Screen {
 		*/
 		int xOff = 0;
 		int yOff = 100;
-		gatherWoodButton = new CollectWood(x + xOff, y + yOff, "Collect Wood");
-//		TheDarknessBeyondEngine.getInstance().addButton(gatherWoodButton);
-//		yOff += gatherWoodButton.getHeight() + 20;
-		
 		collectWood = new GenericCoolDownButton(x + xOff, y + yOff, "Collect Wood", 600, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
@@ -67,17 +58,49 @@ public class VillageScreen extends Screen {
 		TheDarknessBeyondEngine.getInstance().addButton(collectWood);
 		yOff += collectWood.getHeight() + 20;
 		
-		gatherAnimalButton = new HuntAnimalsButton(x + xOff, y + yOff, "Hunt Animals");
-		TheDarknessBeyondEngine.getInstance().addButton(gatherAnimalButton);
-		yOff += gatherAnimalButton.getHeight() + 20;
+		huntAnimals = new GenericCoolDownButton(x + xOff, y + yOff, "Hunt Animals", 800, new IMouseReliant() {
+			@Override
+			public boolean onMouseEvent(MouseEvent e) {
+				Resource fur = new Resource(EnumResource.Fur, 3);
+				StorageManager.getInstance().addResource(fur);
+				
+				Resource meat = new Resource(EnumResource.Meat, 4);
+				StorageManager.getInstance().addResource(meat);
+				
+				EventBus.EVENT_BUS.post(new Event("Killing animals suck, but their fur and meat sure do come in handy!"));
+				return true;
+			}
+		});
+		TheDarknessBeyondEngine.getInstance().addButton(huntAnimals);
+		yOff += huntAnimals.getHeight() + 20;
 		
-		gatherStoneButton = new MineStoneButton(x + xOff, y + yOff, "Mine Stone");
-		TheDarknessBeyondEngine.getInstance().addButton(gatherStoneButton);
-		yOff += gatherStoneButton.getHeight() + 20;
+		mineStone = new GenericCoolDownButton(x + xOff, y + yOff, "Mine Stone", 1200, new IMouseReliant() {
+			@Override
+			public boolean onMouseEvent(MouseEvent e) {
+				Resource stone = new Resource(EnumResource.Stone, 10);
+				StorageManager.getInstance().addResource(stone);
+				
+				EventBus.EVENT_BUS.post(new Event("*Sweat drips down your face* I hope its useful."));
+				return true;
+			}
+		});
+		TheDarknessBeyondEngine.getInstance().addButton(mineStone);
+		yOff += mineStone.getHeight() + 20;
 		
-		gatherPlantsButton = new ScavengePlantsButton(x + xOff, y + yOff, "Scavenge Plants");
-		TheDarknessBeyondEngine.getInstance().addButton(gatherPlantsButton);
-		
+		scavengePlants = new GenericCoolDownButton(x + xOff, y + yOff, "Scavenge Plants", 500, new IMouseReliant() {
+			@Override
+			public boolean onMouseEvent(MouseEvent e) {
+				Resource berries = new Resource(EnumResource.Berries, 2);
+				StorageManager.getInstance().addResource(berries);
+				
+				Resource cotton = new Resource(EnumResource.Cotton, 3);
+				StorageManager.getInstance().addResource(cotton);
+				
+				EventBus.EVENT_BUS.post(new Event("Berries and cotton? Don't mind if I do!"));
+				return true;
+			}
+		});
+		TheDarknessBeyondEngine.getInstance().addButton(scavengePlants);
 		
 		xOff += 200;
 		yOff = 100;
@@ -94,11 +117,10 @@ public class VillageScreen extends Screen {
 	
 	@Override
 	public void drawBackground(Graphics g, ImageObserver observer) {
-//		gatherWoodButton.drawBackground(g, observer);
 		collectWood.drawBackground(g, observer);
-		gatherAnimalButton.drawBackground(g, observer);
-		gatherStoneButton.drawBackground(g, observer);
-		gatherPlantsButton.drawBackground(g, observer);
+		huntAnimals.drawBackground(g, observer);
+		mineStone.drawBackground(g, observer);
+		scavengePlants.drawBackground(g, observer);
 		
 		for (int i = 0; i < assignments.length; i++) {
 			assignments[i].drawBackground(g, observer);
@@ -107,11 +129,10 @@ public class VillageScreen extends Screen {
 	
 	@Override
 	public void drawUpdateableElements(Graphics g, ImageObserver observer) {
-//		gatherWoodButton.drawUpdateableElements(g, observer);
 		collectWood.drawUpdateableElements(g, observer);
-		gatherAnimalButton.drawUpdateableElements(g,observer);
-		gatherStoneButton.drawUpdateableElements(g, observer);
-		gatherPlantsButton.drawUpdateableElements(g, observer);
+		huntAnimals.drawUpdateableElements(g,observer);
+		mineStone.drawUpdateableElements(g, observer);
+		scavengePlants.drawUpdateableElements(g, observer);
 		
 		g.setFont(ScreenReference.getTheFont());
 		g.setColor(Color.white);
@@ -135,11 +156,10 @@ public class VillageScreen extends Screen {
 	
 	@Override
 	public void updateUpdateableElements(double deltaTime) {
-//		gatherWoodButton.updateUpdateableElements(deltaTime);
 		collectWood.updateUpdateableElements(deltaTime);
-		gatherAnimalButton.updateUpdateableElements(deltaTime);
-		gatherStoneButton.updateUpdateableElements(deltaTime);
-		gatherPlantsButton.updateUpdateableElements(deltaTime);
+		huntAnimals.updateUpdateableElements(deltaTime);
+		mineStone.updateUpdateableElements(deltaTime);
+		scavengePlants.updateUpdateableElements(deltaTime);
 		
 		for (int i = 0; i < assignments.length; i++) {
 			assignments[i].updateUpdateableElements(deltaTime);
@@ -164,20 +184,18 @@ public class VillageScreen extends Screen {
 	@Override
 	public void hide() {
 		collectWood.hide();
-//		gatherWoodButton.hide();
-		gatherAnimalButton.hide();
-		gatherPlantsButton.hide();
-		gatherStoneButton.hide();
+		huntAnimals.hide();
+		scavengePlants.hide();
+		mineStone.hide();
 		super.hide();
 	}
 	
 	@Override
 	public void show() {
 		collectWood.show();
-//		gatherWoodButton.show();
-		gatherAnimalButton.show();
-		gatherPlantsButton.show();
-		gatherStoneButton.show();
+		huntAnimals.show();
+		scavengePlants.show();
+		mineStone.show();
 		super.show();
 	}
 }
