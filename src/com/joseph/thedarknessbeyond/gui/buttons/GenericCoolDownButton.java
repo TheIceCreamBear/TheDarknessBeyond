@@ -29,8 +29,9 @@ public class GenericCoolDownButton extends AbstractButton {
 	private boolean selected;
 	private int cooldown;
 	private final int maxCooldown;
+	private final boolean useDark;
 	
-	public GenericCoolDownButton(int x, int y, String s, int maxCooldown, IMouseReliant imr) {
+	public GenericCoolDownButton(int x, int y, String s, int maxCooldown, boolean useDark, IMouseReliant imr) {
 		super(x, y, Utilities.getGuiSizeFromString(s));
 		this.text = s;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
@@ -38,6 +39,7 @@ public class GenericCoolDownButton extends AbstractButton {
 		
 		this.cooldown = 0;
 		this.maxCooldown = maxCooldown;
+		this.useDark = useDark;
 		
 		this.imr = imr;
 	}
@@ -49,7 +51,7 @@ public class GenericCoolDownButton extends AbstractButton {
 		}
 		
 		if (this.cooldown > 0) {
-			g.setColor(Color.DARK_GRAY);
+			g.setColor(useDark ? Color.BLACK : Color.DARK_GRAY);
 			g.drawRect(x, y, width, height);
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(x + 1, y + 1, cooldown * (width - 2) / maxCooldown, height - 1);
@@ -59,7 +61,6 @@ public class GenericCoolDownButton extends AbstractButton {
 			g.setColor(Color.DARK_GRAY);
 			g.fillRect(x + 1, y + 1, width - 1, height - 1);
 		}
-		
 	}
 	
 	@Override
@@ -68,7 +69,7 @@ public class GenericCoolDownButton extends AbstractButton {
 			return;
 		}
 		if (this.cooldown > 0) {
-			g.setColor(Color.DARK_GRAY);
+			g.setColor(useDark ? Color.BLACK : Color.DARK_GRAY);
 		}
 		else {
 			g.setColor(Color.WHITE);

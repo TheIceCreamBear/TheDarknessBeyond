@@ -45,7 +45,7 @@ public class VillageScreen extends Screen {
 		*/
 		int xOff = 0;
 		int yOff = 100;
-		collectWood = new GenericCoolDownButton(x + xOff, y + yOff, "Collect Wood", 600, new IMouseReliant() {
+		collectWood = new GenericCoolDownButton(x + xOff, y + yOff, "Collect Wood", 600, false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				Resource wood = new Resource(EnumResource.Wood, 20);
@@ -58,7 +58,7 @@ public class VillageScreen extends Screen {
 		TheDarknessBeyondEngine.getInstance().addButton(collectWood);
 		yOff += collectWood.getHeight() + 20;
 		
-		huntAnimals = new GenericCoolDownButton(x + xOff, y + yOff, "Hunt Animals", 800, new IMouseReliant() {
+		huntAnimals = new GenericCoolDownButton(x + xOff, y + yOff, "Hunt Animals", 800, false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				Resource fur = new Resource(EnumResource.Fur, 3);
@@ -74,7 +74,7 @@ public class VillageScreen extends Screen {
 		TheDarknessBeyondEngine.getInstance().addButton(huntAnimals);
 		yOff += huntAnimals.getHeight() + 20;
 		
-		mineStone = new GenericCoolDownButton(x + xOff, y + yOff, "Mine Stone", 1200, new IMouseReliant() {
+		mineStone = new GenericCoolDownButton(x + xOff, y + yOff, "Mine Stone", 1200, false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				Resource stone = new Resource(EnumResource.Stone, 10);
@@ -87,7 +87,7 @@ public class VillageScreen extends Screen {
 		TheDarknessBeyondEngine.getInstance().addButton(mineStone);
 		yOff += mineStone.getHeight() + 20;
 		
-		scavengePlants = new GenericCoolDownButton(x + xOff, y + yOff, "Scavenge Plants", 500, new IMouseReliant() {
+		scavengePlants = new GenericCoolDownButton(x + xOff, y + yOff, "Scavenge Plants", 500, false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				Resource berries = new Resource(EnumResource.Berries, 2);
