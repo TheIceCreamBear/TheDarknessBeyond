@@ -8,7 +8,7 @@ import com.joseph.thedarknessbeyond.resource.ItemStack;
 import com.joseph.thedarknessbeyond.resource.Resource;
 
 /**
- * an object representation of the player on the map. Used only when the player is travleling
+ * an object representation of the player on the map. Used only when the player is traveling
  * @author Joseph
  *
  */
@@ -16,7 +16,7 @@ public class Player {
 	private int x;
 	private int y;
 	private int health;
-	private int maxHealth;
+	private int maxHealth; // TODO this needs a value and should probably be final
 	private HashMap<EnumResource, Resource> resources;
 	private EnumItem meleWeapon;
 	private EnumItem rangedWeapon;
@@ -35,10 +35,9 @@ public class Player {
 		this.meleWeapon = meleWeapon;
 		this.rangedWeapon = rangedWeapon;
 		this.ammo = ammo;
+		this.health = 10;
 		if (armor != null && !armor.isModDamage()) {
-			this.health = 10 + armor.getMod();
-		} else {
-			this.health = 10;
+			this.health += armor.getMod();
 		}
 	}
 	
@@ -85,18 +84,17 @@ public class Player {
 	}
 	
 	public int getRangedAttack() {
-		if (this.rangedWeapon == null) {
+		if (this.rangedWeapon == null || this.rangedWeapon == EnumItem.None) {
 			return 0;
 		}
 		
 		if (ammo == null) {
 			return 0;
-		} else {
-			if (this.rangedWeapon.hasAmmo()) {
-				this.ammo.consume();
-			}
-			return this.rangedWeapon.getMod() + this.ammo.getItem().getMod();
 		}
+		if (this.rangedWeapon.hasAmmo()) {
+			this.ammo.consume();
+		}
+		return this.rangedWeapon.getMod() + this.ammo.getItem().getMod();
 	}
 	
 	public HashMap<EnumResource, Resource> getResources() {
