@@ -2,6 +2,7 @@ package com.joseph.thedarknessbeyond.gui.screens;
 
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 
 import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
@@ -33,15 +34,25 @@ public class RoomScreen extends Screen {
 		}
 		
 		EnumItem[] items = EnumItem.values();
-		this.crafters = new GenericCraftButton[items.length];
 		yOff = ScreenReference.charHeight + 40 * ScreenReference.scale;
+		ArrayList<GenericCraftButton> craftButtons = new ArrayList<GenericCraftButton>();
 		for (int i = 0; i < items.length; i++) {
-			crafters[i] = new GenericCraftButton(x + (200 * ScreenReference.scale), y + yOff, items[i]);
+			EnumItem item = items[i];
+			if (item.getCost() == null || item.getCost().length == 0) {
+				continue;
+			}
+			craftButtons.add(new GenericCraftButton(x + (200 * ScreenReference.scale), y + yOff, item));
 			yOff += ScreenReference.charHeight + 20 * ScreenReference.scale;
 		}
 		
 		for (int i = 0; i < buttons.length; i++) {
 			TheDarknessBeyondEngine.getInstance().addButton(this.buttons[i]);
+		}
+		
+		this.crafters = new GenericCraftButton[craftButtons.size()];
+		for (int i = 0; i < crafters.length; i++) {
+			this.crafters[i] = craftButtons.get(i);
+			TheDarknessBeyondEngine.getInstance().addButton(this.crafters[i]);
 		}
 	}
 
@@ -53,6 +64,8 @@ public class RoomScreen extends Screen {
 		
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].drawBackground(g, observer);
+		}
+		for (int i = 0; i < crafters.length; i++) {			
 			crafters[i].drawBackground(g, observer);
 		}
 	}
@@ -65,11 +78,15 @@ public class RoomScreen extends Screen {
 		
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].drawUpdateableElements(g, observer);
+		}
+		for (int i = 0; i < crafters.length; i++) {			
 			crafters[i].drawUpdateableElements(g, observer);
 		}
 		
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].displayToolTip(g);
+		}
+		for (int i = 0; i < crafters.length; i++) {			
 			crafters[i].displayToolTip(g);
 		}
 	}
@@ -78,6 +95,8 @@ public class RoomScreen extends Screen {
 	public void updateUpdateableElements(double deltaTime) {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].updateUpdateableElements(deltaTime);
+		}
+		for (int i = 0; i < crafters.length; i++) {			
 			crafters[i].updateUpdateableElements(deltaTime);
 		}
 	}
@@ -94,6 +113,8 @@ public class RoomScreen extends Screen {
 	public void show() {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].show();
+		}
+		for (int i = 0; i < crafters.length; i++) {			
 			crafters[i].show();
 		}
 		this.visible = true;
@@ -102,6 +123,8 @@ public class RoomScreen extends Screen {
 	public void hide() {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].hide();
+		}
+		for (int i = 0; i < crafters.length; i++) {			
 			crafters[i].hide();
 		}
 		this.visible = false;
