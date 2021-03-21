@@ -173,7 +173,10 @@ public class TheDarknessBeyondEngine {
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setUndecorated(true);
+		this.frame.toFront();
 		this.frame.setVisible(true);
+		// TODO update this to use system similar to ScreenManager in BaseEngine??
+		// (github.com/TheIceCreamBear/BaseEngine)
 		
 		this.rlo = new RenderLockObject();
 		this.rtInstance = new RenderThread("RenderThread", this.rlo, this);
