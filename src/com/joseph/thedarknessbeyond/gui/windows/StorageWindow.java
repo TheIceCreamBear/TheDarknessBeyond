@@ -77,6 +77,8 @@ public class StorageWindow extends Window {
 			Rectangle2D r = font.getStringBounds(s, frc);
 			yOff += r.getHeight() + 5;
 		}
+		
+		// TODO this needs to show numbers of items
 	}
 	
 	@Override

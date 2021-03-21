@@ -21,6 +21,10 @@ public class TravelScreen extends Screen {
 	
 	public TravelScreen(int x, int y, int width, int height) {
 		super(x, y, width, height, true);
+		
+		// TODO the scaling setting in this and other windowed classes
+		// TODO departing with items consumes them from your stores
+		
 		this.depart = new GenericSelectableButton(x, y + 200, "Depart", true, false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
