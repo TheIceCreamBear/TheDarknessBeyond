@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gui.GuiSize;
 import com.joseph.thedarknessbeyond.reference.Reference;
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 /**
  * collection of util methods
@@ -36,7 +37,7 @@ public class Utilities {
 	 */
 	public static GuiSize getGuiSizeFromStringScalled(String s) {
 		GuiSize absSize = getGuiSizeFromStringAbs(s);
-		return new GuiSize(absSize.width * 2, absSize.height * 2);
+		return new GuiSize(absSize.width * ScreenReference.scale, absSize.height * ScreenReference.scale);
 	}
 	
 	/**

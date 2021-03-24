@@ -79,4 +79,12 @@ public abstract class GuiElement implements IGuiElement {
 	public int getHeight() {
 		return this.height / ScreenReference.scale;
 	}
+	
+	public int getX() {
+		return this.x / ScreenReference.scale;
+	}
+	
+	public int getY() {
+		return this.y / ScreenReference.scale;
+	}
 }
