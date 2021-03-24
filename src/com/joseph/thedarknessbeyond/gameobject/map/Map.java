@@ -235,8 +235,8 @@ public class Map {
 			}
 			
 		});
-		System.out.println(keys);
-		System.out.println(localChances);
+//		System.out.println(keys);
+//		System.out.println(localChances);
 		
 		float chance = 0;
 		float chanceNeeded = r.nextFloat();

@@ -12,6 +12,7 @@ import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.event.Event;
 import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
+import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.EnumItem;
 import com.joseph.thedarknessbeyond.resource.Resource;
@@ -71,6 +72,14 @@ public class GenericCraftButton extends AbstractButton {
 		int yOff = (int) Math.abs(r.getY()) + 2 * ScreenReference.scale;
 		int xOff = 5;
 		g.drawString("Craft " + item.toString(), x + xOff, y + yOff);
+
+		// draw bounding box if debug mode is on
+		if (Reference.DEBUG_MODE) {
+			Color save = g.getColor();
+			g.setColor(Color.MAGENTA);
+			g.drawRect(x, y, width, height);
+			g.setColor(save);
+		}
 	}
 
 	@Override

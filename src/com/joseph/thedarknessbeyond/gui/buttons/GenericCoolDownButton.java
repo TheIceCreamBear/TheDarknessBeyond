@@ -11,6 +11,7 @@ import java.awt.image.ImageObserver;
 import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
+import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.Utilities;
 
@@ -82,6 +83,14 @@ public class GenericCoolDownButton extends AbstractButton {
 		
 		if (isMouseInElement()) {
 			this.displayToolTip(g);
+		}
+
+		// draw bounding box if debug mode is on
+		if (Reference.DEBUG_MODE) {
+			Color save = g.getColor();
+			g.setColor(Color.MAGENTA);
+			g.drawRect(x, y, width, height);
+			g.setColor(save);
 		}
 	}
 	
