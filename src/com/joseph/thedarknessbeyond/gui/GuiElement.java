@@ -73,10 +73,10 @@ public abstract class GuiElement implements IGuiElement {
 	}
 	
 	public int getWidth() {
-		return this.width;
+		return this.width / ScreenReference.scale;
 	}
 	
 	public int getHeight() {
-		return this.height;
+		return this.height / ScreenReference.scale;
 	}
 }
