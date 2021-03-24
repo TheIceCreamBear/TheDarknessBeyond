@@ -16,6 +16,7 @@ import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.Resource;
+import com.joseph.thedarknessbeyond.util.Utilities;
 
 /**
  * A button the is used to build the given building. It is a generic and allocates its size based of the size of the string it will draw
@@ -32,7 +33,7 @@ public class GenericBuildButton extends AbstractButton {
 	private boolean mouseInSelfPrevious;
 	
 	public GenericBuildButton(int x, int y, EnumBuilding b) {
-		super(x, y, (int) ScreenReference.getTheFont().getStringBounds("Build " + b.toString(), TheDarknessBeyondEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds("Build " + b.toString(), TheDarknessBeyondEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), true);
+		super(x, y, Utilities.getGuiSizeFromString("Build " + b.toString()));
 		this.b = b;
 		this.toolTipHeight = 24 * b.getCost().length * ScreenReference.scale;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();

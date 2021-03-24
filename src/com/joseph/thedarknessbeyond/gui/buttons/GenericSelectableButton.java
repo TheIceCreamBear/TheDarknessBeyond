@@ -13,6 +13,7 @@ import com.joseph.thedarknessbeyond.gui.AbstractButton;
 import com.joseph.thedarknessbeyond.gui.ToolTip;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
+import com.joseph.thedarknessbeyond.util.Utilities;
 
 /**
  * A generic button that has a selectable property and gets underlined when hovered over
@@ -30,12 +31,12 @@ public class GenericSelectableButton extends AbstractButton {
 	private boolean selected;
 	private boolean staySelected;
 	
-	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, IMouseReliant imr) {
-		this(x, y, s, scaled, staySelected, null, imr);
+	public GenericSelectableButton(int x, int y, String s, boolean staySelected, IMouseReliant imr) {
+		this(x, y, s, staySelected, null, imr);
 	}
 	
-	public GenericSelectableButton(int x, int y, String s, boolean scaled, boolean staySelected, ToolTip tt, IMouseReliant imr) {
-		super(x, y, (int) ScreenReference.getTheFont().getStringBounds(s, TheDarknessBeyondEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds(s, TheDarknessBeyondEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), scaled);
+	public GenericSelectableButton(int x, int y, String s, boolean staySelected, ToolTip tt, IMouseReliant imr) {
+		super(x, y, Utilities.getGuiSizeFromString(s));
 		this.text = s;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();

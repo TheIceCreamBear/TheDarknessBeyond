@@ -16,6 +16,7 @@ import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.resource.EnumItem;
 import com.joseph.thedarknessbeyond.resource.Resource;
 import com.joseph.thedarknessbeyond.resource.StorageManager;
+import com.joseph.thedarknessbeyond.util.Utilities;
 
 /**
  * A generic button that crafts the given item
@@ -32,7 +33,7 @@ public class GenericCraftButton extends AbstractButton {
 	private boolean mouseInSelfPrevious;
 	
 	public GenericCraftButton(int x, int y, EnumItem item) {
-		super(x, y, (int) ScreenReference.getTheFont().getStringBounds("Craft " + item.toString(), TheDarknessBeyondEngine.getInstance().getFrc()).getWidth() + (5 * ScreenReference.scale), (int) ScreenReference.getTheFont().getStringBounds("Build " + item.toString(), TheDarknessBeyondEngine.getInstance().getFrc()).getHeight() + (2 * ScreenReference.scale), true);
+		super(x, y, Utilities.getGuiSizeFromString("Craft " + item.toString()));
 		this.item = item;
 		this.toolTipHeight = 24 * item.getCost().length * ScreenReference.scale;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
