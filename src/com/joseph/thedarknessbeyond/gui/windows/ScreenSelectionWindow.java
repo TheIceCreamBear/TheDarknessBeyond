@@ -13,7 +13,6 @@ import com.joseph.thedarknessbeyond.gui.screens.RoomScreen;
 import com.joseph.thedarknessbeyond.gui.screens.TravelScreen;
 import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
-import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 /**
  * the window that selects which screen is to be shown
@@ -112,33 +111,33 @@ public class ScreenSelectionWindow extends Window {
 	private void initButtonsToDefault() {
 		this.buttons = new GenericSelectableButton[3];
 		int xOff = 0;
-		int yOff = 10 * ScreenReference.scale;
-		this.buttons[0] = new GenericSelectableButton(x + xOff, y + yOff, "Room", true, true, new IMouseReliant() {
+		int yOff = 10;
+		this.buttons[0] = new GenericSelectableButton(x + xOff, y + yOff, "Room", true, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(0);
 				return true;
 			}
 		});
-		xOff += this.buttons[0].getWidth() + (yOff * 2);
+		xOff += this.buttons[0].getWidth() + 20;
 		
-		this.buttons[1] = new GenericSelectableButton(x + xOff, y + yOff, "Village", true, true, new IMouseReliant() {
+		this.buttons[1] = new GenericSelectableButton(x + xOff, y + yOff, "Village", true, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(1);
 				return true;
 			}
 		});
-		xOff += this.buttons[1].getWidth() + (yOff * 2);
+		xOff += this.buttons[1].getWidth() + 20;
 		
-		this.buttons[2] = new GenericSelectableButton(x + xOff, y + yOff, "Travel", true, true, new IMouseReliant() {
+		this.buttons[2] = new GenericSelectableButton(x + xOff, y + yOff, "Travel", true, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				ScreenSelectionWindow.this.refocousSelection(2);
 				return true;
 			}
 		});
-		xOff += this.buttons[2].getWidth() + (yOff * 2);
+		xOff += this.buttons[2].getWidth() + 20;
 		
 		this.refocousSelection(0);
 		this.buttons[0].select();

@@ -25,7 +25,7 @@ public class TravelScreen extends Screen {
 		// TODO the scaling setting in this and other windowed classes
 		// TODO departing with items consumes them from your stores
 		
-		this.depart = new GenericSelectableButton(x, y + 200, "Depart", true, false, new IMouseReliant() {
+		this.depart = new GenericSelectableButton(x, y + 200, "Depart", false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				TravelScreen.this.hide();

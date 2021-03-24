@@ -10,11 +10,13 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 
 import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
+import com.joseph.thedarknessbeyond.gui.GuiSize;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.FileSaveSystem;
+import com.joseph.thedarknessbeyond.util.Utilities;
 
 /**
  * the window that displays the available saves and loads the game
@@ -29,7 +31,7 @@ public class LoadGameWindow extends Window {
 	private final String headder = "Load Game:";
 	
 	public LoadGameWindow(File[] files) {
-		super(0, 0, 0, 0, false);
+		super(0, 0, 0, 0);
 		if (files == null) {
 			return;
 		}
@@ -38,10 +40,8 @@ public class LoadGameWindow extends Window {
 		this.font = ScreenReference.getTheFont();
 		this.gsbs = new GenericSelectableButton[files.length];
 		
-		Rectangle2D r = font.getStringBounds(this.headder, frc);
-		int xOff = 5 * ScreenReference.scale;
-		int yOff = (int) r.getHeight() + 10 * ScreenReference.scale;
 		int maxL = headder.length();
+		int maxIndex = -1;
 		
 		String[] possible = new String[files.length];
 		for (int i = 0; i < files.length; i++) {
@@ -53,18 +53,25 @@ public class LoadGameWindow extends Window {
 			}
 			if (maxL < possible[i].length()) {
 				maxL = possible[i].length();
+				maxIndex = i;
 			}
 		}
-		maxL *= ScreenReference.charWidth;
-		maxL += 15 * ScreenReference.scale;
-		int h = ((int) r.getHeight() + 12 * ScreenReference.scale) * (files.length + 1);
+		String sizeStr = headder;
+		if (maxIndex != -1) {
+			sizeStr = possible[maxIndex];
+		}
+		GuiSize size = Utilities.getGuiSizeFromStringScalled(sizeStr);
+		
+//		int h = ((int) r.getHeight() + 12 * ScreenReference.scale) * (files.length + 1);
 //		super.resetDimensions(ScreenRefrence.WIDTH / 2 - (maxL / 2), ScreenRefrence.HEIGHT / 2 - (h / 2), maxL, h, true);
 //		super.resetDimensions(600, 400, maxL, h, true);
-		super.resetDimensions(1100 * ScreenReference.scale, ScreenReference.HEIGHT / 2 - (h / 2), maxL, h, true);
+		super.resetDimensions(ScreenReference.WIDTH / 2 - (size.width / 2), ScreenReference.HEIGHT / 2 - (size.height / 2), size.width, size.height, true);
 		
+		int xOff = 5;
+		int yOff = 10 + size.height;
 		for (int i = 0; i < files.length; i++) {
 			final int ii = i;
-			gsbs[i] = new GenericSelectableButton(x + xOff, y + yOff, possible[i], true, false, new IMouseReliant() {
+			gsbs[i] = new GenericSelectableButton(x + xOff, y + yOff, possible[i], false, new IMouseReliant() {
 				@Override
 				public boolean onMouseEvent(MouseEvent e) {
 					LoadGameWindow.this.hide();
@@ -79,7 +86,7 @@ public class LoadGameWindow extends Window {
 			});
 			
 			TheDarknessBeyondEngine.getInstance().addButton(gsbs[i]);
-			yOff += gsbs[i].getHeight() + 10 * ScreenReference.scale;
+			yOff += gsbs[i].getHeight() + 10;
 		}
 		
 //		System.out.println(this.x + " " + this.y + " " + this.width + " " + this.height);

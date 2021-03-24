@@ -12,11 +12,13 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 import com.joseph.thedarknessbeyond.engine.TheDarknessBeyondEngine;
+import com.joseph.thedarknessbeyond.gui.GuiSize;
 import com.joseph.thedarknessbeyond.gui.Window;
 import com.joseph.thedarknessbeyond.gui.buttons.GenericSelectableButton;
 import com.joseph.thedarknessbeyond.interfaces.IMouseReliant;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
 import com.joseph.thedarknessbeyond.util.FileSaveSystem;
+import com.joseph.thedarknessbeyond.util.Utilities;
 
 /**
  * The window that pauses the game and has the buttons associated with pausing a game
@@ -45,11 +47,11 @@ public class PauseMenuWindow extends Window {
 		this.font = ScreenReference.getTheFont();
 		this.lgw = new LoadGameWindow(FileSaveSystem.getPossibleLoadableFiles());
 		
-		Rectangle2D r = font.getStringBounds(this.headder, frc);
-		int yOff = (int) r.getHeight() + 10 * ScreenReference.scale;
-		int xOff = 5 * ScreenReference.scale;
+		GuiSize headderSize = Utilities.getGuiSizeFromStringScalled(headder);
+		int yOff = headderSize.height;
+		int xOff = 5;
 		
-		this.resume = new GenericSelectableButton(x + xOff, y + yOff, "Resume Game", true, false, new IMouseReliant() {
+		this.resume = new GenericSelectableButton(x + xOff, y + yOff, "Resume Game", false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				// TODO BUG BUG BUG: mouse stays default when menu brought back up and mouse is in resume
@@ -61,9 +63,9 @@ public class PauseMenuWindow extends Window {
 				return true;
 			}
 		});
-		yOff += this.resume.getHeight() + 10 * ScreenReference.scale;
+		yOff += this.resume.getHeight() + 10;
 		
-		this.load = new GenericSelectableButton(x + xOff, y + yOff, "Load Game", true, false, new IMouseReliant() {
+		this.load = new GenericSelectableButton(x + xOff, y + yOff, "Load Game", false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				if (!PauseMenuWindow.this.visible) {
@@ -73,9 +75,9 @@ public class PauseMenuWindow extends Window {
 				return true;
 			}
 		});
-		yOff += this.load.getHeight() + 10 * ScreenReference.scale;
+		yOff += this.load.getHeight() + 10;
 		
-		this.save = new GenericSelectableButton(x + xOff, y + yOff, "Save Game", true, false, new IMouseReliant() {
+		this.save = new GenericSelectableButton(x + xOff, y + yOff, "Save Game", false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				if (!PauseMenuWindow.this.visible) {
@@ -90,9 +92,9 @@ public class PauseMenuWindow extends Window {
 				return true;
 			}
 		});
-		yOff += this.save.getHeight() + 10 * ScreenReference.scale;
+		yOff += this.save.getHeight() + 10;
 		
-		this.exit = new GenericSelectableButton(x + xOff, y + yOff, "Exit Game", true, false, new IMouseReliant() {
+		this.exit = new GenericSelectableButton(x + xOff, y + yOff, "Exit Game", false, new IMouseReliant() {
 			@Override
 			public boolean onMouseEvent(MouseEvent e) {
 				if (!PauseMenuWindow.this.visible) {
@@ -107,13 +109,12 @@ public class PauseMenuWindow extends Window {
 				return true;
 			}
 		});
-		yOff += this.exit.getHeight() + 10 * ScreenReference.scale;
+		yOff += this.exit.getHeight() + 10;
 		
 		TheDarknessBeyondEngine.getInstance().addButton(resume);
 		TheDarknessBeyondEngine.getInstance().addButton(load);
 		TheDarknessBeyondEngine.getInstance().addButton(save);
 		TheDarknessBeyondEngine.getInstance().addButton(exit);
-		
 		
 		instance = this;
 	}
