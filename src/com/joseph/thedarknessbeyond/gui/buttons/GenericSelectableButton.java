@@ -36,7 +36,7 @@ public class GenericSelectableButton extends AbstractButton {
 	}
 	
 	public GenericSelectableButton(int x, int y, String s, boolean staySelected, ToolTip tt, IMouseReliant imr) {
-		super(x, y, Utilities.getGuiSizeFromString(s));
+		super(x, y, Utilities.getGuiSizeFromStringScalled(s));
 		this.text = s;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();

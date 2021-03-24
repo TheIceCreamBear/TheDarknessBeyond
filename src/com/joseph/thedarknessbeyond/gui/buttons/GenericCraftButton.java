@@ -33,7 +33,7 @@ public class GenericCraftButton extends AbstractButton {
 	private boolean mouseInSelfPrevious;
 	
 	public GenericCraftButton(int x, int y, EnumItem item) {
-		super(x, y, Utilities.getGuiSizeFromString("Craft " + item.toString()));
+		super(x, y, Utilities.getGuiSizeFromStringScalled("Craft " + item.toString()));
 		this.item = item;
 		this.toolTipHeight = 24 * item.getCost().length * ScreenReference.scale;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
