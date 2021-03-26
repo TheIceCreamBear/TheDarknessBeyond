@@ -1,6 +1,9 @@
 package com.joseph.thedarknessbeyond.gui;
 
+import java.awt.Font;
 import java.awt.Graphics;
+
+import com.joseph.thedarknessbeyond.reference.ScreenReference;
 
 /**
  * object realization of {@link IToolTip}
@@ -31,6 +34,12 @@ public class ToolTip {
 	}
 	
 	public void draw(Graphics g) {
+		// make sure that we use the non underlined font for ToolTips
+		Font font = ScreenReference.getTheFont();
+		Font save = g.getFont();
+		g.setFont(font);
 		this.tt.draw(x, y, g);
+		// give back the saved font
+		g.setFont(save);
 	}
 }

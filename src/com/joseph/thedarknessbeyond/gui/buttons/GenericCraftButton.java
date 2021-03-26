@@ -114,6 +114,11 @@ public class GenericCraftButton extends AbstractButton {
 			return;
 		}
 		
+		// make sure that we use the non underlined font for ToolTips
+		Font font = ScreenReference.getTheFont();
+		Font save = g.getFont();
+		
+		g.setFont(font);
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(x + 5, y + height + 1, toolTipWidth, toolTipHeight);
 		g.setColor(Color.WHITE);
@@ -128,6 +133,8 @@ public class GenericCraftButton extends AbstractButton {
 			yOff += (int) Math.abs(r1.getY()) + 2 * ScreenReference.scale;
 		}
 		
+		// give back the saved font
+		g.setFont(save);
 	}
 
 	@Override
