@@ -34,7 +34,7 @@ public class GenericBuildButton extends AbstractButton {
 	private boolean mouseInSelfPrevious;
 	
 	public GenericBuildButton(int x, int y, EnumBuilding b) {
-		super(x, y, Utilities.getGuiSizeFromStringScalled("Build " + b.toString()));
+		super(x, y, Utilities.getGuiSizeFromStringScalled("Build " + b.toString(), true));
 		this.b = b;
 		this.toolTipHeight = 24 * b.getCost().length * ScreenReference.scale;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();

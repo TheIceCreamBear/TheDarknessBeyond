@@ -33,7 +33,7 @@ public class GenericCoolDownButton extends AbstractButton {
 	private final boolean useDark;
 	
 	public GenericCoolDownButton(int x, int y, String s, int maxCooldown, boolean useDark, IMouseReliant imr) {
-		super(x, y, Utilities.getGuiSizeFromStringScalled(s));
+		super(x, y, Utilities.getGuiSizeFromStringScalled(s, true));
 		this.text = s;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();

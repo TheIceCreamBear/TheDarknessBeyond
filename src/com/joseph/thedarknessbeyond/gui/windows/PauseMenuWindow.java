@@ -47,7 +47,7 @@ public class PauseMenuWindow extends Window {
 		this.font = ScreenReference.getTheFont();
 		this.lgw = new LoadGameWindow(FileSaveSystem.getPossibleLoadableFiles());
 		
-		GuiSize headderSize = Utilities.getGuiSizeFromStringScalled(headder);
+		GuiSize headderSize = Utilities.getGuiSizeFromStringScalled(headder, true);
 		int yOff = headderSize.height;
 		int xOff = 5;
 		

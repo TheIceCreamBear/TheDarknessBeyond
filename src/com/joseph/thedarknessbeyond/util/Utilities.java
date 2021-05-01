@@ -35,8 +35,8 @@ public class Utilities {
 	 * @param s - the string to base the size of the gui off of
 	 * @return a representation of the size of the gui in an instance of GuiSize
 	 */
-	public static GuiSize getGuiSizeFromStringScalled(String s) {
-		GuiSize absSize = getGuiSizeFromStringAbs(s);
+	public static GuiSize getGuiSizeFromStringScalled(String s, boolean addPadding) {
+		GuiSize absSize = getGuiSizeFromStringAbs(s, addPadding);
 		return new GuiSize(absSize.width * ScreenReference.scale, absSize.height * ScreenReference.scale);
 	}
 	
@@ -47,13 +47,13 @@ public class Utilities {
 	 * @param s - the string to base the size of the gui off of
 	 * @return a representation of the size of the gui in an instance of GuiSize
 	 */
-	public static GuiSize getGuiSizeFromStringAbs(String s) {
+	public static GuiSize getGuiSizeFromStringAbs(String s, boolean addPadding) {
 		Font current = Reference.Fonts.DEFAULT_FONT;
 		FontRenderContext frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		Rectangle2D bounds = current.getStringBounds(s, frc);
 		
-		int width = ((int) bounds.getWidth()) + 10;
-		int height = ((int) bounds.getHeight()) + 2;
+		int width = ((int) bounds.getWidth()) + (addPadding ? 10 : 0);
+		int height = ((int) bounds.getHeight()) + (addPadding ? 2 : 0);
 		GuiSize size = new GuiSize(width, height);
 		System.out.println(s + "=" + size);
 		return size;

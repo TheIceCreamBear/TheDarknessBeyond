@@ -60,7 +60,7 @@ public class LoadGameWindow extends Window {
 		if (maxIndex != -1) {
 			sizeStr = possible[maxIndex];
 		}
-		GuiSize size = Utilities.getGuiSizeFromStringScalled(sizeStr);
+		GuiSize size = Utilities.getGuiSizeFromStringScalled(sizeStr, true);
 		
 //		int h = ((int) r.getHeight() + 12 * ScreenReference.scale) * (files.length + 1);
 //		super.resetDimensions(ScreenRefrence.WIDTH / 2 - (maxL / 2), ScreenRefrence.HEIGHT / 2 - (h / 2), maxL, h, true);
