@@ -13,6 +13,7 @@ import com.joseph.thedarknessbeyond.event.Event;
 import com.joseph.thedarknessbeyond.event.EventBus;
 import com.joseph.thedarknessbeyond.gameobject.Village.EnumBuilding;
 import com.joseph.thedarknessbeyond.gui.AbstractButton;
+import com.joseph.thedarknessbeyond.gui.GuiSize;
 import com.joseph.thedarknessbeyond.gui.screens.VillageScreen;
 import com.joseph.thedarknessbeyond.reference.Reference;
 import com.joseph.thedarknessbeyond.reference.ScreenReference;
@@ -36,19 +37,21 @@ public class GenericBuildButton extends AbstractButton {
 	public GenericBuildButton(int x, int y, EnumBuilding b) {
 		super(x, y, Utilities.getGuiSizeFromStringScalled("Build " + b.toString(), true));
 		this.b = b;
-		this.toolTipHeight = 24 * b.getCost().length * ScreenReference.scale;
 		this.frc = TheDarknessBeyondEngine.getInstance().getFrc();
 		this.font = ScreenReference.getTheFont();
-		
-		this.toolTipWidth = 0;
+
 		Resource[] r = b.getCost();
-		for (int i = 0; i < r.length; i++) {
-		    if (this.toolTipWidth < r[i].toString().length()) {
-		    	this.toolTipWidth = r[i].toString().length();
-		    }
+		int longestIndex = 0;
+		int longestLengt = r[0].toString().length();
+		for (int i = 1; i < r.length; i++) {
+			if (longestLengt < r[i].toString().length()) {
+				longestLengt = r[i].toString().length();
+				longestIndex = i;
+			}
 		}
-		this.toolTipWidth *= ScreenReference.charWidth;
-		this.toolTipWidth += 10 * ScreenReference.scale;
+		GuiSize size = Utilities.getGuiSizeFromStringScalled(r[longestIndex].toString(), true); 
+		this.toolTipWidth = size.width;
+		this.toolTipHeight = (size.height) * r.length;
 	}
 	
 
@@ -117,19 +120,20 @@ public class GenericBuildButton extends AbstractButton {
 		// make sure that we use the non underlined font for ToolTips
 		Font font = ScreenReference.getTheFont();
 		Font save = g.getFont();
-		
+
+		g.setFont(font);
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(x + 5, y + height + 1, toolTipWidth, toolTipHeight);
 		g.setColor(Color.WHITE);
 		g.drawRect(x + 5, y + height + 1, toolTipWidth, toolTipHeight);
 		g.setColor(Color.BLACK);
 		Resource[] r = b.getCost();
-		Rectangle2D r1 = font.getStringBounds(b.toString(), frc);
-		int yOff = (int) Math.abs(r1.getY()) + 2 * ScreenReference.scale;
+		GuiSize curStr = Utilities.getGuiSizeFromStringScalled("", false);
+		int yOff = curStr.height - 2 * ScreenReference.scale;
 		int xOff = 10;
 		for (int i = 0; i < r.length; i++) {
 			g.drawString(r[i].toString(), x + xOff, y + height + yOff);
-			yOff += (int) Math.abs(r1.getY()) + 2 * ScreenReference.scale;
+			yOff += curStr.height;
 		}
 		
 		// give back the saved font
